@@ -1,0 +1,12 @@
+[
+  {"sport": "mlb", "selection": "Phillies ML", "pitcher": "A. Nola", "odds": -120, "market": "ml"},
+  {"sport": "mlb", "selection": "Angels ML", "pitcher": "S. Gray", "odds": 145, "market": "ml"},
+  {"sport": "mlb", "selection": "Rockies U7.5", "pitcher": "misc", "odds": -105, "market": "total", "venue": "coors", "total": 7.5},
+  {"sport": "mlb", "selection": "Brewers ML", "pitcher": "Misiorowski", "odds": -160, "market": "ml"},
+  {"sport": "mlb", "selection": "Astros ML", "pitcher": "H. Brown", "odds": -155, "market": "ml"},
+  {"sport": "tennis", "selection": "Tauson", "opponent": "someone", "odds": 125, "higher_ranked": true, "preferred_surface": true, "fitness_verified": true},
+  {"sport": "tennis", "selection": "Player X", "opponent": "dimitrov", "odds": 110, "fitness_verified": true},
+  {"sport": "soccer", "selection": "Argentina keep-close", "odds": 105, "keep_close_dog": true},
+  {"sport": "golf", "selection": "Morikawa +140", "odds": 140, "leaderboard_inversion": true},
+  {"sport": "ufc", "selection": "Fighter Y", "odds": 130}
+]

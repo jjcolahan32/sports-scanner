@@ -1,0 +1,30 @@
+name: nightly-grader
+# Runs once nightly at 08:00 UTC (~04:00 ET) — after all games, incl. West Coast, are Final.
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    concurrency: nightly-grader
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Grade the day
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python grade.py
+      - name: Persist card + ledger
+        run: |
+          git config user.name  "nightly-grader"
+          git config user.email "bot@users.noreply.github.com"
+          git add card_*.json ledger.json || true
+          git commit -m "grade: $(date -u +%F)" || echo "no change"
+          git push || echo "nothing to push"

@@ -1,0 +1,6 @@
+{
+  "_comment": "OPTIONAL. Public TICKET % per game, keyed by MLB game_pk, per side (0-1).",
+  "_where": "Read these off Action Network / VSiN / Covers and drop them in as public.json.",
+  "776543": {"home": 0.74, "away": 0.26},
+  "776544": {"home": 0.31, "away": 0.69}
+}
