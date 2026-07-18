@@ -111,7 +111,7 @@ def _bucket(store, key):
     return store.setdefault(key, {"w": 0, "l": 0, "units": 0.0})
 
 
-def grade_moneylines(ledger, results_cache, day):
+def grade_moneylines(ledger, results_cache, day, discord_sent):
     for path in sorted(p for p in glob.glob("card_*.json") if "totals" not in p):
         card = load_json(path, None)
         if not card:
@@ -131,6 +131,7 @@ def grade_moneylines(ledger, results_cache, day):
             play["result"] = {"outcome": outcome,
                               "score": f"{res['away']} {res['away_score']}–{res['home_score']} {res['home']}"}
             changed = True
+            is_discord = str(play["game_pk"]) in discord_sent
 
             tag = play.get("rlm_tag", "NEUTRAL")
             tag_bucket = _bucket(ledger["by_tag"], tag)
@@ -149,13 +150,19 @@ def grade_moneylines(ledger, results_cache, day):
                 day["w" if outcome == "win" else "l"] += 1
                 day["units"] = round(day["units"] + delta, 2)
                 mark = f"{delta:+.2f}u"
-            day["lines"].append(f"{'✅' if outcome=='win' else '❌'} {play['selection']} "
-                                f"{play['odds']:+d} [{tag}] {'★'*stars} {mark}")
+                if is_discord:
+                    day["discord_w" if outcome == "win" else "discord_l"] += 1
+                    day["discord_units"] = round(day["discord_units"] + delta, 2)
+            line = (f"{'✅' if outcome=='win' else '❌'} {play['selection']} "
+                   f"{play['odds']:+d} [{tag}] {'★'*stars} {mark}")
+            day["lines"].append(line)
+            if is_discord:
+                day["discord_lines"].append(line)
         if changed:
             save_json(path, card)
 
 
-def grade_totals(ledger, results_cache, day):
+def grade_totals(ledger, results_cache, day, discord_sent):
     for path in sorted(glob.glob("card_totals_*.json")):
         card = load_json(path, None)
         if not card:
@@ -175,11 +182,15 @@ def grade_totals(ledger, results_cache, day):
             play["result"] = {"outcome": outcome,
                               "score": f"{res['away']} {res['away_score']}–{res['home_score']} {res['home']}"}
             changed = True
+            is_discord = str(play["game_pk"]) in discord_sent
 
             stars = play.get("stars", 3)
             if outcome == "push":
                 ledger["totals_record"]["push"] += 1
-                day["lines"].append(f"➖ {play['selection']} push")
+                line = f"➖ {play['selection']} push"
+                day["lines"].append(line)
+                if is_discord:
+                    day["discord_lines"].append(line)
             else:
                 star_bucket = _bucket(ledger["by_stars"], str(stars))
                 ledger["totals_units"] = round(ledger["totals_units"] + delta, 2)
@@ -188,17 +199,26 @@ def grade_totals(ledger, results_cache, day):
                 star_bucket["units"] = round(star_bucket["units"] + delta, 2)
                 day["w" if outcome == "win" else "l"] += 1
                 day["units"] = round(day["units"] + delta, 2)
-                day["lines"].append(f"{'✅' if outcome=='win' else '❌'} {play['selection']} "
-                                    f"{play['odds']:+d} [TOTALS] {'★'*stars} {delta:+.2f}u")
+                if is_discord:
+                    day["discord_w" if outcome == "win" else "discord_l"] += 1
+                    day["discord_units"] = round(day["discord_units"] + delta, 2)
+                line = (f"{'✅' if outcome=='win' else '❌'} {play['selection']} "
+                       f"{play['odds']:+d} [TOTALS] {'★'*stars} {delta:+.2f}u")
+                day["lines"].append(line)
+                if is_discord:
+                    day["discord_lines"].append(line)
         if changed:
             save_json(path, card)
 
 
 def grade_all():
     ledger = _migrate(load_json(LEDGER_FILE, blank_ledger()))
-    results_cache, day = {}, {"w": 0, "l": 0, "units": 0.0, "lines": []}
-    grade_moneylines(ledger, results_cache, day)
-    grade_totals(ledger, results_cache, day)
+    results_cache = {}
+    day = {"w": 0, "l": 0, "units": 0.0, "lines": [],
+           "discord_w": 0, "discord_l": 0, "discord_units": 0.0, "discord_lines": []}
+    discord_sent = discord_notify.load_sent()
+    grade_moneylines(ledger, results_cache, day, discord_sent)
+    grade_totals(ledger, results_cache, day, discord_sent)
     return ledger, day
 
 
@@ -232,9 +252,16 @@ def main():
     ledger["history"].append({"graded_at": datetime.now(timezone.utc).isoformat(),
                               "w": day["w"], "l": day["l"], "units": day["units"]})
     save_json(LEDGER_FILE, ledger)
-    title = f"📊 Day graded: {day['units']:+.2f}u"
-    notify.push(title, body, tag="chart")
-    discord_notify.push(title, body)
+    notify.push(f"📊 Day graded: {day['units']:+.2f}u", body, tag="chart")
+
+    # Discord only gets a recap of plays whose PLAY alert actually reached
+    # Discord (see discord_notify.record_sent) -- not the full day's card,
+    # so it never reports a settled result for a pick Discord never saw fire.
+    if day["discord_lines"]:
+        discord_title = (f"📊 Day graded: {day['discord_w']}-{day['discord_l']} "
+                         f"({day['discord_units']:+.2f}u)")
+        discord_notify.push(discord_title, "\n".join(day["discord_lines"]))
+
     print("Graded:\n" + body)
 
 

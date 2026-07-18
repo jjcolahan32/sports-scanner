@@ -38,6 +38,25 @@
       "graded": false,
       "result": null,
       "stars": 4
+    },
+    {
+      "game_pk": 824412,
+      "start_utc": "2026-07-18T23:10:00Z",
+      "home": "Cleveland Guardians",
+      "away": "Pittsburgh Pirates",
+      "side": "Under",
+      "home_prob": "Logan Allen",
+      "away_prob": "Mason Montgomery",
+      "selection": "Pittsburgh Pirates @ Cleveland Guardians Under 8.5",
+      "total": 8.5,
+      "odds": -112,
+      "risk": 1.12,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "graded": false,
+      "result": null,
+      "stars": 3
     }
   ]
 }

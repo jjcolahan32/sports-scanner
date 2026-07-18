@@ -30,4 +30,12 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
           git add card_*.json ledger.json docs/index.html || true
           git commit -m "grade: $(date -u +%F)" || echo "no change"
-          git push || echo "nothing to push"
+          # Retry with rebase on push rejection -- another job (or a manual
+          # push) landing first must never cause this run's data to be
+          # silently dropped by a bare "push || echo nothing to push".
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            echo "push rejected, rebasing onto latest main (attempt $i)"
+            git fetch origin main
+            git rebase origin/main || { echo "rebase conflict -- leaving for manual resolution"; exit 1; }
+          done

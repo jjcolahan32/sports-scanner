@@ -27,12 +27,13 @@ def _line(play):
 
 def main():
     now = datetime.now(timezone.utc)
-    lines = []
+    plays, lines = [], []
     for path in (f"card_{_today()}.json", f"card_totals_{_today()}.json"):
         card = load_json(path, {"plays": []})
         for play in card.get("plays", []):
             if play["verdict"] != "PLAY" or not _not_started(play, now):
                 continue
+            plays.append(play)
             lines.append(_line(play))
 
     if not lines:
@@ -41,6 +42,8 @@ def main():
 
     body = "\n".join(lines)
     ok = discord_notify.push(f"⚾ Catch-up: {len(lines)} pending play(s)", body)
+    if ok:
+        discord_notify.record_sent(str(p["game_pk"]) for p in plays)
     print(("posted to Discord" if ok else "not configured, or the post failed") + "\n\n" + body)
 
 

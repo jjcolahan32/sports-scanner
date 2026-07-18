@@ -334,7 +334,8 @@ def main():
     body = "\n".join(lines)
     title = f"⚾ {len(fresh)} play(s) — starts within {int(LEAD_HOURS)}h"
     notify.push(title, body)
-    discord_notify.push(title, body)
+    if discord_notify.push(title, body):
+        discord_notify.record_sent(str(m["game_pk"]) for _, m in fresh)
     log_card(fresh)
     save_state(sent)
     print("Notified:\n" + body)

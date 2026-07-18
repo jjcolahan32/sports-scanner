@@ -16,6 +16,7 @@ since ntfy is still the primary channel.
 import os, json, urllib.request
 
 DISCORD_MAX = 2000  # Discord's hard limit on a single message's content
+SENT_FILE = "discord_sent.json"
 
 
 def push(title, body, webhook_url=None):
@@ -35,6 +36,32 @@ def push(title, body, webhook_url=None):
     except Exception as e:
         print(f"Discord push failed (non-fatal, ntfy is still primary): {e}")
         return False
+
+
+def record_sent(game_pks):
+    """Persist which games' PLAY alert actually reached Discord (cumulative,
+    never resets by date -- game_pks don't repeat across a season). grade.py
+    reads this so the nightly Discord recap only reports on plays Discord
+    actually saw fire, instead of every play that day regardless of channel."""
+    try:
+        with open(SENT_FILE) as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        data = {"game_pks": []}
+    seen = {str(x) for x in data.get("game_pks", [])}
+    seen.update(str(x) for x in game_pks)
+    data["game_pks"] = sorted(seen)
+    with open(SENT_FILE, "w") as f:
+        json.dump(data, f)
+
+
+def load_sent():
+    try:
+        with open(SENT_FILE) as f:
+            data = json.load(f)
+        return {str(x) for x in data.get("game_pks", [])}
+    except FileNotFoundError:
+        return set()
 
 
 if __name__ == "__main__":

@@ -159,7 +159,8 @@ def main():
     body = "\n".join(lines)
     title = f"MLB totals: {len(fresh)} play(s)"
     notify.push(title, body, tag="chart")
-    discord_notify.push(title, body)
+    if discord_notify.push(title, body):
+        discord_notify.record_sent(str(m["game_pk"]) for _, m in fresh)
     log_totals_card(fresh)
     save_state(sent)
     print("Notified:\n" + body)
