@@ -120,7 +120,8 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
         if not in_window(g, now):
             continue
         key = f"{fetch_odds._norm(g['away'])}@{fetch_odds._norm(g['home'])}"
-        o = odds.get((fetch_odds._norm(g["away"]), fetch_odds._norm(g["home"])), {})
+        entries = odds.get((fetch_odds._norm(g["away"]), fetch_odds._norm(g["home"])), [])
+        o = fetch_odds.closest(entries, g["start_utc"]) or {}
         vetted_sides = set()
         candidates = []  # (bet_side, row, meta) -- collected before committing, so a
                           # same-game conflict (both sides flagged) can be caught first
@@ -199,7 +200,8 @@ def record_opens(games, odds, opens):
     lines = opens["lines"]
     for g in games:
         key = f"{fetch_odds._norm(g['away'])}@{fetch_odds._norm(g['home'])}"
-        o = odds.get((fetch_odds._norm(g["away"]), fetch_odds._norm(g["home"])), {})
+        entries = odds.get((fetch_odds._norm(g["away"]), fetch_odds._norm(g["home"])), [])
+        o = fetch_odds.closest(entries, g["start_utc"]) or {}
         if key not in lines and (o.get("home_ml") is not None or o.get("away_ml") is not None):
             lines[key] = {"home_ml": o.get("home_ml"), "away_ml": o.get("away_ml")}
     return opens

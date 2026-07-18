@@ -41,7 +41,8 @@ def build_totals_slate(games, totals_odds, savant_stats, now=None):
         park = ballparks.for_team(home)
         if not park:
             continue
-        line = totals_odds.get((fetch_odds._norm(away), fetch_odds._norm(home)))
+        entries = totals_odds.get((fetch_odds._norm(away), fetch_odds._norm(home)), [])
+        line = fetch_odds.closest(entries, g["start_utc"])
         if not line or line.get("point") is None:
             continue
 

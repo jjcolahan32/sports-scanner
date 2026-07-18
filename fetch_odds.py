@@ -1,18 +1,46 @@
 """
-fetch_odds.py — consensus MLB moneyline (h2h) per game.
-Source: The Odds API free tier (NBA+MLB, h2h). Needs ODDS_API_KEY env var.
+fetch_odds.py — consensus MLB moneyline (h2h) and totals per game.
+Source: The Odds API free tier. Needs ODDS_API_KEY env var.
 
-Returns a dict keyed by a normalized "away@home" plus per-team American odds.
-These are CONSENSUS lines to flag dog/fav + rough price. Confirm the exact
-play610 number yourself before placing.
+Returns a dict keyed by normalized "away@home" team pair -> LIST of entries
+(each with its own commence_time), not a single entry. MLB teams commonly
+play the same opponent on consecutive days, and the API's returned window
+isn't limited to "today" -- a naive last-write-wins dict silently grabbed
+TOMORROW's line for a team pair playing today (and vice versa) whenever both
+showed up in the same pull. Confirmed against a live pull: 14 of 30 games on
+a single day collided with a next-day rematch. Callers must disambiguate by
+game time via closest() -- never index this dict directly by team pair alone.
 """
 import os, json, urllib.request, urllib.parse
+from datetime import datetime
 
 BASE = "https://api.the-odds-api.com/v4/sports/baseball_mlb/odds"
 
 
 def _norm(name):
     return name.lower().split()[-1]  # last word = nickname, e.g. "Phillies"
+
+
+def closest(entries, target_start_utc):
+    """Pick the entry whose commence_time is nearest target_start_utc (the
+    real game's actual start time, from MLB StatsAPI). Use this instead of
+    indexing the dict directly -- a team pair can have multiple entries."""
+    if not entries:
+        return None
+    if len(entries) == 1:
+        return entries[0]
+    try:
+        target = datetime.fromisoformat(target_start_utc.replace("Z", "+00:00"))
+    except Exception:
+        return entries[0]
+
+    def diff(e):
+        try:
+            t = datetime.fromisoformat(e["commence_time"].replace("Z", "+00:00"))
+            return abs((t - target).total_seconds())
+        except Exception:
+            return float("inf")
+    return min(entries, key=diff)
 
 
 def mlb_moneylines(api_key=None):
@@ -37,11 +65,12 @@ def mlb_moneylines(api_key=None):
                         prices.setdefault(_norm(oc["name"]), []).append(oc["price"])
             if prices:
                 break
-        out[(_norm(away), _norm(home))] = {
-            "home": home, "away": away,
+        key = (_norm(away), _norm(home))
+        out.setdefault(key, []).append({
+            "home": home, "away": away, "commence_time": ev.get("commence_time"),
             "home_ml": prices.get(_norm(home), [None])[0],
             "away_ml": prices.get(_norm(away), [None])[0],
-        }
+        })
     return out
 
 
@@ -73,13 +102,15 @@ def mlb_totals(api_key=None):
                         under_price = oc["price"]
             if point is not None:
                 break
-        out[(_norm(away), _norm(home))] = {
-            "home": home, "away": away, "point": point,
-            "over_price": over_price, "under_price": under_price,
-        }
+        key = (_norm(away), _norm(home))
+        out.setdefault(key, []).append({
+            "home": home, "away": away, "commence_time": ev.get("commence_time"),
+            "point": point, "over_price": over_price, "under_price": under_price,
+        })
     return out
 
 
 if __name__ == "__main__":
-    for k, v in mlb_moneylines().items():
-        print(f"{v['away']} ({v['away_ml']}) @ {v['home']} ({v['home_ml']})")
+    for k, entries in mlb_moneylines().items():
+        for v in entries:
+            print(f"{v['away']} ({v['away_ml']}) @ {v['home']} ({v['home_ml']}) -- {v['commence_time']}")
