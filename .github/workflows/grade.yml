@@ -1,8 +1,13 @@
 name: nightly-grader
-# Runs once nightly at 08:00 UTC (~04:00 ET) — after all games, incl. West Coast, are Final.
+# Fires hourly; grade.py's own DST-aware grade_hours_open() check decides
+# whether to actually do anything -- checkpoints are 10pm/12am/2am/4am ET,
+# every 2h, so a card finalizes at or before the last two checks after any
+# given game goes Final (extra innings/rain delays included). Firing hourly
+# in UTC and gating in Python means the schedule survives DST changes
+# automatically. Manual dispatch always runs regardless of the hour.
 on:
   schedule:
-    - cron: "0 8 * * *"
+    - cron: "0 * * * *"
   workflow_dispatch: {}
 
 permissions:
