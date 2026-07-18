@@ -106,6 +106,9 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
         key = f"{fetch_odds._norm(g['away'])}@{fetch_odds._norm(g['home'])}"
         o = odds.get((fetch_odds._norm(g["away"]), fetch_odds._norm(g["home"])), {})
         vetted_sides = set()
+        candidates = []  # (bet_side, row, meta) -- collected before committing, so a
+                          # same-game conflict (both sides flagged) can be caught first
+
         for side, pk, team in qualifying_pitchers(g):
             vetted_sides.add(side)
             opp_side = "home" if side == "away" else "away"
@@ -120,13 +123,14 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
                 continue
             open_ml = opens.get(key, {}).get(f"{bet_side}_ml", ml)   # fall back to current
             pub = (public.get(str(g["game_pk"])) or {}).get(bet_side)  # optional
-            rows.append({"sport": "mlb", "selection": f"{bet_team} ML {note}",
-                         "pitcher": _fmt(pk), "odds": ml, "market": "ml",
-                         "venue": "coors" if "Coors" in g["venue"] else g["venue"]})
-            meta.append({"game_pk": g["game_pk"], "selection": f"{bet_team} ML",
-                         "bet_side": bet_side, "bet_team": bet_team,
-                         "start_utc": g["start_utc"],
-                         "open_ml": open_ml, "cur_ml": ml, "public_pct": pub})
+            row = {"sport": "mlb", "selection": f"{bet_team} ML {note}",
+                   "pitcher": _fmt(pk), "odds": ml, "market": "ml",
+                   "venue": "coors" if "Coors" in g["venue"] else g["venue"]}
+            m = {"game_pk": g["game_pk"], "selection": f"{bet_team} ML",
+                 "bet_side": bet_side, "bet_team": bet_team,
+                 "start_utc": g["start_utc"],
+                 "open_ml": open_ml, "cur_ml": ml, "public_pct": pub}
+            candidates.append((bet_side, row, m))
 
         for side, pk, team in (("away", g.get("away_prob"), g.get("away")),
                                ("home", g.get("home_prob"), g.get("home"))):
@@ -147,14 +151,28 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
                 continue
             open_ml = opens.get(key, {}).get(f"{bet_side}_ml", ml)
             pub = (public.get(str(g["game_pk"])) or {}).get(bet_side)
-            rows.append({"sport": "mlb", "selection": f"{bet_team} ML {note}",
-                         "pitcher": _fmt(pk), "odds": ml, "market": "ml",
-                         "venue": "coors" if "Coors" in g["venue"] else g["venue"],
-                         "dyn_gap": stat["gap"], "dyn_era": stat["era"], "dyn_xera": stat["xera"]})
-            meta.append({"game_pk": g["game_pk"], "selection": f"{bet_team} ML",
-                         "bet_side": bet_side, "bet_team": bet_team,
-                         "start_utc": g["start_utc"],
-                         "open_ml": open_ml, "cur_ml": ml, "public_pct": pub})
+            row = {"sport": "mlb", "selection": f"{bet_team} ML {note}",
+                   "pitcher": _fmt(pk), "odds": ml, "market": "ml",
+                   "venue": "coors" if "Coors" in g["venue"] else g["venue"],
+                   "dyn_gap": stat["gap"], "dyn_era": stat["era"], "dyn_xera": stat["xera"]}
+            m = {"game_pk": g["game_pk"], "selection": f"{bet_team} ML",
+                 "bet_side": bet_side, "bet_team": bet_team,
+                 "start_utc": g["start_utc"],
+                 "open_ml": open_ml, "cur_ml": ml, "public_pct": pub}
+            candidates.append((bet_side, row, m))
+
+        sides = {c[0] for c in candidates}
+        if len(sides) > 1:
+            # Both sides of the same game flagged -- the model disagrees with
+            # itself, which is not a clean edge. Never fire two plays betting
+            # against each other; pass the whole game instead of guessing.
+            picks = ", ".join(c[1]["selection"] for c in candidates)
+            print(f"Skipping game_pk {g['game_pk']} ({g['away']} @ {g['home']}): "
+                  f"conflicting signals on both sides ({picks}) -- no clean edge, passing.")
+            continue
+        for _, row, m in candidates:
+            rows.append(row)
+            meta.append(m)
     return rows, meta
 
 

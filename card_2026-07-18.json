@@ -1,1 +1,50 @@
-{"date": "2026-07-18", "plays": [{"game_pk": 824414, "start_utc": "2026-07-18T17:10:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "away", "selection": "Pittsburgh Pirates ML (back J. Jones, dynamic)", "odds": -114, "risk": 1.14, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_pk": 823441, "start_utc": "2026-07-18T19:05:00Z", "bet_team": "Philadelphia Phillies", "bet_side": "home", "selection": "Philadelphia Phillies ML (back J. Luzardo)", "odds": -172, "risk": 1.72, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_pk": 822790, "start_utc": "2026-07-18T19:07:00Z", "bet_team": "Toronto Blue Jays", "bet_side": "home", "selection": "Toronto Blue Jays ML (fade D. Martin, dynamic)", "odds": -108, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_pk": 822790, "start_utc": "2026-07-18T19:07:00Z", "bet_team": "Chicago White Sox", "bet_side": "away", "selection": "Chicago White Sox ML (fade S. Bieber, dynamic)", "odds": -108, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_pk": 824331, "start_utc": "2026-07-18T19:10:00Z", "bet_team": "Cincinnati Reds", "bet_side": "away", "selection": "Cincinnati Reds ML (fade T. Sugano)", "odds": -112, "risk": 1.12, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null}]}
+{
+  "date": "2026-07-18",
+  "plays": [
+    {
+      "game_pk": 824414,
+      "start_utc": "2026-07-18T17:10:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "away",
+      "selection": "Pittsburgh Pirates ML (back J. Jones, dynamic)",
+      "odds": -114,
+      "risk": 1.14,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 823441,
+      "start_utc": "2026-07-18T19:05:00Z",
+      "bet_team": "Philadelphia Phillies",
+      "bet_side": "home",
+      "selection": "Philadelphia Phillies ML (back J. Luzardo)",
+      "odds": -172,
+      "risk": 1.72,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 824331,
+      "start_utc": "2026-07-18T19:10:00Z",
+      "bet_team": "Cincinnati Reds",
+      "bet_side": "away",
+      "selection": "Cincinnati Reds ML (fade T. Sugano)",
+      "odds": -112,
+      "risk": 1.12,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    }
+  ]
+}
