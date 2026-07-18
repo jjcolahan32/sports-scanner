@@ -26,14 +26,14 @@ import fetch_mlb, notify, discord_notify
 
 LEDGER_FILE = os.environ.get("LEDGER_FILE", "ledger.json")
 
-# Checkpoints in US Eastern time (DST-aware) -- 10pm/12am/2am/4am ET, every
-# 2h, so a card finalizes at or before the last two checks after any given
-# game goes Final (extra innings/rain delays included). Only enforced on
-# scheduled (cron) runs; manual dispatch and local runs always proceed.
+# Checkpoints in US Eastern time (DST-aware) -- 6pm/8pm/10pm/12am/2am/4am ET,
+# every 2h, so a card finalizes at or before the last two checks after any
+# given game goes Final (extra innings/rain delays included). Only enforced
+# on scheduled (cron) runs; manual dispatch and local runs always proceed.
 # Cron fires hourly (see grade.yml) and this decides, in Python, whether to
 # actually do anything -- avoids hardcoding UTC times that would silently
 # drift by an hour each time DST changes.
-GRADE_HOURS_ET = {22, 0, 2, 4}
+GRADE_HOURS_ET = {18, 20, 22, 0, 2, 4}
 
 
 def grade_hours_open(now_utc=None):
@@ -242,7 +242,7 @@ def grade_all():
 
 def main():
     if not grade_hours_open():
-        print("Outside grading hours (10pm-4am ET) — skipping, no API calls made.")
+        print("Outside grading hours (6pm-4am ET) — skipping, no API calls made.")
         return
 
     ledger, day = grade_all()
