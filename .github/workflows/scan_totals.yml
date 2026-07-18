@@ -24,8 +24,9 @@ jobs:
           python-version: "3.12"
       - name: Run totals scan
         env:
-          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-          NTFY_TOPIC:   ${{ secrets.NTFY_TOPIC }}
+          ODDS_API_KEY:       ${{ secrets.ODDS_API_KEY }}
+          NTFY_TOPIC:         ${{ secrets.NTFY_TOPIC }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python scan_totals.py
       - name: Render dashboard
         run: python render_dashboard.py

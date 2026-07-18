@@ -22,7 +22,7 @@ Notes / honesty:
 import os, json, glob
 from datetime import datetime, timezone
 
-import fetch_mlb, notify
+import fetch_mlb, notify, discord_notify
 
 LEDGER_FILE = os.environ.get("LEDGER_FILE", "ledger.json")
 
@@ -232,7 +232,9 @@ def main():
     ledger["history"].append({"graded_at": datetime.now(timezone.utc).isoformat(),
                               "w": day["w"], "l": day["l"], "units": day["units"]})
     save_json(LEDGER_FILE, ledger)
-    notify.push(f"📊 Day graded: {day['units']:+.2f}u", body, tag="chart")
+    title = f"📊 Day graded: {day['units']:+.2f}u"
+    notify.push(title, body, tag="chart")
+    discord_notify.push(title, body)
     print("Graded:\n" + body)
 
 

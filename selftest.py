@@ -1,14 +1,17 @@
 """
-selftest.py — dry-run the three live integrations (MLB feed, odds feed, ntfy push)
-and print pass/fail for each. Re-run anytime with `python selftest.py`.
+selftest.py — dry-run the live integrations (MLB feed, odds feed, ntfy push,
+Discord webhook, Savant, weather) and print pass/fail for each. Re-run
+anytime with `python selftest.py`.
 
 Needs ODDS_API_KEY and NTFY_TOPIC set in the environment for the odds/notify
-checks. The notify check sends a real push to your phone — that's the point,
-it's the only way to confirm ntfy is actually wired up end to end.
+checks (required channels -- FAIL if missing). DISCORD_WEBHOOK_URL is
+optional (SKIP if missing, since it's an add-on channel alongside ntfy) --
+the notify/discord checks send a real push to confirm each channel is wired
+up end to end.
 """
 import os, sys
 
-import fetch_mlb, fetch_odds, fetch_savant, fetch_weather, ballparks, notify
+import fetch_mlb, fetch_odds, fetch_savant, fetch_weather, ballparks, notify, discord_notify
 
 
 def main():
@@ -65,6 +68,19 @@ def main():
         print(f"FAIL  fetch_savant.season_pitcher_stats — {e} "
               f"(unofficial free endpoint — scan.py just skips the dynamic layer when this happens)")
         results.append(False)
+
+    if not os.environ.get("DISCORD_WEBHOOK_URL"):
+        print("SKIP  discord_notify.push — DISCORD_WEBHOOK_URL not set (optional channel)")
+    else:
+        try:
+            ok = discord_notify.push("Selftest", "selftest.py: this push confirms the Discord webhook is wired up.")
+            if not ok:
+                raise RuntimeError("push returned False")
+            print("PASS  discord_notify.push — sent")
+            results.append(True)
+        except Exception as e:
+            print(f"FAIL  discord_notify.push — {e}")
+            results.append(False)
 
     try:
         park = ballparks.for_team("Colorado Rockies")

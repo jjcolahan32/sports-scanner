@@ -20,7 +20,7 @@ import os
 from datetime import datetime, timezone
 
 from model import run, totals_lean, star_rating
-import fetch_mlb, fetch_odds, fetch_savant, fetch_weather, notify, ballparks
+import fetch_mlb, fetch_odds, fetch_savant, fetch_weather, notify, discord_notify, ballparks
 from scan import in_window, _fmt, dynamic_match, _today, load_json, save_json, market_hours_open, _star_str
 
 STATE_FILE = os.environ.get("TOTALS_STATE_FILE", "state_totals.json")
@@ -157,7 +157,9 @@ def main():
         lines.append("Lone -150+ fav — parlay or log override.")
 
     body = "\n".join(lines)
-    notify.push(f"MLB totals: {len(fresh)} play(s)", body, tag="chart")
+    title = f"MLB totals: {len(fresh)} play(s)"
+    notify.push(title, body, tag="chart")
+    discord_notify.push(title, body)
     log_totals_card(fresh)
     save_state(sent)
     print("Notified:\n" + body)

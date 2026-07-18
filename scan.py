@@ -14,7 +14,7 @@ import os, json, sys
 from datetime import datetime, timezone
 
 from model import run, american_to_stake, cap_rule, LEGIT_ARMS, MIRAGES, REVERSE_MIRAGES, DYNAMIC_GAP, star_rating
-import fetch_mlb, fetch_odds, fetch_savant, notify, rlm
+import fetch_mlb, fetch_odds, fetch_savant, notify, discord_notify, rlm
 
 LEAD_HOURS = float(os.environ.get("LEAD_HOURS", "4"))   # notify within N hours of first pitch
 STATE_FILE = os.environ.get("STATE_FILE", "state.json")
@@ -332,7 +332,9 @@ def main():
         lines.append("⚠️ Lone -150+ fav — parlay or log override.")
 
     body = "\n".join(lines)
-    notify.push(f"⚾ {len(fresh)} play(s) — starts within {int(LEAD_HOURS)}h", body)
+    title = f"⚾ {len(fresh)} play(s) — starts within {int(LEAD_HOURS)}h"
+    notify.push(title, body)
+    discord_notify.push(title, body)
     log_card(fresh)
     save_state(sent)
     print("Notified:\n" + body)

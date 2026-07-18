@@ -19,7 +19,8 @@ jobs:
           python-version: "3.12"
       - name: Grade the day
         env:
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_TOPIC:         ${{ secrets.NTFY_TOPIC }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python grade.py
       - name: Render dashboard
         run: python render_dashboard.py
