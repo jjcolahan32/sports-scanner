@@ -19,9 +19,9 @@ Flow each run:
 import os
 from datetime import datetime, timezone
 
-from model import run, totals_lean
+from model import run, totals_lean, star_rating
 import fetch_mlb, fetch_odds, fetch_savant, fetch_weather, notify, ballparks
-from scan import in_window, _fmt, dynamic_match, _today, load_json, save_json
+from scan import in_window, _fmt, dynamic_match, _today, load_json, save_json, market_hours_open, _star_str
 
 STATE_FILE = os.environ.get("TOTALS_STATE_FILE", "state_totals.json")
 TOTALS_LEAD_HOURS = float(os.environ.get("TOTALS_LEAD_HOURS", "20"))  # wide window: only runs 2x/day
@@ -80,7 +80,7 @@ def build_totals_slate(games, totals_odds, savant_stats, now=None):
                "selection": f"{away} @ {home} {side} {line['point']}", **signal}
         rows.append(row)
         meta.append({"game_pk": g["game_pk"], "start_utc": g["start_utc"],
-                     "home": home, "away": away, "side": side, "total": line["point"],
+                     "home": home, "away": away, "side": side, "total": line["point"], "lean": lean,
                      "home_prob": g.get("home_prob"), "away_prob": g.get("away_prob")})
     return rows, meta
 
@@ -112,12 +112,17 @@ def log_totals_card(fresh):
             "home_prob": m["home_prob"], "away_prob": m["away_prob"],
             "selection": row["sel"], "total": m.get("total"), "odds": row["odds"],
             "risk": row["risk"], "to_win": row["to_win"], "cap": row["cap"],
-            "verdict": row["verdict"], "graded": False, "result": None,
+            "verdict": row["verdict"], "stars": row.get("stars", 3),
+            "graded": False, "result": None,
         })
     save_json(path, card)
 
 
 def main():
+    if not market_hours_open():
+        print("Outside active scan hours (11am-9pm ET) — skipping, no API calls made.")
+        return
+
     games = fetch_mlb.todays_games()
     totals_odds = fetch_odds.mlb_totals()
     try:
@@ -128,6 +133,8 @@ def main():
 
     slate, meta = build_totals_slate(games, totals_odds, savant_stats)
     graded, must_parlay = run(slate)
+    for row, m in zip(graded, meta):
+        row["stars"] = star_rating(totals_lean_score=m["lean"])
     sent = load_state()
 
     fresh = [(row, m) for row, m in zip(graded, meta)
@@ -140,7 +147,7 @@ def main():
     lines = []
     for row, m in fresh:
         lines.append(f"PLAY: {row['sel']} {row['odds']:+d} "
-                     f"(risk {row['risk']}u/win {row['to_win']}u)\n"
+                     f"(risk {row['risk']}u/win {row['to_win']}u)  {_star_str(row['stars'])}\n"
                      f"   {row['reason']}")
         sent.add(str(m["game_pk"]))
     if len(must_parlay) >= 2:

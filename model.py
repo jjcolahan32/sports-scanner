@@ -40,6 +40,14 @@ TOTALS_WIND_MPH = 6        # wind component toward/away from CF (mph) that count
 TOTALS_HOT_F = 85          # temp at/above this leans OVER (ball carries)
 TOTALS_COLD_F = 50         # temp at/below this leans UNDER (ball dies)
 TOTALS_LEAN_THRESHOLD = 2  # net lean points needed to fire a play
+
+# Star rating (1-5) — a confidence read shown on the dashboard and tracked
+# as its own ledger breakdown, separate from the PLAY/PASS verdict itself.
+# Tune here.
+STARS_BASE = 3
+STARS_WEAK_DYNAMIC_GAP = 1.5   # dynamic play with |gap| below this loses a star (barely qualified)
+STARS_TOTALS_STRONG = 3        # |lean| at/above this gains a star for totals
+STARS_TOTALS_MAX = 4           # |lean| at/above this gains a second star for totals
 # --------------------------------------------------------------------------
 
 
@@ -56,6 +64,39 @@ def cap_rule(odds):
     if odds > 0:
         return "dog"
     return "single_ok" if odds >= -150 else "must_parlay"
+
+
+def star_rating(is_dynamic=False, dyn_gap=None, rlm_tag=None, totals_lean_score=None):
+    """1-5 star confidence read, shown alongside the PLAY verdict and tracked
+    as its own ledger breakdown -- separate from PLAY/PASS/REVIEW, which
+    stays a hard gate. Two independent rubrics:
+
+    Totals (totals_lean_score given): base 3, +1 at |lean|>=STARS_TOTALS_STRONG,
+    +1 more at |lean|>=STARS_TOTALS_MAX (the composite already required
+    TOTALS_LEAN_THRESHOLD=2 just to fire, so a stronger score means more of
+    park/weather/both-starters agreed, not just barely clearing the bar).
+
+    Moneyline: base 3. Hand-vetted list (not is_dynamic) is worth a star --
+    it's your own accumulated read, not a fresh threshold. A dynamic play
+    that barely cleared DYNAMIC_GAP loses a star. Market confirmation
+    (STEAM-FOR/RLM-FOR) is worth a star regardless of source."""
+    if totals_lean_score is not None:
+        stars = STARS_BASE
+        gap = abs(totals_lean_score)
+        if gap >= STARS_TOTALS_MAX:
+            stars += 2
+        elif gap >= STARS_TOTALS_STRONG:
+            stars += 1
+        return max(1, min(5, stars))
+
+    stars = STARS_BASE
+    if not is_dynamic:
+        stars += 1
+    elif dyn_gap is not None and abs(dyn_gap) < STARS_WEAK_DYNAMIC_GAP:
+        stars -= 1
+    if rlm_tag in ("STEAM-FOR", "RLM-FOR"):
+        stars += 1
+    return max(1, min(5, stars))
 
 
 def _last_name(name):

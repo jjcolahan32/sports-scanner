@@ -13,7 +13,7 @@ Timezone-proof: uses each game's real UTC start time — no day-of-week guessing
 import os, json, sys
 from datetime import datetime, timezone
 
-from model import run, american_to_stake, cap_rule, LEGIT_ARMS, MIRAGES, REVERSE_MIRAGES, DYNAMIC_GAP
+from model import run, american_to_stake, cap_rule, LEGIT_ARMS, MIRAGES, REVERSE_MIRAGES, DYNAMIC_GAP, star_rating
 import fetch_mlb, fetch_odds, fetch_savant, notify, rlm
 
 LEAD_HOURS = float(os.environ.get("LEAD_HOURS", "4"))   # notify within N hours of first pitch
@@ -21,6 +21,22 @@ STATE_FILE = os.environ.get("STATE_FILE", "state.json")
 OPENS_FILE = os.environ.get("OPENS_FILE", "opens.json")   # opening-line snapshots (for RLM)
 PUBLIC_FILE = os.environ.get("PUBLIC_FILE", "public.json")  # OPTIONAL bet% you supply
 VETTED = LEGIT_ARMS | MIRAGES | REVERSE_MIRAGES
+
+# Active scan hours in US Eastern time (DST-aware) -- every 2h, 11am-9pm ET.
+# Only enforced on scheduled (cron) runs; manual dispatch and local runs
+# always proceed. Cron fires hourly (see scan.yml) so this decides, in
+# Python, whether the run actually does anything -- avoids hardcoding UTC
+# times that would silently drift by an hour each time DST changes.
+ACTIVE_HOURS_ET = {11, 13, 15, 17, 19, 21}
+
+
+def market_hours_open(now_utc=None):
+    if os.environ.get("GITHUB_EVENT_NAME") != "schedule":
+        return True
+    from zoneinfo import ZoneInfo
+    now_utc = now_utc or datetime.now(timezone.utc)
+    et_hour = now_utc.astimezone(ZoneInfo("America/New_York")).hour
+    return et_hour in ACTIVE_HOURS_ET
 
 
 # ---------- pure, testable core -------------------------------------------
@@ -209,6 +225,23 @@ def apply_rlm(graded, meta):
     return graded
 
 
+def attach_stars(slate, graded):
+    """Attach a 1-5 star confidence rating to each graded row. Reads dyn_gap
+    from the original slate row (model.run()'s output doesn't carry custom
+    fields through -- same reason the totals 'total' field needed meta) and
+    the RLM tag apply_rlm() already attached."""
+    for p, row in zip(slate, graded):
+        is_dynamic = p.get("dyn_gap") is not None
+        rlm_tag = (row.get("rlm") or {}).get("tag")
+        row["stars"] = star_rating(is_dynamic=is_dynamic, dyn_gap=p.get("dyn_gap"), rlm_tag=rlm_tag)
+    return graded
+
+
+def _star_str(n):
+    n = max(1, min(5, n or 3))
+    return "★" * n + "☆" * (5 - n)
+
+
 def new_plays(graded, meta, sent):
     """Return fresh PLAY/REVIEW rows whose game_pk hasn't been notified yet."""
     fresh = []
@@ -252,6 +285,10 @@ def save_json(path, obj):
 
 
 def main():
+    if not market_hours_open():
+        print("Outside active scan hours (11am-9pm ET) — skipping, no API calls made.")
+        return
+
     games = fetch_mlb.todays_games()
     odds = fetch_odds.mlb_moneylines()
 
@@ -268,6 +305,7 @@ def main():
     slate, meta = build_slate(games, odds, opens["lines"], public, savant_stats=savant_stats)
     graded, must_parlay = run(slate)
     graded = apply_rlm(graded, meta)                              # market overlay
+    graded = attach_stars(slate, graded)                          # 1-5 confidence rating
     sent = load_state()
     fresh = new_plays(graded, meta, sent)
 
@@ -283,7 +321,7 @@ def main():
             tag = f"  [{row['rlm']['tag']} {row['rlm']['detail']}]"
         note = f"  {row.get('rlm_note','')}" if row.get("rlm_note") else ""
         lines.append(f"{flag}: {row['sel']} {row['odds']:+d} "
-                     f"(risk {row['risk']}u/win {row['to_win']}u){tag}\n"
+                     f"(risk {row['risk']}u/win {row['to_win']}u){tag}  {_star_str(row.get('stars'))}\n"
                      f"   {row['reason']}{note}")
         sent.add(str(m["game_pk"]))
     if len(must_parlay) >= 2:
@@ -313,6 +351,7 @@ def log_card(fresh):
             "risk": row["risk"], "to_win": row["to_win"], "cap": row["cap"],
             "verdict": row["verdict"],
             "rlm_tag": (row.get("rlm") or {}).get("tag", "NEUTRAL"),
+            "stars": row.get("stars", 3),
             "graded": False, "result": None,
         })
     save_json(path, card)

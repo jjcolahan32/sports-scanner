@@ -1,8 +1,13 @@
 name: card-scanner
-# Runs every 2 hours, all day (UTC). Covers the MLB slate from midday ET onward.
+# Fires hourly; scan.py's own DST-aware market_hours_open() check (zoneinfo,
+# America/New_York) decides whether to actually do anything -- active
+# checkpoints are 11am/1/3/5/7/9pm ET, every 2h. Firing hourly in UTC and
+# gating in Python means the intended ET schedule survives DST changes
+# automatically; a fixed UTC cron would silently drift by an hour each time
+# clocks change. Manual dispatch always runs regardless of the hour.
 on:
   schedule:
-    - cron: "0 */2 * * *"
+    - cron: "0 * * * *"
   workflow_dispatch: {}          # lets you trigger a manual run from the Actions tab
 
 permissions:

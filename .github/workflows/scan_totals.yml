@@ -1,10 +1,13 @@
 name: totals-scanner
-# Runs twice daily (11:00 and 16:00 ET) -- separate cadence from card-scanner
-# because the totals market costs its own Odds API quota unit per request;
-# running it every 2h like moneylines would blow through the free tier.
+# Fires hourly; scan_totals.py's own DST-aware market_hours_open() check
+# decides whether to actually do anything -- same 11am/1/3/5/7/9pm ET
+# checkpoints as card-scanner, now that quota allows it (6 checks/day for
+# each market = 360/month combined, comfortably under the 500 free cap).
+# Firing hourly in UTC and gating in Python means the schedule survives DST
+# changes automatically. Manual dispatch always runs regardless of the hour.
 on:
   schedule:
-    - cron: "0 15,20 * * *"
+    - cron: "0 * * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -24,10 +27,12 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           NTFY_TOPIC:   ${{ secrets.NTFY_TOPIC }}
         run: python scan_totals.py
-      - name: Persist dedupe state
+      - name: Render dashboard
+        run: python render_dashboard.py
+      - name: Persist dedupe state + dashboard
         run: |
           git config user.name  "totals-scanner"
           git config user.email "bot@users.noreply.github.com"
-          git add state_totals.json card_totals_*.json || true
+          git add state_totals.json card_totals_*.json docs/index.html || true
           git commit -m "totals state: $(date -u +%F_%H:%M)" || echo "no change"
           git push || echo "nothing to push"

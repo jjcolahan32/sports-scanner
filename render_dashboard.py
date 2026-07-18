@@ -28,7 +28,15 @@ def today():
 
 def blank_ledger():
     return {"mlb_units": 0.0, "record": {"w": 0, "l": 0, "push": 0},
-            "by_tag": {}, "parlay_legs": {"w": 0, "l": 0}, "history": []}
+            "by_tag": {}, "by_stars": {}, "totals_units": 0.0,
+            "totals_record": {"w": 0, "l": 0, "push": 0},
+            "parlay_legs": {"w": 0, "l": 0}, "history": []}
+
+
+def _star_str(n):
+    n = max(1, min(5, n or 3))
+    return (f'<span class="star-filled">{"&#9733;" * n}</span>'
+            f'<span class="star-empty">{"&#9734;" * (5 - n)}</span>')
 
 
 def _esc(s):
@@ -81,6 +89,7 @@ def render_play_rows(plays):
           <span class="sel">{_esc(p.get("selection", "?"))}</span>
           <span class="odds mono">{p.get("odds", 0):+d}</span>
         </div>
+        <div class="stars-line">{_star_str(p.get("stars"))}</div>
         <div class="stake mono">{_esc(start)} &middot; risk {p.get("risk", 0)}u &middot; win {p.get("to_win", 0)}u</div>
         <div class="tags">
           <span class="pill {pill_class}">{_esc(verdict)}</span>
@@ -105,6 +114,21 @@ def render_tag_rows(by_tag):
         else:
             record, units = "&mdash;", "&mdash;"
         rows.append(f'<tr><td><span class="tagchip">{_esc(tag)}</span></td>'
+                     f'<td class="num">{record}</td><td class="num">{units}</td></tr>')
+    return "".join(rows)
+
+
+def render_star_rows(by_stars):
+    rows = []
+    for n in ("5", "4", "3", "2", "1"):
+        b = by_stars.get(n)
+        stars_html = _star_str(int(n))
+        if b:
+            record = f'{b["w"]}&ndash;{b["l"]}'
+            units = f'{b["units"]:+.2f}u'
+        else:
+            record, units = "&mdash;", "&mdash;"
+        rows.append(f'<tr><td>{stars_html}</td>'
                      f'<td class="num">{record}</td><td class="num">{units}</td></tr>')
     return "".join(rows)
 
@@ -146,6 +170,7 @@ def build_html():
     html = html.replace("__RECORD__", f'{record.get("w", 0)}&ndash;{record.get("l", 0)}')
     html = html.replace("__TODAY_CARD__", render_play_rows(plays))
     html = html.replace("__TAG_ROWS__", render_tag_rows(ledger.get("by_tag", {})))
+    html = html.replace("__STAR_ROWS__", render_star_rows(ledger.get("by_stars", {})))
     html = html.replace("__HISTORY__", render_history(ledger.get("history", [])))
     parlay = ledger.get("parlay_legs", {"w": 0, "l": 0})
     parlay_note = (f" Cap-rule parlay legs: {parlay['w']}&ndash;{parlay['l']} tracked W&ndash;L only, "
@@ -247,6 +272,9 @@ TEMPLATE = r"""<!doctype html>
   .play-row-top { display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
   .play-row .sel { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 1rem; }
   .play-row .odds { font-weight: 600; }
+  .stars-line { margin-top: 0.35rem; font-size: 0.95rem; letter-spacing: 0.06em; }
+  .star-filled { color: var(--accent); }
+  .star-empty { color: var(--hairline); }
   .play-row .stake { margin-top: 0.3rem; font-size: 0.8rem; color: var(--muted); }
   .play-row .tags { margin-top: 0.6rem; display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
 
@@ -355,6 +383,11 @@ TEMPLATE = r"""<!doctype html>
       <table class="tagtable">
         <thead><tr><th>RLM tag</th><th style="text-align:right;">Record</th><th style="text-align:right;">Units</th></tr></thead>
         <tbody>__TAG_ROWS__</tbody>
+      </table>
+      <div class="eyebrow" style="margin-top:1.1rem;">By Confidence</div>
+      <table class="tagtable">
+        <thead><tr><th>Stars</th><th style="text-align:right;">Record</th><th style="text-align:right;">Units</th></tr></thead>
+        <tbody>__STAR_ROWS__</tbody>
       </table>
       <div class="eyebrow" style="margin-top:1.1rem;">Recent Nights</div>
       __HISTORY__
