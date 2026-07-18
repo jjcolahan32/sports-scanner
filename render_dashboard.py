@@ -69,7 +69,10 @@ def render_play_rows(plays):
             chip_class = "win" if outcome == "win" else "loss"
             result_chip = (f'<span class="pill {"play" if outcome == "win" else "pass"} '
                             f'result-chip {chip_class}">{_esc(outcome).upper()}</span>')
-        tag = p.get("rlm_tag", "NEUTRAL")
+        if "side" in p:  # totals plays have no RLM overlay -- it's ML-only, doesn't apply here
+            tag_chip = '<span class="tagchip">TOTALS</span>'
+        else:
+            tag_chip = f'<span class="tagchip">{_esc(p.get("rlm_tag", "NEUTRAL"))}</span>'
         cap_note = ' <span class="tagchip">cap-rule parlay leg</span>' if p.get("cap") == "must_parlay" else ""
         start = _local_time(p.get("start_utc"))
         rows.append(f"""
@@ -81,7 +84,7 @@ def render_play_rows(plays):
         <div class="stake mono">{_esc(start)} &middot; risk {p.get("risk", 0)}u &middot; win {p.get("to_win", 0)}u</div>
         <div class="tags">
           <span class="pill {pill_class}">{_esc(verdict)}</span>
-          <span class="tagchip">{_esc(tag)}</span>
+          {tag_chip}
           {cap_note}
           {result_chip}
         </div>
@@ -125,8 +128,10 @@ def render_history(history):
 def build_html():
     date = today()
     card = load_json(f"card_{date}.json", {"date": date, "plays": []})
+    totals_card = load_json(f"card_totals_{date}.json", {"date": date, "plays": []})
     ledger = load_json("ledger.json", blank_ledger())
-    plays = card.get("plays", [])
+    plays = card.get("plays", []) + totals_card.get("plays", [])
+    plays.sort(key=lambda p: p.get("start_utc", ""))
     record = ledger.get("record", {"w": 0, "l": 0})
     units = ledger.get("mlb_units", 0.0)
     units_class = "win" if units > 0 else ("loss" if units < 0 else "")
