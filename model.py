@@ -28,6 +28,18 @@ RETIREMENT_PROFILE = {"dimitrov","djokovic"}
 # ERA-vs-xERA read that built those lists. Tune here, same as rlm.py's
 # thresholds. Source: fetch_savant.py (Baseball Savant, free but unofficial).
 DYNAMIC_GAP = 0.75
+
+# Totals (over/under) composite lean — each signal below contributes +1/-1
+# toward OVER/UNDER; net score crossing TOTALS_LEAN_THRESHOLD fires a play.
+# Tune here. Source: ballparks.py (park factor) + fetch_weather.py (NWS,
+# free) + the same pitcher-quality read (static lists + Savant dyn_gap)
+# already used for moneylines.
+TOTALS_PARK_HI = 104       # park factor at/above this leans OVER
+TOTALS_PARK_LO = 96        # park factor at/below this leans UNDER
+TOTALS_WIND_MPH = 6        # wind component toward/away from CF (mph) that counts
+TOTALS_HOT_F = 85          # temp at/above this leans OVER (ball carries)
+TOTALS_COLD_F = 50         # temp at/below this leans UNDER (ball dies)
+TOTALS_LEAN_THRESHOLD = 2  # net lean points needed to fire a play
 # --------------------------------------------------------------------------
 
 
@@ -57,6 +69,62 @@ def _matches_list(name, vetted_set):
     return bool(last) and any(v.split()[-1] == last for v in vetted_set)
 
 
+def _pitcher_quality(name, dyn_gap):
+    """+1 (weak/mirage -> favors runs), -1 (strong/legit -> suppresses runs),
+    0 (unknown/neutral). Reuses the same lists/threshold as the ML grader."""
+    n = (name or "").strip().lower()
+    if _matches_list(n, MIRAGES):
+        return 1
+    if _matches_list(n, LEGIT_ARMS) or _matches_list(n, REVERSE_MIRAGES):
+        return -1
+    if dyn_gap is not None:
+        if dyn_gap <= -DYNAMIC_GAP:
+            return 1
+        if dyn_gap >= DYNAMIC_GAP:
+            return -1
+    return 0
+
+
+def totals_lean(p):
+    """Net over/under score (+ = OVER, - = UNDER) from park/weather/pitching
+    signals. Expects park_factor, wind_out_mph, temp_f (any may be absent --
+    that signal just doesn't vote), plus both starters: home_pitcher/
+    away_pitcher and their home_dyn_gap/away_dyn_gap. Callers (scan_totals.py)
+    use this directly to pick the Over/Under price BEFORE grading, since the
+    price to attach depends on which way the lean points."""
+    lean = 0
+    park = p.get("park_factor")
+    if park is not None:
+        if park >= TOTALS_PARK_HI:
+            lean += 1
+        elif park <= TOTALS_PARK_LO:
+            lean -= 1
+    wind = p.get("wind_out_mph")
+    if wind is not None:
+        if wind >= TOTALS_WIND_MPH:
+            lean += 1
+        elif wind <= -TOTALS_WIND_MPH:
+            lean -= 1
+    temp = p.get("temp_f")
+    if temp is not None:
+        if temp >= TOTALS_HOT_F:
+            lean += 1
+        elif temp <= TOTALS_COLD_F:
+            lean -= 1
+    lean += _pitcher_quality(p.get("home_pitcher"), p.get("home_dyn_gap"))
+    lean += _pitcher_quality(p.get("away_pitcher"), p.get("away_dyn_gap"))
+    return lean
+
+
+def grade_total(p):
+    lean = totals_lean(p)
+    if lean >= TOTALS_LEAN_THRESHOLD:
+        return "PLAY", f"Over lean (score {lean:+d}): park/weather/pitching favor runs"
+    if lean <= -TOTALS_LEAN_THRESHOLD:
+        return "PLAY", f"Under lean (score {lean:+d}): park/weather/pitching suppress runs"
+    return "PASS", f"No clear totals lean (score {lean:+d})"
+
+
 def grade_mlb(p):
     name = p.get("pitcher", "").strip().lower()
     if p.get("venue", "").lower() == "coors" and p.get("market") == "total":
@@ -65,6 +133,8 @@ def grade_mlb(p):
         return "PASS", "Exhibition/All-Star — auto-pass"
     if p.get("market") == "total" and p.get("total", 99) <= 7.5:
         return "PASS", "Tight under behind ace keeps going over — take the side instead"
+    if p.get("market") == "total":
+        return grade_total(p)
     if _matches_list(name, MIRAGES):
         return "PLAY", f"Fade mirage: {p['pitcher']} (ERA/xERA gap)"
     if _matches_list(name, REVERSE_MIRAGES):

@@ -8,7 +8,7 @@ it's the only way to confirm ntfy is actually wired up end to end.
 """
 import os, sys
 
-import fetch_mlb, fetch_odds, fetch_savant, notify
+import fetch_mlb, fetch_odds, fetch_savant, fetch_weather, ballparks, notify
 
 
 def main():
@@ -64,6 +64,19 @@ def main():
     except Exception as e:
         print(f"FAIL  fetch_savant.season_pitcher_stats — {e} "
               f"(unofficial free endpoint — scan.py just skips the dynamic layer when this happens)")
+        results.append(False)
+
+    try:
+        park = ballparks.for_team("Colorado Rockies")
+        from datetime import datetime, timezone
+        fc = fetch_weather.forecast_at(park["lat"], park["lon"], datetime.now(timezone.utc))
+        if not fc:
+            raise RuntimeError("no forecast period returned")
+        print(f"PASS  fetch_weather.forecast_at — Coors Field now: {fc['temp_f']}F, "
+              f"{fc['wind_mph']}mph, {fc['short']}")
+        results.append(True)
+    except Exception as e:
+        print(f"FAIL  fetch_weather.forecast_at — {e}")
         results.append(False)
 
     # Bonus: reuses the feeds already fetched above, no extra API calls.

@@ -1,0 +1,33 @@
+name: totals-scanner
+# Runs twice daily (11:00 and 16:00 ET) -- separate cadence from card-scanner
+# because the totals market costs its own Odds API quota unit per request;
+# running it every 2h like moneylines would blow through the free tier.
+on:
+  schedule:
+    - cron: "0 15,20 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  scan_totals:
+    runs-on: ubuntu-latest
+    concurrency: totals-scanner
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run totals scan
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          NTFY_TOPIC:   ${{ secrets.NTFY_TOPIC }}
+        run: python scan_totals.py
+      - name: Persist dedupe state
+        run: |
+          git config user.name  "totals-scanner"
+          git config user.email "bot@users.noreply.github.com"
+          git add state_totals.json card_totals_*.json || true
+          git commit -m "totals state: $(date -u +%F_%H:%M)" || echo "no change"
+          git push || echo "nothing to push"
