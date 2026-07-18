@@ -17,7 +17,8 @@
       "cap": "dog",
       "verdict": "PLAY",
       "graded": false,
-      "result": null
+      "result": null,
+      "stars": 3
     },
     {
       "game_pk": 824979,
@@ -29,13 +30,14 @@
       "away_prob": "Zack Littell",
       "selection": "Washington Nationals @ Athletics Over 11.0",
       "total": 11.0,
-      "odds": -114,
-      "risk": 1.14,
+      "odds": -118,
+      "risk": 1.18,
       "to_win": 1.0,
       "cap": "single_ok",
       "verdict": "PLAY",
       "graded": false,
-      "result": null
+      "result": null,
+      "stars": 4
     }
   ]
 }
