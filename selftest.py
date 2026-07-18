@@ -8,7 +8,7 @@ it's the only way to confirm ntfy is actually wired up end to end.
 """
 import os, sys
 
-import fetch_mlb, fetch_odds, notify
+import fetch_mlb, fetch_odds, fetch_savant, notify
 
 
 def main():
@@ -52,6 +52,19 @@ def main():
         except Exception as e:
             print(f"FAIL  notify.push — {e}")
             results.append(False)
+
+    try:
+        stats = fetch_savant.season_pitcher_stats()
+        flat = [e for lst in stats.values() for e in lst]
+        if not flat:
+            raise RuntimeError("no pitcher stats returned")
+        print(f"PASS  fetch_savant.season_pitcher_stats — {len(flat)} pitchers "
+              f"(unofficial free endpoint — a FAIL here doesn't mean the rest is broken)")
+        results.append(True)
+    except Exception as e:
+        print(f"FAIL  fetch_savant.season_pitcher_stats — {e} "
+              f"(unofficial free endpoint — scan.py just skips the dynamic layer when this happens)")
+        results.append(False)
 
     # Bonus: reuses the feeds already fetched above, no extra API calls.
     if games and odds:

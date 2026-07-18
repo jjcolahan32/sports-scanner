@@ -13,8 +13,8 @@ Timezone-proof: uses each game's real UTC start time — no day-of-week guessing
 import os, json, sys
 from datetime import datetime, timezone
 
-from model import run, american_to_stake, cap_rule, LEGIT_ARMS, MIRAGES, REVERSE_MIRAGES
-import fetch_mlb, fetch_odds, notify, rlm
+from model import run, american_to_stake, cap_rule, LEGIT_ARMS, MIRAGES, REVERSE_MIRAGES, DYNAMIC_GAP
+import fetch_mlb, fetch_odds, fetch_savant, notify, rlm
 
 LEAD_HOURS = float(os.environ.get("LEAD_HOURS", "4"))   # notify within N hours of first pitch
 STATE_FILE = os.environ.get("STATE_FILE", "state.json")
@@ -66,21 +66,48 @@ def _is_mirage(full):
     return any(v.split()[-1] == last for v in MIRAGES)
 
 
-def build_slate(games, odds, opens=None, public=None, now=None):
+def dynamic_match(pk, savant_stats):
+    """Look up a probable pitcher's season ERA-xERA gap by last name.
+    Disambiguates same-surname pitchers by first-name initial. Returns the
+    stat dict (with 'gap') or None if not found / ambiguous."""
+    parts = _last(pk).split()
+    if not parts:
+        return None
+    last = parts[-1]
+    candidates = savant_stats.get(last, [])
+    if len(candidates) == 1:
+        return candidates[0]
+    if len(candidates) > 1 and len(parts) > 1:
+        first_initial = parts[0][0]
+        matches = [c for c in candidates if c["first"].strip().lower().startswith(first_initial)]
+        if len(matches) == 1:
+            return matches[0]
+    return None
+
+
+def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=None):
     """Turn qualifying games into model slate rows + market context for RLM.
 
     Back a legit/reverse-mirage arm -> bet HIS team's ML.
     Fade a mirage arm            -> bet the OPPONENT's ML.
+
+    Layered on top: any probable pitcher NOT on the hand-vetted lists is also
+    checked against Baseball Savant's ERA-xERA gap (fetch_savant.py) — a big
+    enough gap either way surfaces as its own "dynamic" candidate, tagged
+    separately in the notification so you can see which signal fired it.
     """
     opens = opens or {}
     public = public or {}
+    savant_stats = savant_stats or {}
     rows, meta = [], []
     for g in games:
         if not in_window(g, now):
             continue
         key = f"{fetch_odds._norm(g['away'])}@{fetch_odds._norm(g['home'])}"
         o = odds.get((fetch_odds._norm(g["away"]), fetch_odds._norm(g["home"])), {})
+        vetted_sides = set()
         for side, pk, team in qualifying_pitchers(g):
+            vetted_sides.add(side)
             opp_side = "home" if side == "away" else "away"
             if _is_mirage(pk):                      # fade -> opponent
                 bet_side, bet_team = opp_side, g[opp_side]
@@ -96,6 +123,34 @@ def build_slate(games, odds, opens=None, public=None, now=None):
             rows.append({"sport": "mlb", "selection": f"{bet_team} ML {note}",
                          "pitcher": _fmt(pk), "odds": ml, "market": "ml",
                          "venue": "coors" if "Coors" in g["venue"] else g["venue"]})
+            meta.append({"game_pk": g["game_pk"], "selection": f"{bet_team} ML",
+                         "bet_side": bet_side, "bet_team": bet_team,
+                         "start_utc": g["start_utc"],
+                         "open_ml": open_ml, "cur_ml": ml, "public_pct": pub})
+
+        for side, pk, team in (("away", g.get("away_prob"), g.get("away")),
+                               ("home", g.get("home_prob"), g.get("home"))):
+            if not pk or side in vetted_sides:
+                continue
+            stat = dynamic_match(pk, savant_stats)
+            if not stat or abs(stat["gap"]) < DYNAMIC_GAP:
+                continue
+            opp_side = "home" if side == "away" else "away"
+            if stat["gap"] <= -DYNAMIC_GAP:          # mirage -> fade
+                bet_side, bet_team = opp_side, g[opp_side]
+                note = f"(fade {_fmt(pk)}, dynamic)"
+            else:                                    # reverse-mirage -> back
+                bet_side, bet_team = side, team
+                note = f"(back {_fmt(pk)}, dynamic)"
+            ml = o.get(f"{bet_side}_ml")
+            if ml is None:
+                continue
+            open_ml = opens.get(key, {}).get(f"{bet_side}_ml", ml)
+            pub = (public.get(str(g["game_pk"])) or {}).get(bet_side)
+            rows.append({"sport": "mlb", "selection": f"{bet_team} ML {note}",
+                         "pitcher": _fmt(pk), "odds": ml, "market": "ml",
+                         "venue": "coors" if "Coors" in g["venue"] else g["venue"],
+                         "dyn_gap": stat["gap"], "dyn_era": stat["era"], "dyn_xera": stat["xera"]})
             meta.append({"game_pk": g["game_pk"], "selection": f"{bet_team} ML",
                          "bet_side": bet_side, "bet_team": bet_team,
                          "start_utc": g["start_utc"],
@@ -186,7 +241,13 @@ def main():
     save_json(OPENS_FILE, opens)
     public = load_json(PUBLIC_FILE, {})                            # optional bet% you supply
 
-    slate, meta = build_slate(games, odds, opens["lines"], public)
+    try:
+        savant_stats = fetch_savant.season_pitcher_stats()         # dynamic ERA/xERA layer
+    except Exception as e:
+        print(f"Savant fetch failed, skipping dynamic layer this run: {e}")
+        savant_stats = {}
+
+    slate, meta = build_slate(games, odds, opens["lines"], public, savant_stats=savant_stats)
     graded, must_parlay = run(slate)
     graded = apply_rlm(graded, meta)                              # market overlay
     sent = load_state()

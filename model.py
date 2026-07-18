@@ -22,6 +22,12 @@ MIRAGES = {
 }
 REVERSE_MIRAGES = {"a. nola","nola"}
 RETIREMENT_PROFILE = {"dimitrov","djokovic"}
+
+# ERA-minus-xERA gap (earned runs) that flags a mismatch for a starter who
+# ISN'T on the hand-vetted lists above — the automated version of the same
+# ERA-vs-xERA read that built those lists. Tune here, same as rlm.py's
+# thresholds. Source: fetch_savant.py (Baseball Savant, free but unofficial).
+DYNAMIC_GAP = 0.75
 # --------------------------------------------------------------------------
 
 
@@ -65,6 +71,13 @@ def grade_mlb(p):
         return "PLAY", f"Back reverse-mirage: {p['pitcher']} (ugly ERA understates)"
     if _matches_list(name, LEGIT_ARMS):
         return "PLAY", f"Back legit arm: {p['pitcher']}"
+    gap = p.get("dyn_gap")
+    if gap is not None:
+        detail = f"ERA {p.get('dyn_era')} vs xERA {p.get('dyn_xera')} ({gap:+.2f})"
+        if gap <= -DYNAMIC_GAP:
+            return "PLAY", f"Dynamic mirage: {p['pitcher']} {detail} — results better than process"
+        if gap >= DYNAMIC_GAP:
+            return "PLAY", f"Dynamic reverse-mirage: {p['pitcher']} {detail} — process better than results"
     return "PASS", "No pitcher edge in database"
 
 
