@@ -35,6 +35,21 @@ def _esc(s):
     return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
 
 
+def _local_time(start_utc):
+    """'2026-07-18T23:05:00Z' -> '7:05 PM ET' (falls back to the raw UTC
+    string if start_utc is missing/unparseable, or if the system has no
+    IANA tzdata -- ubuntu-latest runners have it, but don't hard-fail if not)."""
+    if not start_utc:
+        return "time TBD"
+    try:
+        from zoneinfo import ZoneInfo
+        dt = datetime.fromisoformat(start_utc.replace("Z", "+00:00"))
+        et = dt.astimezone(ZoneInfo("America/New_York"))
+        return et.strftime("%-I:%M %p EST")
+    except Exception:
+        return start_utc
+
+
 def render_play_rows(plays):
     if not plays:
         return """
@@ -56,13 +71,14 @@ def render_play_rows(plays):
                             f'result-chip {chip_class}">{_esc(outcome).upper()}</span>')
         tag = p.get("rlm_tag", "NEUTRAL")
         cap_note = ' <span class="tagchip">cap-rule parlay leg</span>' if p.get("cap") == "must_parlay" else ""
+        start = _local_time(p.get("start_utc"))
         rows.append(f"""
       <div class="play-row">
         <div class="play-row-top">
           <span class="sel">{_esc(p.get("selection", "?"))}</span>
           <span class="odds mono">{p.get("odds", 0):+d}</span>
         </div>
-        <div class="stake mono">risk {p.get("risk", 0)}u &middot; win {p.get("to_win", 0)}u</div>
+        <div class="stake mono">{_esc(start)} &middot; risk {p.get("risk", 0)}u &middot; win {p.get("to_win", 0)}u</div>
         <div class="tags">
           <span class="pill {pill_class}">{_esc(verdict)}</span>
           <span class="tagchip">{_esc(tag)}</span>
