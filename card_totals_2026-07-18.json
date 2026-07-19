@@ -57,8 +57,11 @@
       "to_win": 1.0,
       "cap": "single_ok",
       "verdict": "PLAY",
-      "graded": false,
-      "result": null,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Pittsburgh Pirates 3\u20135 Cleveland Guardians"
+      },
       "stars": 3
     }
   ]

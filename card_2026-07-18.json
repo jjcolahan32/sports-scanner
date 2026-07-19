@@ -165,8 +165,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Pittsburgh Pirates 3\u20135 Cleveland Guardians"
+      }
     }
   ]
 }
