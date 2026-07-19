@@ -1,1 +1,172 @@
-{"date": "2026-07-18", "plays": [{"game_pk": 824414, "start_utc": "2026-07-18T17:10:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "away", "selection": "Pittsburgh Pirates ML (back J. Jones, dynamic)", "odds": -114, "risk": 1.14, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_pk": 823441, "start_utc": "2026-07-18T19:05:00Z", "bet_team": "Philadelphia Phillies", "bet_side": "home", "selection": "Philadelphia Phillies ML (back J. Luzardo)", "odds": -168, "risk": 1.68, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null, "stars": 4}, {"game_pk": 824331, "start_utc": "2026-07-18T19:10:00Z", "bet_team": "Cincinnati Reds", "bet_side": "away", "selection": "Cincinnati Reds ML (fade T. Sugano)", "odds": -118, "risk": 1.18, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null, "stars": 4}, {"game_pk": 824169, "start_utc": "2026-07-18T20:10:00Z", "bet_team": "Baltimore Orioles", "bet_side": "away", "selection": "Baltimore Orioles ML (fade S. Arrighetti)", "odds": -108, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null, "stars": 4}, {"game_pk": 824088, "start_utc": "2026-07-18T20:10:00Z", "bet_team": "San Diego Padres", "bet_side": "away", "selection": "San Diego Padres ML (back G. Canning, dynamic)", "odds": -110, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null, "stars": 3}, {"game_pk": 825059, "start_utc": "2026-07-18T20:10:00Z", "bet_team": "St. Louis Cardinals", "bet_side": "away", "selection": "St. Louis Cardinals ML (back D. May, dynamic)", "odds": -102, "risk": 1.02, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null, "stars": 2}, {"game_pk": 824738, "start_utc": "2026-07-18T20:10:00Z", "bet_team": "Tampa Bay Rays", "bet_side": "away", "selection": "Tampa Bay Rays ML (back I. Seymour, dynamic)", "odds": -106, "risk": 1.06, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null, "stars": 2}, {"game_pk": 823763, "start_utc": "2026-07-18T20:10:00Z", "bet_team": "Milwaukee Brewers", "bet_side": "home", "selection": "Milwaukee Brewers ML (fade M. Meyer, dynamic)", "odds": -142, "risk": 1.42, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "graded": false, "result": null, "stars": 2}, {"game_pk": 824412, "start_utc": "2026-07-18T23:10:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "away", "selection": "Pittsburgh Pirates ML (back M. Montgomery, dynamic)", "odds": -111, "risk": 1.11, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-07-18",
+  "plays": [
+    {
+      "game_pk": 824414,
+      "start_utc": "2026-07-18T17:10:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "away",
+      "selection": "Pittsburgh Pirates ML (back J. Jones, dynamic)",
+      "odds": -114,
+      "risk": 1.14,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Pittsburgh Pirates 7\u20131 Cleveland Guardians"
+      }
+    },
+    {
+      "game_pk": 823441,
+      "start_utc": "2026-07-18T19:05:00Z",
+      "bet_team": "Philadelphia Phillies",
+      "bet_side": "home",
+      "selection": "Philadelphia Phillies ML (back J. Luzardo)",
+      "odds": -168,
+      "risk": 1.68,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "New York Mets 1\u20136 Philadelphia Phillies"
+      },
+      "stars": 4
+    },
+    {
+      "game_pk": 824331,
+      "start_utc": "2026-07-18T19:10:00Z",
+      "bet_team": "Cincinnati Reds",
+      "bet_side": "away",
+      "selection": "Cincinnati Reds ML (fade T. Sugano)",
+      "odds": -118,
+      "risk": 1.18,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cincinnati Reds 3\u201310 Colorado Rockies"
+      },
+      "stars": 4
+    },
+    {
+      "game_pk": 824169,
+      "start_utc": "2026-07-18T20:10:00Z",
+      "bet_team": "Baltimore Orioles",
+      "bet_side": "away",
+      "selection": "Baltimore Orioles ML (fade S. Arrighetti)",
+      "odds": -108,
+      "risk": 1.08,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Baltimore Orioles 4\u20132 Houston Astros"
+      },
+      "stars": 4
+    },
+    {
+      "game_pk": 824088,
+      "start_utc": "2026-07-18T20:10:00Z",
+      "bet_team": "San Diego Padres",
+      "bet_side": "away",
+      "selection": "San Diego Padres ML (back G. Canning, dynamic)",
+      "odds": -110,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "San Diego Padres 1\u20136 Kansas City Royals"
+      },
+      "stars": 3
+    },
+    {
+      "game_pk": 825059,
+      "start_utc": "2026-07-18T20:10:00Z",
+      "bet_team": "St. Louis Cardinals",
+      "bet_side": "away",
+      "selection": "St. Louis Cardinals ML (back D. May, dynamic)",
+      "odds": -102,
+      "risk": 1.02,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "St. Louis Cardinals 3\u20135 Arizona Diamondbacks"
+      },
+      "stars": 2
+    },
+    {
+      "game_pk": 824738,
+      "start_utc": "2026-07-18T20:10:00Z",
+      "bet_team": "Tampa Bay Rays",
+      "bet_side": "away",
+      "selection": "Tampa Bay Rays ML (back I. Seymour, dynamic)",
+      "odds": -106,
+      "risk": 1.06,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Tampa Bay Rays 6\u20137 Boston Red Sox"
+      },
+      "stars": 2
+    },
+    {
+      "game_pk": 823763,
+      "start_utc": "2026-07-18T20:10:00Z",
+      "bet_team": "Milwaukee Brewers",
+      "bet_side": "home",
+      "selection": "Milwaukee Brewers ML (fade M. Meyer, dynamic)",
+      "odds": -142,
+      "risk": 1.42,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Miami Marlins 6\u20138 Milwaukee Brewers"
+      },
+      "stars": 2
+    },
+    {
+      "game_pk": 824412,
+      "start_utc": "2026-07-18T23:10:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "away",
+      "selection": "Pittsburgh Pirates ML (back M. Montgomery, dynamic)",
+      "odds": -111,
+      "risk": 1.11,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": false,
+      "result": null
+    }
+  ]
+}
