@@ -22,21 +22,44 @@ OPENS_FILE = os.environ.get("OPENS_FILE", "opens.json")   # opening-line snapsho
 PUBLIC_FILE = os.environ.get("PUBLIC_FILE", "public.json")  # OPTIONAL bet% you supply
 VETTED = LEGIT_ARMS | MIRAGES | REVERSE_MIRAGES
 
-# Active scan hours in US Eastern time (DST-aware) -- every 2h, 11am-9pm ET.
-# Only enforced on scheduled (cron) runs; manual dispatch and local runs
-# always proceed. Cron fires hourly (see scan.yml) so this decides, in
-# Python, whether the run actually does anything -- avoids hardcoding UTC
-# times that would silently drift by an hour each time DST changes.
-ACTIVE_HOURS_ET = {11, 13, 15, 17, 19, 21}
+# Active scan window in US Eastern time (DST-aware): 11am-9pm ET, roughly
+# every 2h within it. Only enforced on scheduled (cron) runs; manual
+# dispatch and local runs always proceed.
+#
+# Not gated on an exact-hour match anymore. GitHub's `schedule:` trigger is
+# documented as best-effort, and in practice here it dropped the large
+# majority of its hourly ticks -- exact checkpoints (11am/1/3/5/7/9pm ET)
+# went silently unfired for hours at a stretch. Fixed by decoupling from
+# exact-hour alignment: stay inside the broad window and fire on whichever
+# tick actually lands, throttled to roughly once every MIN_GAP_MINUTES by a
+# persisted last-run timestamp -- so a dropped tick just delays to the next
+# one that lands, instead of silently losing that entire checkpoint.
+LAST_RUN_FILE = os.environ.get("LAST_RUN_FILE", "last_scan.json")
+MIN_GAP_MINUTES = 100
 
 
-def market_hours_open(now_utc=None):
+def market_hours_open(now_utc=None, last_run_file=None):
     if os.environ.get("GITHUB_EVENT_NAME") != "schedule":
         return True
     from zoneinfo import ZoneInfo
     now_utc = now_utc or datetime.now(timezone.utc)
     et_hour = now_utc.astimezone(ZoneInfo("America/New_York")).hour
-    return et_hour in ACTIVE_HOURS_ET
+    if not (11 <= et_hour <= 21):
+        return False
+    last = load_json(last_run_file or LAST_RUN_FILE, {}).get("at")
+    if last:
+        try:
+            last_dt = datetime.fromisoformat(last)
+            if (now_utc - last_dt).total_seconds() < MIN_GAP_MINUTES * 60:
+                return False
+        except Exception:
+            pass
+    return True
+
+
+def record_run(last_run_file=None, now_utc=None):
+    now_utc = now_utc or datetime.now(timezone.utc)
+    save_json(last_run_file or LAST_RUN_FILE, {"at": now_utc.isoformat()})
 
 
 # ---------- pure, testable core -------------------------------------------
@@ -290,6 +313,7 @@ def main():
     if not market_hours_open():
         print("Outside active scan hours (11am-9pm ET) — skipping, no API calls made.")
         return
+    record_run()
 
     games = fetch_mlb.todays_games()
     odds = fetch_odds.mlb_moneylines()

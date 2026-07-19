@@ -21,9 +21,10 @@ from datetime import datetime, timezone
 
 from model import run, totals_lean, star_rating
 import fetch_mlb, fetch_odds, fetch_savant, fetch_weather, notify, discord_notify, ballparks
-from scan import in_window, _fmt, dynamic_match, _today, load_json, save_json, market_hours_open, _star_str
+from scan import in_window, _fmt, dynamic_match, _today, load_json, save_json, market_hours_open, record_run, _star_str
 
 STATE_FILE = os.environ.get("TOTALS_STATE_FILE", "state_totals.json")
+LAST_RUN_FILE = os.environ.get("TOTALS_LAST_RUN_FILE", "last_totals.json")  # own file -- separate cadence tracking from scan.py
 TOTALS_LEAD_HOURS = float(os.environ.get("TOTALS_LEAD_HOURS", "20"))  # wide window: only runs 2x/day
 
 
@@ -120,9 +121,10 @@ def log_totals_card(fresh):
 
 
 def main():
-    if not market_hours_open():
+    if not market_hours_open(last_run_file=LAST_RUN_FILE):
         print("Outside active scan hours (11am-9pm ET) — skipping, no API calls made.")
         return
+    record_run(last_run_file=LAST_RUN_FILE)
 
     games = fetch_mlb.todays_games()
     totals_odds = fetch_odds.mlb_totals()

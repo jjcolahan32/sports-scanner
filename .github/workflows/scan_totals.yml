@@ -39,7 +39,7 @@ jobs:
         run: |
           git config user.name  "totals-scanner"
           git config user.email "bot@users.noreply.github.com"
-          git add state_totals.json card_totals_*.json discord_sent.json docs/index.html || true
+          git add state_totals.json card_totals_*.json discord_sent.json last_totals.json docs/index.html docs/history.html || true
           git commit -m "totals state: $(date -u +%F_%H:%M)" || echo "no change"
           # Retry with rebase on push rejection -- another job (or a manual
           # push) landing first must never cause this run's data to be

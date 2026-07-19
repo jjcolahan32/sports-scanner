@@ -1,258 +1,10 @@
-"""
-render_dashboard.py — renders docs/index.html, the scoreboard-style dashboard
-showing today's card and the running unit ledger.
-
-Run after scan.py (so new plays show up) and after grade.py (so settled
-results/ledger show up); the workflows commit the resulting docs/index.html,
-and GitHub Pages serves it. No external template engine — plain string
-substitution, consistent with the rest of this project's zero-dependency style.
-"""
-import json, os, glob
-from datetime import datetime, timezone
-
-OUT_DIR = "docs"
-OUT_PATH = os.path.join(OUT_DIR, "index.html")
-
-
-def load_json(path, default):
-    try:
-        with open(path) as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return default
-
-
-def today():
-    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
-
-
-def blank_ledger():
-    return {"mlb_units": 0.0, "record": {"w": 0, "l": 0, "push": 0},
-            "by_tag": {}, "by_stars": {}, "totals_units": 0.0,
-            "totals_record": {"w": 0, "l": 0, "push": 0},
-            "parlay_legs": {"w": 0, "l": 0}, "history": []}
-
-
-def _star_str(n):
-    n = max(1, min(5, n or 3))
-    return (f'<span class="star-filled">{"&#9733;" * n}</span>'
-            f'<span class="star-empty">{"&#9734;" * (5 - n)}</span>')
-
-
-def _esc(s):
-    return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
-
-
-def _local_time(start_utc):
-    """'2026-07-18T23:05:00Z' -> '7:05 PM ET' (falls back to the raw UTC
-    string if start_utc is missing/unparseable, or if the system has no
-    IANA tzdata -- ubuntu-latest runners have it, but don't hard-fail if not)."""
-    if not start_utc:
-        return "time TBD"
-    try:
-        from zoneinfo import ZoneInfo
-        dt = datetime.fromisoformat(start_utc.replace("Z", "+00:00"))
-        et = dt.astimezone(ZoneInfo("America/New_York"))
-        return et.strftime("%-I:%M %p EST")
-    except Exception:
-        return start_utc
-
-
-def render_play_rows(plays):
-    if not plays:
-        return """
-      <div class="ticket">
-        <span class="headline">No plays have qualified &mdash; yet.</span>
-        <p>A game enters the card the moment its probable pitcher is confirmed (usually ~4 hours out) and that pitcher is on the vetted list &mdash; a legit arm to back, or a mirage to fade. Nothing today has cleared that bar so far.</p>
-        <p>Checks run automatically every 2 hours, around the clock. The first qualifying play will push straight to your phone &mdash; this page updates on the next scan after that.</p>
-      </div>"""
-    rows = []
-    for p in plays:
-        verdict = p.get("verdict", "PLAY")
-        pill_class = "review" if verdict == "REVIEW" else "play"
-        result = p.get("result")
-        result_chip = ""
-        if result:
-            outcome = result.get("outcome")
-            chip_class = "win" if outcome == "win" else "loss"
-            result_chip = (f'<span class="pill {"play" if outcome == "win" else "pass"} '
-                            f'result-chip {chip_class}">{_esc(outcome).upper()}</span>')
-        if "side" in p:  # totals plays have no RLM overlay -- it's ML-only, doesn't apply here
-            tag_chip = '<span class="tagchip">TOTALS</span>'
-        else:
-            tag_chip = f'<span class="tagchip">{_esc(p.get("rlm_tag", "NEUTRAL"))}</span>'
-        cap_note = ' <span class="tagchip">cap-rule parlay leg</span>' if p.get("cap") == "must_parlay" else ""
-        start = _local_time(p.get("start_utc"))
-        rows.append(f"""
-      <div class="play-row">
-        <div class="play-row-top">
-          <span class="sel">{_esc(p.get("selection", "?"))}</span>
-          <span class="odds mono">{p.get("odds", 0):+d}</span>
-        </div>
-        <div class="stars-line">{_star_str(p.get("stars"))}</div>
-        <div class="stake mono">{_esc(start)} &middot; risk {p.get("risk", 0)}u &middot; win {p.get("to_win", 0)}u</div>
-        <div class="tags">
-          <span class="pill {pill_class}">{_esc(verdict)}</span>
-          {tag_chip}
-          {cap_note}
-          {result_chip}
-        </div>
-      </div>""")
-    return '<div class="playlist">' + "".join(rows) + "</div>"
-
-
-def render_tag_rows(by_tag):
-    tags = ["STEAM-FOR", "STEAM-AGAINST", "RLM-FOR", "RLM-AGAINST", "NEUTRAL"]
-    seen = set(tags)
-    all_tags = tags + [t for t in by_tag if t not in seen]
-    rows = []
-    for tag in all_tags:
-        b = by_tag.get(tag)
-        if b:
-            record = f'{b["w"]}&ndash;{b["l"]}'
-            units = f'{b["units"]:+.2f}u'
-        else:
-            record, units = "&mdash;", "&mdash;"
-        rows.append(f'<tr><td><span class="tagchip">{_esc(tag)}</span></td>'
-                     f'<td class="num">{record}</td><td class="num">{units}</td></tr>')
-    return "".join(rows)
-
-
-def render_star_rows(by_stars):
-    rows = []
-    for n in ("5", "4", "3", "2", "1"):
-        b = by_stars.get(n)
-        stars_html = _star_str(int(n))
-        if b:
-            record = f'{b["w"]}&ndash;{b["l"]}'
-            units = f'{b["units"]:+.2f}u'
-        else:
-            record, units = "&mdash;", "&mdash;"
-        rows.append(f'<tr><td>{stars_html}</td>'
-                     f'<td class="num">{record}</td><td class="num">{units}</td></tr>')
-    return "".join(rows)
-
-
-def render_history(history):
-    if not history:
-        return '<p class="note">No graded nights yet.</p>'
-    rows = []
-    for h in list(reversed(history))[:6]:
-        try:
-            d = datetime.fromisoformat(h["graded_at"].replace("Z", "+00:00")).strftime("%b %-d")
-        except Exception:
-            d = "?"
-        cls = "win" if h["units"] >= 0 else "loss"
-        rows.append(f'<div class="history-row"><span>{_esc(d)}</span>'
-                     f'<span>{h["w"]}&ndash;{h["l"]}</span>'
-                     f'<span class="{cls}">{h["units"]:+.2f}u</span></div>')
-    return '<div class="history-list">' + "".join(rows) + "</div>"
-
-
-def _day_totals(plays):
-    """Recompute a day's W-L/units straight from the plays' own persisted
-    results -- same win/loss math as grade.py's settle_play/settle_total,
-    but read-only (this just renders, never mutates the ledger)."""
-    w = l = 0
-    units = 0.0
-    for p in plays:
-        res = p.get("result")
-        if not p.get("graded") or not res:
-            continue
-        outcome = res.get("outcome")
-        if outcome == "push" or p.get("cap") == "must_parlay":
-            continue  # push: no units moved; parlay leg: settled manually, not in the unit total
-        if outcome == "win":
-            w += 1
-            units += p.get("to_win", 0.0)
-        elif outcome == "loss":
-            l += 1
-            units -= p.get("risk", 0.0)
-    return w, l, round(units, 2)
-
-
-def render_history_day(date_str, plays):
-    try:
-        label = datetime.strptime(date_str, "%Y-%m-%d").strftime("%A, %B %-d, %Y")
-    except Exception:
-        label = date_str
-    w, l, units = _day_totals(plays)
-    summary = ""
-    if w or l:
-        cls = "win" if units >= 0 else "loss"
-        summary = f'<span class="mono {cls}">{w}&ndash;{l} ({units:+.2f}u)</span>'
-    return f"""
-      <div class="panel" style="margin-top:1.25rem;">
-        <div class="panel-head">
-          <div><div class="eyebrow">{_esc(label)}</div></div>
-          <div class="meta">{summary}</div>
-        </div>
-        {render_play_rows(plays)}
-      </div>"""
-
-
-def build_history_html():
-    """Every day that ever had a card, most recent first -- each play as it
-    was actually logged, graded or still pending. Reads straight off the
-    card_<date>.json / card_totals_<date>.json files already on disk;
-    nothing new to track."""
-    dates = set()
-    for path in glob.glob("card_*.json"):
-        base = path[len("card_"):-len(".json")]
-        d = base[len("totals_"):] if base.startswith("totals_") else base
-        dates.add(d)
-
-    blocks = []
-    for d in sorted(dates, reverse=True):
-        ml = load_json(f"card_{d}.json", {"plays": []}).get("plays", [])
-        tot = load_json(f"card_totals_{d}.json", {"plays": []}).get("plays", [])
-        plays = ml + tot
-        if not plays:
-            continue
-        plays.sort(key=lambda p: p.get("start_utc", ""))
-        blocks.append(render_history_day(d, plays))
-
-    html = HISTORY_TEMPLATE
-    html = html.replace("__STYLE__", STYLE_BLOCK)
-    html = html.replace("__DAYS__", "".join(blocks) if blocks
-                         else '<p class="note">No cards yet.</p>')
-    return html
-
-
-def build_html():
-    date = today()
-    card = load_json(f"card_{date}.json", {"date": date, "plays": []})
-    totals_card = load_json(f"card_totals_{date}.json", {"date": date, "plays": []})
-    ledger = load_json("ledger.json", blank_ledger())
-    plays = card.get("plays", []) + totals_card.get("plays", [])
-    plays.sort(key=lambda p: p.get("start_utc", ""))
-    record = ledger.get("record", {"w": 0, "l": 0})
-    units = ledger.get("mlb_units", 0.0)
-    units_class = "win" if units > 0 else ("loss" if units < 0 else "")
-    snapshot = datetime.now(timezone.utc).strftime("%b %-d, %Y &middot; %H:%M UTC")
-    date_label = datetime.now(timezone.utc).strftime("%A, %B %-d")
-
-    html = TEMPLATE
-    html = html.replace("__STYLE__", STYLE_BLOCK)
-    html = html.replace("__SNAPSHOT_TIME__", snapshot)
-    html = html.replace("__DATE_LABEL__", date_label)
-    html = html.replace("__UNITS__", f"{units:+.2f}u" if units else "0.00u")
-    html = html.replace("__UNITS_CLASS__", units_class)
-    html = html.replace("__RECORD__", f'{record.get("w", 0)}&ndash;{record.get("l", 0)}')
-    html = html.replace("__TODAY_CARD__", render_play_rows(plays))
-    html = html.replace("__TAG_ROWS__", render_tag_rows(ledger.get("by_tag", {})))
-    html = html.replace("__STAR_ROWS__", render_star_rows(ledger.get("by_stars", {})))
-    html = html.replace("__HISTORY__", render_history(ledger.get("history", [])))
-    parlay = ledger.get("parlay_legs", {"w": 0, "l": 0})
-    parlay_note = (f" Cap-rule parlay legs: {parlay['w']}&ndash;{parlay['l']} tracked W&ndash;L only, "
-                    "settled manually." if (parlay.get("w") or parlay.get("l"))
-                    else " Cap-rule parlay legs are tracked W&ndash;L only; you build and settle those by hand, "
-                         "so they never touch the unit total.")
-    html = html.replace("__PARLAY_NOTE__", parlay_note)
-    return html
-
-
-STYLE_BLOCK = r"""
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Card Scanner &mdash; History</title>
+<style>
   @font-face {
     font-family: 'Oswald';
     font-style: normal;
@@ -387,122 +139,7 @@ STYLE_BLOCK = r"""
   footer a { text-decoration: underline; text-underline-offset: 2px; }
   a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
-"""
-
-
-TEMPLATE = r"""<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Card Scanner &mdash; MLB</title>
-<style>__STYLE__</style>
-</head>
-<body>
-<div class="page">
-
-  <div class="scoreboard">
-    <div class="scoreboard-top">
-      <div>
-        <div class="scoreboard-sub">MLB &middot; Unattended Card Scanner</div>
-        <h1 class="wordmark">CARD<span>&nbsp;SCANNER</span></h1>
-      </div>
-      <div class="scoreboard-sub mono" style="text-align:right;">Updated &middot; __SNAPSHOT_TIME__</div>
-    </div>
-    <div class="scoreboard-row">
-      <div class="scoreboard-cell">
-        <div class="label">Model Ledger</div>
-        <div class="value neutral mono __UNITS_CLASS__">__UNITS__</div>
-      </div>
-      <div class="scoreboard-cell">
-        <div class="label">Record</div>
-        <div class="value neutral mono">__RECORD__</div>
-      </div>
-      <div class="scoreboard-cell">
-        <div class="label">Cadence</div>
-        <div class="value neutral mono" style="font-size:1.1rem;">Every&nbsp;2h</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="panel">
-      <div class="panel-head">
-        <div>
-          <div class="eyebrow">Today's Card</div>
-          <h2>__DATE_LABEL__</h2>
-        </div>
-        <div class="meta">scans every 2h<br>window: 4h out</div>
-      </div>
-      __TODAY_CARD__
-      <div class="legend">
-        <span class="pill play">Play</span>
-        <span class="pill review">Review &middot; market conflict</span>
-        <span class="pill pass">Pass</span>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head">
-        <div>
-          <div class="eyebrow">Ledger</div>
-          <h2>Model performance</h2>
-        </div>
-        <div class="meta">graded nightly<br>~04:00&nbsp;ET</div>
-      </div>
-      <div class="ledger-stats">
-        <div class="stat"><div class="label">Units</div><div class="value __UNITS_CLASS__">__UNITS__</div></div>
-        <div class="stat"><div class="label">W&ndash;L</div><div class="value">__RECORD__</div></div>
-      </div>
-      <table class="tagtable">
-        <thead><tr><th>RLM tag</th><th style="text-align:right;">Record</th><th style="text-align:right;">Units</th></tr></thead>
-        <tbody>__TAG_ROWS__</tbody>
-      </table>
-      <div class="eyebrow" style="margin-top:1.1rem;">By Confidence</div>
-      <table class="tagtable">
-        <thead><tr><th>Stars</th><th style="text-align:right;">Record</th><th style="text-align:right;">Units</th></tr></thead>
-        <tbody>__STAR_ROWS__</tbody>
-      </table>
-      <div class="eyebrow" style="margin-top:1.1rem;">Recent Nights</div>
-      __HISTORY__
-      <p class="note">__PARLAY_NOTE__</p>
-    </div>
-  </div>
-
-  <div class="rules">
-    <div class="panel-head" style="margin-bottom: 0.75rem;">
-      <div><div class="eyebrow">How A Play Gets Made</div><h2 style="font-size:1.05rem;">Rules at a glance</h2></div>
-    </div>
-    <div class="rules-grid">
-      <div class="rule-cell"><div class="k">Staking</div><p>Underdog &mdash; risk flat 1u. Favorite to &minus;150 &mdash; risk to win 1u. Favorite harder than &minus;150 &mdash; never a single, must parlay with another heavy fav.</p></div>
-      <div class="rule-cell"><div class="k">Card size</div><p>3&ndash;5 plays on a normal slate. Expands only when genuine edges exist &mdash; never forced to fill a card.</p></div>
-      <div class="rule-cell"><div class="k">Auto-pass</div><p>Coors Field totals, both sides, no exceptions. All-Star, Home Run Derby, and exhibition games.</p></div>
-    </div>
-    <div class="arms">
-      <div class="arms-cell legit"><div class="k">Legit arms &mdash; back the side</div><div class="namelist">Skenes &middot; Wheeler &middot; Sale<br>Woodruff &middot; Ryan &middot; Cease<br>Misiorowski &middot; McClanahan</div></div>
-      <div class="arms-cell mirage"><div class="k">Mirages &mdash; fade the opponent</div><div class="namelist">S. Gray &middot; Wacha<br>E. Rodr&iacute;guez &middot; Arrighetti<br>T. Melton &middot; C. Scott</div></div>
-    </div>
-  </div>
-
-  <footer>
-    <span>Auto-published after every scan and every nightly grade</span>
-    <a href="history.html">Full history &amp; graded picks &rarr;</a>
-    <a href="https://github.com/jjcolahan32/sports-scanner" target="_blank" rel="noopener">github.com/jjcolahan32/sports-scanner</a>
-  </footer>
-
-</div>
-</body>
-</html>
-"""
-
-
-HISTORY_TEMPLATE = r"""<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Card Scanner &mdash; History</title>
-<style>__STYLE__</style>
+</style>
 </head>
 <body>
 <div class="page">
@@ -517,7 +154,182 @@ HISTORY_TEMPLATE = r"""<!doctype html>
     </div>
   </div>
 
-  __DAYS__
+  
+      <div class="panel" style="margin-top:1.25rem;">
+        <div class="panel-head">
+          <div><div class="eyebrow">Saturday, July 18, 2026</div></div>
+          <div class="meta"><span class="mono loss">3&ndash;5 (-2.36u)</span></div>
+        </div>
+        <div class="playlist">
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">Pittsburgh Pirates ML (back J. Jones, dynamic)</span>
+          <span class="odds mono">-114</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;&#9733;</span><span class="star-empty">&#9734;&#9734;</span></div>
+        <div class="stake mono">1:10 PM EST &middot; risk 1.14u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">NEUTRAL</span>
+          
+          <span class="pill play result-chip win">WIN</span>
+        </div>
+      </div>
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">Philadelphia Phillies ML (back J. Luzardo)</span>
+          <span class="odds mono">-168</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;&#9733;&#9733;</span><span class="star-empty">&#9734;</span></div>
+        <div class="stake mono">3:05 PM EST &middot; risk 1.68u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">NEUTRAL</span>
+           <span class="tagchip">cap-rule parlay leg</span>
+          <span class="pill play result-chip win">WIN</span>
+        </div>
+      </div>
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">Chicago White Sox @ Toronto Blue Jays Over 9.5</span>
+          <span class="odds mono">+100</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;&#9733;</span><span class="star-empty">&#9734;&#9734;</span></div>
+        <div class="stake mono">3:07 PM EST &middot; risk 1.0u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">TOTALS</span>
+          
+          <span class="pill pass result-chip loss">LOSS</span>
+        </div>
+      </div>
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">Cincinnati Reds ML (fade T. Sugano)</span>
+          <span class="odds mono">-118</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;&#9733;&#9733;</span><span class="star-empty">&#9734;</span></div>
+        <div class="stake mono">3:10 PM EST &middot; risk 1.18u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">NEUTRAL</span>
+          
+          <span class="pill pass result-chip loss">LOSS</span>
+        </div>
+      </div>
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">Baltimore Orioles ML (fade S. Arrighetti)</span>
+          <span class="odds mono">-108</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;&#9733;&#9733;</span><span class="star-empty">&#9734;</span></div>
+        <div class="stake mono">4:10 PM EST &middot; risk 1.08u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">NEUTRAL</span>
+          
+          <span class="pill play result-chip win">WIN</span>
+        </div>
+      </div>
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">San Diego Padres ML (back G. Canning, dynamic)</span>
+          <span class="odds mono">-110</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;&#9733;</span><span class="star-empty">&#9734;&#9734;</span></div>
+        <div class="stake mono">4:10 PM EST &middot; risk 1.1u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">NEUTRAL</span>
+          
+          <span class="pill pass result-chip loss">LOSS</span>
+        </div>
+      </div>
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">St. Louis Cardinals ML (back D. May, dynamic)</span>
+          <span class="odds mono">-102</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;</span><span class="star-empty">&#9734;&#9734;&#9734;</span></div>
+        <div class="stake mono">4:10 PM EST &middot; risk 1.02u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">NEUTRAL</span>
+          
+          <span class="pill pass result-chip loss">LOSS</span>
+        </div>
+      </div>
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">Tampa Bay Rays ML (back I. Seymour, dynamic)</span>
+          <span class="odds mono">-106</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;</span><span class="star-empty">&#9734;&#9734;&#9734;</span></div>
+        <div class="stake mono">4:10 PM EST &middot; risk 1.06u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">NEUTRAL</span>
+          
+          <span class="pill pass result-chip loss">LOSS</span>
+        </div>
+      </div>
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">Milwaukee Brewers ML (fade M. Meyer, dynamic)</span>
+          <span class="odds mono">-142</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;</span><span class="star-empty">&#9734;&#9734;&#9734;</span></div>
+        <div class="stake mono">4:10 PM EST &middot; risk 1.42u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">NEUTRAL</span>
+          
+          <span class="pill play result-chip win">WIN</span>
+        </div>
+      </div>
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">Pittsburgh Pirates ML (back M. Montgomery, dynamic)</span>
+          <span class="odds mono">-111</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;</span><span class="star-empty">&#9734;&#9734;&#9734;</span></div>
+        <div class="stake mono">7:10 PM EST &middot; risk 1.11u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">NEUTRAL</span>
+          
+          
+        </div>
+      </div>
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">Pittsburgh Pirates @ Cleveland Guardians Under 8.5</span>
+          <span class="odds mono">-112</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;&#9733;</span><span class="star-empty">&#9734;&#9734;</span></div>
+        <div class="stake mono">7:10 PM EST &middot; risk 1.12u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">TOTALS</span>
+          
+          
+        </div>
+      </div>
+      <div class="play-row">
+        <div class="play-row-top">
+          <span class="sel">Washington Nationals @ Athletics Over 11.0</span>
+          <span class="odds mono">-118</span>
+        </div>
+        <div class="stars-line"><span class="star-filled">&#9733;&#9733;&#9733;&#9733;</span><span class="star-empty">&#9734;</span></div>
+        <div class="stake mono">10:05 PM EST &middot; risk 1.18u &middot; win 1.0u</div>
+        <div class="tags">
+          <span class="pill play">PLAY</span>
+          <span class="tagchip">TOTALS</span>
+          
+          
+        </div>
+      </div></div>
+      </div>
 
   <footer>
     <span>Every graded pick, every night &mdash; auto-published after each nightly grade</span>
@@ -527,19 +339,3 @@ HISTORY_TEMPLATE = r"""<!doctype html>
 </div>
 </body>
 </html>
-"""
-
-
-def main():
-    os.makedirs(OUT_DIR, exist_ok=True)
-    with open(OUT_PATH, "w") as f:
-        f.write(build_html())
-    print(f"Wrote {OUT_PATH}")
-    history_path = os.path.join(OUT_DIR, "history.html")
-    with open(history_path, "w") as f:
-        f.write(build_history_html())
-    print(f"Wrote {history_path}")
-
-
-if __name__ == "__main__":
-    main()

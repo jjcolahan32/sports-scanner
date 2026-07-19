@@ -26,14 +26,20 @@ import fetch_mlb, notify, discord_notify
 
 LEDGER_FILE = os.environ.get("LEDGER_FILE", "ledger.json")
 
-# Checkpoints in US Eastern time (DST-aware) -- 6pm/8pm/10pm/12am/2am/4am ET,
-# every 2h, so a card finalizes at or before the last two checks after any
-# given game goes Final (extra innings/rain delays included). Only enforced
-# on scheduled (cron) runs; manual dispatch and local runs always proceed.
-# Cron fires hourly (see grade.yml) and this decides, in Python, whether to
-# actually do anything -- avoids hardcoding UTC times that would silently
-# drift by an hour each time DST changes.
-GRADE_HOURS_ET = {18, 20, 22, 0, 2, 4}
+# Broad grading window in US Eastern time (DST-aware): 6pm-4am ET, roughly
+# every 2h within it. Only enforced on scheduled (cron) runs; manual
+# dispatch and local runs always proceed.
+#
+# Not gated on an exact-hour match anymore. GitHub's `schedule:` trigger is
+# documented as best-effort, and in practice here it dropped the large
+# majority of its hourly ticks -- overnight on 2026-07-18 zero of the
+# 6pm-4am checkpoints actually fired. Fixed the same way as scan.py's
+# market_hours_open(): stay inside the broad window and fire on whichever
+# tick actually lands, throttled to roughly once every MIN_GAP_MINUTES by a
+# persisted last-run timestamp, so a dropped tick just delays to the next
+# one that lands instead of silently losing that entire checkpoint.
+LAST_RUN_FILE = os.environ.get("GRADE_LAST_RUN_FILE", "last_grade.json")
+MIN_GAP_MINUTES = 100
 
 
 def grade_hours_open(now_utc=None):
@@ -42,7 +48,22 @@ def grade_hours_open(now_utc=None):
     from zoneinfo import ZoneInfo
     now_utc = now_utc or datetime.now(timezone.utc)
     et_hour = now_utc.astimezone(ZoneInfo("America/New_York")).hour
-    return et_hour in GRADE_HOURS_ET
+    if not (et_hour >= 18 or et_hour <= 4):
+        return False
+    last = load_json(LAST_RUN_FILE, {}).get("at")
+    if last:
+        try:
+            last_dt = datetime.fromisoformat(last)
+            if (now_utc - last_dt).total_seconds() < MIN_GAP_MINUTES * 60:
+                return False
+        except Exception:
+            pass
+    return True
+
+
+def record_run(now_utc=None):
+    now_utc = now_utc or datetime.now(timezone.utc)
+    save_json(LAST_RUN_FILE, {"at": now_utc.isoformat()})
 
 
 def _date_of(start_utc):
@@ -244,6 +265,7 @@ def main():
     if not grade_hours_open():
         print("Outside grading hours (6pm-4am ET) — skipping, no API calls made.")
         return
+    record_run()
 
     ledger, day = grade_all()
     if not day["lines"]:
@@ -279,10 +301,16 @@ def main():
     # Discord only gets a recap of plays whose PLAY alert actually reached
     # Discord (see discord_notify.record_sent) -- not the full day's card,
     # so it never reports a settled result for a pick Discord never saw fire.
+    #
+    # Grading can optionally post to a separate Discord channel/webhook from
+    # picks (DISCORD_GRADING_WEBHOOK_URL) -- set that secret once you're
+    # ready to split "picks" and "grading" into their own channels; until
+    # then it's unset and this falls back to the same webhook as picks.
     if day["discord_lines"]:
         discord_title = (f"📊 Day graded: {day['discord_w']}-{day['discord_l']} "
                          f"({day['discord_units']:+.2f}u)")
-        discord_notify.push(discord_title, "\n".join(day["discord_lines"]))
+        grading_webhook = os.environ.get("DISCORD_GRADING_WEBHOOK_URL") or None
+        discord_notify.push(discord_title, "\n".join(day["discord_lines"]), webhook_url=grading_webhook)
 
     print("Graded:\n" + body)
 

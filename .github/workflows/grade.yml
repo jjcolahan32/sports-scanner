@@ -31,6 +31,10 @@ jobs:
         env:
           NTFY_TOPIC:         ${{ secrets.NTFY_TOPIC }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          # Optional: set this secret once you want grading recaps split
+          # into their own Discord channel, separate from picks. Unset ->
+          # falls back to DISCORD_WEBHOOK_URL automatically, no code change.
+          DISCORD_GRADING_WEBHOOK_URL: ${{ secrets.DISCORD_GRADING_WEBHOOK_URL }}
         run: python grade.py
       - name: Render dashboard
         run: python render_dashboard.py
@@ -38,7 +42,7 @@ jobs:
         run: |
           git config user.name  "nightly-grader"
           git config user.email "bot@users.noreply.github.com"
-          git add card_*.json ledger.json docs/index.html || true
+          git add card_*.json ledger.json last_grade.json docs/index.html docs/history.html || true
           git commit -m "grade: $(date -u +%F)" || echo "no change"
           # Retry with rebase on push rejection -- another job (or a manual
           # push) landing first must never cause this run's data to be
