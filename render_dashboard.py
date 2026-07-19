@@ -226,8 +226,16 @@ def build_html():
     ledger = load_json("ledger.json", blank_ledger())
     plays = card.get("plays", []) + totals_card.get("plays", [])
     plays.sort(key=lambda p: p.get("start_utc", ""))
-    record = ledger.get("record", {"w": 0, "l": 0})
-    units = ledger.get("mlb_units", 0.0)
+    # Headline scoreboard combines moneyline + totals -- "Recent Nights" and
+    # "By Confidence" below both already blend the two markets per grading
+    # run, so a moneyline-only headline record would never add up to match
+    # them (e.g. a totals-only win night would move Recent Nights but leave
+    # the headline record looking unchanged).
+    ml_record = ledger.get("record", {"w": 0, "l": 0})
+    totals_record = ledger.get("totals_record", {"w": 0, "l": 0, "push": 0})
+    record = {"w": ml_record.get("w", 0) + totals_record.get("w", 0),
+              "l": ml_record.get("l", 0) + totals_record.get("l", 0)}
+    units = ledger.get("mlb_units", 0.0) + ledger.get("totals_units", 0.0)
     units_class = "win" if units > 0 else ("loss" if units < 0 else "")
     snapshot = datetime.now(timezone.utc).strftime("%b %-d, %Y &middot; %H:%M UTC")
     date_label = datetime.now(timezone.utc).strftime("%A, %B %-d")
