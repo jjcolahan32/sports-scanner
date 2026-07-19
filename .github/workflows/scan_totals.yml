@@ -5,9 +5,14 @@ name: totals-scanner
 # each market = 360/month combined, comfortably under the 500 free cap).
 # Firing hourly in UTC and gating in Python means the schedule survives DST
 # changes automatically. Manual dispatch always runs regardless of the hour.
+#
+# Runs at :17 past the hour (staggered from card-scanner's :07 and
+# nightly-grader's :27) -- avoids the top-of-hour GitHub Actions scheduling
+# congestion (see card-scanner's scan.yml comment) and keeps our own three
+# workflows from landing in the same minute.
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "17 * * * *"
   workflow_dispatch: {}
 
 permissions:

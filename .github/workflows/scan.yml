@@ -5,9 +5,15 @@ name: card-scanner
 # gating in Python means the intended ET schedule survives DST changes
 # automatically; a fixed UTC cron would silently drift by an hour each time
 # clocks change. Manual dispatch always runs regardless of the hour.
+#
+# Runs at :07 past the hour, not :00 -- GitHub's own docs warn that the top
+# of the hour is the most congested scheduling window across all of GitHub
+# Actions and scheduled runs there are prone to being delayed or dropped
+# entirely. Confirmed happening here: with "0 * * * *" this workflow only
+# actually fired a small fraction of its expected hourly ticks.
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "7 * * * *"
   workflow_dispatch: {}          # lets you trigger a manual run from the Actions tab
 
 permissions:
