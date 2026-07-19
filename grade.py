@@ -87,6 +87,8 @@ def blank_ledger():
             "totals_units": 0.0,                       # separate P&L for over/under plays
             "totals_record": {"w": 0, "l": 0, "push": 0},
             "parlay_legs": {"w": 0, "l": 0},            # info only
+            "discord_units": 0.0,                       # running total for Discord-tracked plays only
+            "discord_record": {"w": 0, "l": 0, "push": 0},  # (both markets combined, cumulative across nights)
             "history": []}                              # per-day rows
 
 
@@ -196,6 +198,8 @@ def grade_moneylines(ledger, results_cache, day, discord_sent):
                 if is_discord:
                     day["discord_w" if outcome == "win" else "discord_l"] += 1
                     day["discord_units"] = round(day["discord_units"] + delta, 2)
+                    ledger["discord_units"] = round(ledger["discord_units"] + delta, 2)
+                    ledger["discord_record"]["w" if outcome == "win" else "l"] += 1
             line = (f"{'✅' if outcome=='win' else '❌'} {play['selection']} "
                    f"{play['odds']:+d} [{tag}] {'★'*stars} {mark}")
             day["lines"].append(line)
@@ -231,6 +235,8 @@ def grade_totals(ledger, results_cache, day, discord_sent):
             stars = play.get("stars", 3)
             if outcome == "push":
                 ledger["totals_record"]["push"] += 1
+                if is_discord:
+                    ledger["discord_record"]["push"] += 1
                 line = f"➖ {play['selection']} push"
                 day["lines"].append(line)
                 if is_discord:
@@ -246,6 +252,8 @@ def grade_totals(ledger, results_cache, day, discord_sent):
                 if is_discord:
                     day["discord_w" if outcome == "win" else "discord_l"] += 1
                     day["discord_units"] = round(day["discord_units"] + delta, 2)
+                    ledger["discord_units"] = round(ledger["discord_units"] + delta, 2)
+                    ledger["discord_record"]["w" if outcome == "win" else "l"] += 1
                 line = (f"{'✅' if outcome=='win' else '❌'} {play['selection']} "
                        f"{play['odds']:+d} [TOTALS] {'★'*stars} {delta:+.2f}u")
                 day["lines"].append(line)
@@ -314,8 +322,12 @@ def main():
     if day["discord_lines"]:
         discord_title = (f"📊 Day graded: {day['discord_w']}-{day['discord_l']} "
                          f"({day['discord_units']:+.2f}u)")
+        dr = ledger["discord_record"]
+        running = f"{dr['w']}-{dr['l']}" + (f", {dr['push']} push" if dr.get("push") else "")
+        discord_body = ("\n".join(day["discord_lines"])
+                         + f"\n\nRunning record: {running} ({ledger['discord_units']:+.2f}u)")
         grading_webhook = os.environ.get("DISCORD_GRADING_WEBHOOK_URL") or None
-        discord_notify.push(discord_title, "\n".join(day["discord_lines"]), webhook_url=grading_webhook)
+        discord_notify.push(discord_title, discord_body, webhook_url=grading_webhook)
 
     print("Graded:\n" + body)
 

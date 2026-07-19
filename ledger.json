@@ -58,5 +58,11 @@
       "l": 0,
       "units": 1.0
     }
-  ]
+  ],
+  "discord_units": 0.89,
+  "discord_record": {
+    "w": 2,
+    "l": 1,
+    "push": 0
+  }
 }
