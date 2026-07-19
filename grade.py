@@ -66,10 +66,6 @@ def record_run(now_utc=None):
     save_json(LAST_RUN_FILE, {"at": now_utc.isoformat()})
 
 
-def _date_of(start_utc):
-    return start_utc.replace("Z", "+00:00")[:10]
-
-
 def load_json(path, default):
     try:
         with open(path) as f:
@@ -138,11 +134,18 @@ def settle_total(play, res):
     return ("win" if won else "loss"), (play["to_win"] if won else -play["risk"])
 
 
-def _get_result(results_cache, play):
-    d = _date_of(play["start_utc"])
-    if d not in results_cache:
-        results_cache[d] = fetch_mlb.results_for_date(d)
-    res = results_cache[d].get(play["game_pk"])
+def _get_result(results_cache, card_date, play):
+    """card_date -- not the play's own start_utc -- is what MLB's schedule
+    API actually indexes this game under. A game starting at, say, 10pm ET
+    is already past midnight UTC, so start_utc's calendar date is one day
+    ahead of the date todays_games() queried when this play was originally
+    found and logged; querying that derived date silently never finds the
+    game, so the play never grades. card_date (the date baked into the
+    card_<date>.json filename) is guaranteed to match, since it's the exact
+    date todays_games() was called with in the first place."""
+    if card_date not in results_cache:
+        results_cache[card_date] = fetch_mlb.results_for_date(card_date)
+    res = results_cache[card_date].get(play["game_pk"])
     return res if res and res.get("status") == "Final" else None
 
 
@@ -152,6 +155,7 @@ def _bucket(store, key):
 
 def grade_moneylines(ledger, results_cache, day, discord_sent):
     for path in sorted(p for p in glob.glob("card_*.json") if "totals" not in p):
+        card_date = path[len("card_"):-len(".json")]
         card = load_json(path, None)
         if not card:
             continue
@@ -159,7 +163,7 @@ def grade_moneylines(ledger, results_cache, day, discord_sent):
         for play in card["plays"]:
             if play.get("graded"):
                 continue
-            res = _get_result(results_cache, play)
+            res = _get_result(results_cache, card_date, play)
             if not res:
                 continue
 
@@ -203,6 +207,7 @@ def grade_moneylines(ledger, results_cache, day, discord_sent):
 
 def grade_totals(ledger, results_cache, day, discord_sent):
     for path in sorted(glob.glob("card_totals_*.json")):
+        card_date = path[len("card_totals_"):-len(".json")]
         card = load_json(path, None)
         if not card:
             continue
@@ -210,7 +215,7 @@ def grade_totals(ledger, results_cache, day, discord_sent):
         for play in card["plays"]:
             if play.get("graded"):
                 continue
-            res = _get_result(results_cache, play)
+            res = _get_result(results_cache, card_date, play)
             if not res:
                 continue
 
