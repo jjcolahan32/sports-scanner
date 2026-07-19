@@ -1,1 +1,132 @@
-{"date": "2026-07-19", "plays": [{"game_pk": 824330, "start_utc": "2026-07-19T19:10:00Z", "bet_team": "Cincinnati Reds", "bet_side": "away", "selection": "Cincinnati Reds ML (back H. Greene, dynamic)", "odds": -164, "risk": 1.64, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 824978, "start_utc": "2026-07-19T20:05:00Z", "bet_team": "Athletics", "bet_side": "home", "selection": "Athletics ML (fade F. Griffin, dynamic)", "odds": 124, "risk": 1.0, "to_win": 1.24, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824978, "start_utc": "2026-07-19T20:05:00Z", "bet_team": "Athletics", "bet_side": "home", "selection": "Athletics ML (back J. Lopez, dynamic)", "odds": 124, "risk": 1.0, "to_win": 1.24, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823113, "start_utc": "2026-07-19T20:10:00Z", "bet_team": "Seattle Mariners", "bet_side": "home", "selection": "Seattle Mariners ML (fade R. Ray, dynamic)", "odds": -196, "risk": 1.96, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 825057, "start_utc": "2026-07-19T20:10:00Z", "bet_team": "St. Louis Cardinals", "bet_side": "away", "selection": "St. Louis Cardinals ML (fade E. Rodriguez)", "odds": 108, "risk": 1.0, "to_win": 1.08, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823521, "start_utc": "2026-07-19T23:20:00Z", "bet_team": "New York Yankees", "bet_side": "home", "selection": "New York Yankees ML (fade W. Klein, dynamic)", "odds": 114, "risk": 1.0, "to_win": 1.14, "cap": "dog", "verdict": "PLAY", "rlm_tag": "STEAM-FOR", "stars": 3, "graded": false, "result": null}, {"game_pk": 823521, "start_utc": "2026-07-19T23:20:00Z", "bet_team": "New York Yankees", "bet_side": "home", "selection": "New York Yankees ML (back R. Yarbrough, dynamic)", "odds": 114, "risk": 1.0, "to_win": 1.14, "cap": "dog", "verdict": "PLAY", "rlm_tag": "STEAM-FOR", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-07-19",
+  "plays": [
+    {
+      "game_pk": 824330,
+      "start_utc": "2026-07-19T19:10:00Z",
+      "bet_team": "Cincinnati Reds",
+      "bet_side": "away",
+      "selection": "Cincinnati Reds ML (back H. Greene, dynamic)",
+      "odds": -164,
+      "risk": 1.64,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Cincinnati Reds 9\u20136 Colorado Rockies"
+      }
+    },
+    {
+      "game_pk": 824978,
+      "start_utc": "2026-07-19T20:05:00Z",
+      "bet_team": "Athletics",
+      "bet_side": "home",
+      "selection": "Athletics ML (fade F. Griffin, dynamic)",
+      "odds": 124,
+      "risk": 1.0,
+      "to_win": 1.24,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Washington Nationals 5\u20132 Athletics"
+      }
+    },
+    {
+      "game_pk": 824978,
+      "start_utc": "2026-07-19T20:05:00Z",
+      "bet_team": "Athletics",
+      "bet_side": "home",
+      "selection": "Athletics ML (back J. Lopez, dynamic)",
+      "odds": 124,
+      "risk": 1.0,
+      "to_win": 1.24,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Washington Nationals 5\u20132 Athletics"
+      }
+    },
+    {
+      "game_pk": 823113,
+      "start_utc": "2026-07-19T20:10:00Z",
+      "bet_team": "Seattle Mariners",
+      "bet_side": "home",
+      "selection": "Seattle Mariners ML (fade R. Ray, dynamic)",
+      "odds": -196,
+      "risk": 1.96,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "San Francisco Giants 3\u20136 Seattle Mariners"
+      }
+    },
+    {
+      "game_pk": 825057,
+      "start_utc": "2026-07-19T20:10:00Z",
+      "bet_team": "St. Louis Cardinals",
+      "bet_side": "away",
+      "selection": "St. Louis Cardinals ML (fade E. Rodriguez)",
+      "odds": 108,
+      "risk": 1.0,
+      "to_win": 1.08,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "St. Louis Cardinals 7\u20138 Arizona Diamondbacks"
+      }
+    },
+    {
+      "game_pk": 823521,
+      "start_utc": "2026-07-19T23:20:00Z",
+      "bet_team": "New York Yankees",
+      "bet_side": "home",
+      "selection": "New York Yankees ML (fade W. Klein, dynamic)",
+      "odds": 114,
+      "risk": 1.0,
+      "to_win": 1.14,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "STEAM-FOR",
+      "stars": 3,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 823521,
+      "start_utc": "2026-07-19T23:20:00Z",
+      "bet_team": "New York Yankees",
+      "bet_side": "home",
+      "selection": "New York Yankees ML (back R. Yarbrough, dynamic)",
+      "odds": 114,
+      "risk": 1.0,
+      "to_win": 1.14,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "STEAM-FOR",
+      "stars": 3,
+      "graded": false,
+      "result": null
+    }
+  ]
+}
