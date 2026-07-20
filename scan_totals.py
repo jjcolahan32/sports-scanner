@@ -147,21 +147,25 @@ def main():
         print("No new qualifying totals plays this scan.")
         return
 
-    lines = []
+    lines, discord_lines = [], []
     for row, m in fresh:
-        lines.append(f"PLAY: {row['sel']} {row['odds']:+d} "
-                     f"(risk {row['risk']}u/win {row['to_win']}u)  {_star_str(row['stars'])}\n"
-                     f"   {row['reason']}")
+        pick = (f"PLAY: {row['sel']} {row['odds']:+d} "
+                f"(risk {row['risk']}u/win {row['to_win']}u)  {_star_str(row['stars'])}")
+        reason = row['reason']
+        lines.append(f"{pick}\n   {reason}")
+        discord_lines.append(f"**{pick}**\n{reason}")
         sent.add(str(m["game_pk"]))
     if len(must_parlay) >= 2:
-        lines.append("Cap rule: parlay the -150+ favs together.")
+        tail = "Cap rule: parlay the -150+ favs together."
+        lines.append(tail); discord_lines.append(tail)
     elif len(must_parlay) == 1:
-        lines.append("Lone -150+ fav — parlay or log override.")
+        tail = "Lone -150+ fav — parlay or log override."
+        lines.append(tail); discord_lines.append(tail)
 
     body = "\n".join(lines)
     title = f"MLB totals: {len(fresh)} play(s)"
     notify.push(title, body, tag="chart")
-    if discord_notify.push(title, body):
+    if discord_notify.push(title, "\n".join(discord_lines)):
         discord_notify.record_sent(str(m["game_pk"]) for _, m in fresh)
     log_totals_card(fresh)
     save_state(sent)

@@ -134,6 +134,13 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
     checked against Baseball Savant's ERA-xERA gap (fetch_savant.py) — a big
     enough gap either way surfaces as its own "dynamic" candidate, tagged
     separately in the notification so you can see which signal fired it.
+
+    When two independent reasons land on the SAME side of the same game
+    (e.g. the home pitcher is a legit arm to back AND the away pitcher is a
+    mirage to fade -- both mean "bet home"), that's conviction, not two
+    plays: merged into one row sized at conviction units instead of firing
+    twice. Only genuinely opposing sides (the model disagreeing with
+    itself) still get skipped as a conflict.
     """
     opens = opens or {}
     public = public or {}
@@ -146,31 +153,22 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
         entries = odds.get((fetch_odds._norm(g["away"]), fetch_odds._norm(g["home"])), [])
         o = fetch_odds.closest(entries, g["start_utc"]) or {}
         vetted_sides = set()
-        candidates = []  # (bet_side, row, meta) -- collected before committing, so a
-                          # same-game conflict (both sides flagged) can be caught first
+        candidates = []  # dicts: bet_side, bet_team, note, pitcher, dyn -- collected
+                          # before committing, so same-side conviction merges and
+                          # opposing-side conflicts can both be resolved first
 
         for side, pk, team in qualifying_pitchers(g):
             vetted_sides.add(side)
             opp_side = "home" if side == "away" else "away"
             if _is_mirage(pk):                      # fade -> opponent
-                bet_side, bet_team = opp_side, g[opp_side]
-                note = f"(fade {_fmt(pk)})"
+                bet_side, bet_team, note = opp_side, g[opp_side], f"fade {_fmt(pk)}"
             else:                                   # back -> his team
-                bet_side, bet_team = side, team
-                note = f"(back {_fmt(pk)})"
+                bet_side, bet_team, note = side, team, f"back {_fmt(pk)}"
             ml = o.get(f"{bet_side}_ml")
             if ml is None:
                 continue
-            open_ml = opens.get(key, {}).get(f"{bet_side}_ml", ml)   # fall back to current
-            pub = (public.get(str(g["game_pk"])) or {}).get(bet_side)  # optional
-            row = {"sport": "mlb", "selection": f"{bet_team} ML {note}",
-                   "pitcher": _fmt(pk), "odds": ml, "market": "ml",
-                   "venue": "coors" if "Coors" in g["venue"] else g["venue"]}
-            m = {"game_pk": g["game_pk"], "selection": f"{bet_team} ML",
-                 "bet_side": bet_side, "bet_team": bet_team,
-                 "start_utc": g["start_utc"],
-                 "open_ml": open_ml, "cur_ml": ml, "public_pct": pub}
-            candidates.append((bet_side, row, m))
+            candidates.append({"bet_side": bet_side, "bet_team": bet_team, "note": note,
+                               "pitcher": _fmt(pk), "ml": ml, "dyn": None})
 
         for side, pk, team in (("away", g.get("away_prob"), g.get("away")),
                                ("home", g.get("home_prob"), g.get("home"))):
@@ -181,38 +179,50 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
                 continue
             opp_side = "home" if side == "away" else "away"
             if stat["gap"] <= -DYNAMIC_GAP:          # mirage -> fade
-                bet_side, bet_team = opp_side, g[opp_side]
-                note = f"(fade {_fmt(pk)}, dynamic)"
+                bet_side, bet_team, note = opp_side, g[opp_side], f"fade {_fmt(pk)}, dynamic"
             else:                                    # reverse-mirage -> back
-                bet_side, bet_team = side, team
-                note = f"(back {_fmt(pk)}, dynamic)"
+                bet_side, bet_team, note = side, team, f"back {_fmt(pk)}, dynamic"
             ml = o.get(f"{bet_side}_ml")
             if ml is None:
                 continue
-            open_ml = opens.get(key, {}).get(f"{bet_side}_ml", ml)
-            pub = (public.get(str(g["game_pk"])) or {}).get(bet_side)
-            row = {"sport": "mlb", "selection": f"{bet_team} ML {note}",
-                   "pitcher": _fmt(pk), "odds": ml, "market": "ml",
-                   "venue": "coors" if "Coors" in g["venue"] else g["venue"],
-                   "dyn_gap": stat["gap"], "dyn_era": stat["era"], "dyn_xera": stat["xera"]}
-            m = {"game_pk": g["game_pk"], "selection": f"{bet_team} ML",
-                 "bet_side": bet_side, "bet_team": bet_team,
-                 "start_utc": g["start_utc"],
-                 "open_ml": open_ml, "cur_ml": ml, "public_pct": pub}
-            candidates.append((bet_side, row, m))
+            candidates.append({"bet_side": bet_side, "bet_team": bet_team, "note": note,
+                               "pitcher": _fmt(pk), "ml": ml, "dyn": stat})
 
-        sides = {c[0] for c in candidates}
+        if not candidates:
+            continue
+
+        sides = {c["bet_side"] for c in candidates}
         if len(sides) > 1:
             # Both sides of the same game flagged -- the model disagrees with
             # itself, which is not a clean edge. Never fire two plays betting
             # against each other; pass the whole game instead of guessing.
-            picks = ", ".join(c[1]["selection"] for c in candidates)
+            picks = ", ".join(f'{c["bet_team"]} ({c["note"]})' for c in candidates)
             print(f"Skipping game_pk {g['game_pk']} ({g['away']} @ {g['home']}): "
                   f"conflicting signals on both sides ({picks}) -- no clean edge, passing.")
             continue
-        for _, row, m in candidates:
-            rows.append(row)
-            meta.append(m)
+
+        primary, extras = candidates[0], candidates[1:]
+        bet_side, bet_team, ml = primary["bet_side"], primary["bet_team"], primary["ml"]
+        conviction = len(candidates)
+        notes = "; ".join(c["note"] for c in candidates)
+
+        open_ml = opens.get(key, {}).get(f"{bet_side}_ml", ml)   # fall back to current
+        pub = (public.get(str(g["game_pk"])) or {}).get(bet_side)  # optional
+        row = {"sport": "mlb", "selection": f"{bet_team} ML ({notes})",
+               "pitcher": primary["pitcher"], "odds": ml, "market": "ml",
+               "venue": "coors" if "Coors" in g["venue"] else g["venue"],
+               "conviction": conviction, "extra_notes": [e["note"] for e in extras]}
+        if primary["dyn"]:
+            row["dyn_gap"] = primary["dyn"]["gap"]
+            row["dyn_era"] = primary["dyn"]["era"]
+            row["dyn_xera"] = primary["dyn"]["xera"]
+        m = {"game_pk": g["game_pk"], "selection": f"{bet_team} ML",
+             "bet_side": bet_side, "bet_team": bet_team,
+             "start_utc": g["start_utc"],
+             "open_ml": open_ml, "cur_ml": ml, "public_pct": pub,
+             "conviction": conviction}
+        rows.append(row)
+        meta.append(m)
     return rows, meta
 
 
@@ -234,6 +244,23 @@ def _fmt(full):
     """'Aaron Nola' -> 'A. Nola' to match list style; leave single-token names alone."""
     parts = full.split()
     return f"{parts[0][0]}. {parts[-1]}" if len(parts) >= 2 else full
+
+
+def apply_conviction(slate, graded):
+    """Multiply risk/to_win by conviction (see build_slate's same-side
+    merge) and note the extra reason(s) so the notification explains why
+    it's sized above 1 unit. Keeps model.py's staking math untouched --
+    this only scales the 1-unit result it already returned."""
+    for p, row in zip(slate, graded):
+        conviction = p.get("conviction", 1)
+        if row["verdict"] != "PLAY" or conviction <= 1:
+            continue
+        row["risk"] = round(row["risk"] * conviction, 2)
+        row["to_win"] = round(row["to_win"] * conviction, 2)
+        extra = p.get("extra_notes") or []
+        if extra:
+            row["reason"] += f"  ({conviction}x conviction — also: {'; '.join(extra)})"
+    return graded
 
 
 def apply_rlm(graded, meta):
@@ -265,6 +292,21 @@ def attach_stars(slate, graded):
 def _star_str(n):
     n = max(1, min(5, n or 3))
     return "★" * n + "☆" * (5 - n)
+
+
+def _pick_and_reason(row):
+    """Split a graded row into (pick line, reason line) so callers can
+    format each notification channel differently -- e.g. Discord bolds
+    just the pick, ntfy stays plain text for both."""
+    flag = "🔎REVIEW" if row["verdict"] == "REVIEW" else "PLAY"
+    tag = ""
+    if row.get("rlm"):
+        tag = f"  [{row['rlm']['tag']} {row['rlm']['detail']}]"
+    note = f"  {row.get('rlm_note','')}" if row.get("rlm_note") else ""
+    pick = (f"{flag}: {row['sel']} {row['odds']:+d} "
+            f"(risk {row['risk']}u/win {row['to_win']}u){tag}  {_star_str(row.get('stars'))}")
+    reason = f"{row['reason']}{note}"
+    return pick, reason
 
 
 def new_plays(graded, meta, sent):
@@ -330,6 +372,7 @@ def main():
 
     slate, meta = build_slate(games, odds, opens["lines"], public, savant_stats=savant_stats)
     graded, must_parlay = run(slate)
+    graded = apply_conviction(slate, graded)                      # merge same-side conviction picks
     graded = apply_rlm(graded, meta)                              # market overlay
     graded = attach_stars(slate, graded)                          # 1-5 confidence rating
     sent = load_state()
@@ -339,26 +382,23 @@ def main():
         print("No new qualifying plays this scan.")
         return
 
-    lines = []
+    lines, discord_lines = [], []
     for row, m in fresh:
-        flag = "🔎REVIEW" if row["verdict"] == "REVIEW" else "PLAY"
-        tag = ""
-        if row.get("rlm"):
-            tag = f"  [{row['rlm']['tag']} {row['rlm']['detail']}]"
-        note = f"  {row.get('rlm_note','')}" if row.get("rlm_note") else ""
-        lines.append(f"{flag}: {row['sel']} {row['odds']:+d} "
-                     f"(risk {row['risk']}u/win {row['to_win']}u){tag}  {_star_str(row.get('stars'))}\n"
-                     f"   {row['reason']}{note}")
+        pick, reason = _pick_and_reason(row)
+        lines.append(f"{pick}\n   {reason}")
+        discord_lines.append(f"**{pick}**\n{reason}")
         sent.add(str(m["game_pk"]))
     if len(must_parlay) >= 2:
-        lines.append("🔗 Cap rule: parlay the -150+ favs together.")
+        tail = "🔗 Cap rule: parlay the -150+ favs together."
+        lines.append(tail); discord_lines.append(tail)
     elif len(must_parlay) == 1:
-        lines.append("⚠️ Lone -150+ fav — parlay or log override.")
+        tail = "⚠️ Lone -150+ fav — parlay or log override."
+        lines.append(tail); discord_lines.append(tail)
 
     body = "\n".join(lines)
     title = f"⚾ {len(fresh)} play(s) — starts within {int(LEAD_HOURS)}h"
     notify.push(title, body)
-    if discord_notify.push(title, body):
+    if discord_notify.push(title, "\n".join(discord_lines)):
         discord_notify.record_sent(str(m["game_pk"]) for _, m in fresh)
     log_card(fresh)
     save_state(sent)
