@@ -1,0 +1,24 @@
+{
+  "date": "2026-07-19",
+  "plays": [
+    {
+      "game_pk": 824897,
+      "start_utc": "2026-07-19T17:35:00Z",
+      "home": "Atlanta Braves",
+      "away": "Texas Rangers",
+      "side": "Over",
+      "home_prob": "Grant Holmes",
+      "away_prob": "Nathan Eovaldi",
+      "selection": "Texas Rangers @ Atlanta Braves Over 8.5",
+      "total": 8.5,
+      "odds": -122,
+      "risk": 1.22,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": false,
+      "result": null
+    }
+  ]
+}

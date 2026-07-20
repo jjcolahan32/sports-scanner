@@ -16,11 +16,8 @@
       "to_win": 1.0,
       "cap": "dog",
       "verdict": "PLAY",
-      "graded": true,
-      "result": {
-        "outcome": "loss",
-        "score": "Chicago White Sox 0\u20131 Toronto Blue Jays"
-      },
+      "graded": false,
+      "result": null,
       "stars": 3
     },
     {
@@ -38,11 +35,8 @@
       "to_win": 1.0,
       "cap": "single_ok",
       "verdict": "PLAY",
-      "graded": true,
-      "result": {
-        "outcome": "win",
-        "score": "Washington Nationals 1\u201315 Athletics"
-      },
+      "graded": false,
+      "result": null,
       "stars": 4
     },
     {
@@ -60,11 +54,8 @@
       "to_win": 1.0,
       "cap": "single_ok",
       "verdict": "PLAY",
-      "graded": true,
-      "result": {
-        "outcome": "win",
-        "score": "Pittsburgh Pirates 3\u20135 Cleveland Guardians"
-      },
+      "graded": false,
+      "result": null,
       "stars": 3
     }
   ]
