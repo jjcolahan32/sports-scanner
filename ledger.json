@@ -1,15 +1,15 @@
 {
-  "mlb_units": -2.47,
+  "mlb_units": -1.47,
   "record": {
-    "w": 3,
+    "w": 4,
     "l": 5,
     "push": 0
   },
   "by_tag": {
     "NEUTRAL": {
-      "w": 3,
+      "w": 4,
       "l": 5,
-      "units": -2.47
+      "units": -1.47
     }
   },
   "by_stars": {
@@ -19,9 +19,9 @@
       "units": -0.1
     },
     "4": {
-      "w": 2,
+      "w": 3,
       "l": 1,
-      "units": 0.82
+      "units": 1.82
     },
     "2": {
       "w": 1,
@@ -57,6 +57,13 @@
       "w": 1,
       "l": 0,
       "units": 1.0
+    },
+    {
+      "graded_at": "2026-07-20T11:39:46.247669+00:00",
+      "w": 1,
+      "l": 0,
+      "units": 1.0,
+      "note": "correction: cap-rule play now counted as a normal pick (was previously excluded from units)"
     }
   ],
   "discord_units": 0.89,

@@ -13,9 +13,10 @@ and pushes the day's summary to your phone.
 Notes / honesty:
   - This grades the MODEL's recommended straight singles. It is a model-performance
     ledger, separate from your manual play610 unit ledger.
-  - Cap-rule parlay legs (odds harder than -150) are settled for W/L info only and
-    are NOT added to the unit total — you build those parlays manually, so their real
-    payout depends on how you combined them. They're reported under "settle manually".
+  - Cap-rule plays (odds harder than -150, meant to be parlayed together rather
+    than played straight) count fully in the normal record/units like any other
+    pick, AND are separately tallied under parlay_legs -- so you can see both
+    "how did everything grade" and "how the parlay pieces specifically did."
   - REVIEW plays (market opposed) are graded and bucketed by their tag, so you can see
     how the "market said pass" spots actually turned out.
 """
@@ -27,19 +28,22 @@ import fetch_mlb, notify, discord_notify
 LEDGER_FILE = os.environ.get("LEDGER_FILE", "ledger.json")
 
 # Broad grading window in US Eastern time (DST-aware): 6pm-4am ET, roughly
-# every 2h within it. Only enforced on scheduled (cron) runs; manual
-# dispatch and local runs always proceed.
+# every 2h within it, PLUS a standalone 7am ET catch-up checkpoint the
+# following morning for anything still ungraded overnight (a game running
+# long, a late tick never landing, etc). Only enforced on scheduled (cron)
+# runs; manual dispatch and local runs always proceed.
 #
 # Not gated on an exact-hour match anymore. GitHub's `schedule:` trigger is
 # documented as best-effort, and in practice here it dropped the large
 # majority of its hourly ticks -- overnight on 2026-07-18 zero of the
 # 6pm-4am checkpoints actually fired. Fixed the same way as scan.py's
-# market_hours_open(): stay inside the broad window and fire on whichever
-# tick actually lands, throttled to roughly once every MIN_GAP_MINUTES by a
+# market_hours_open(): stay inside the window and fire on whichever tick
+# actually lands, throttled to roughly once every MIN_GAP_MINUTES by a
 # persisted last-run timestamp, so a dropped tick just delays to the next
 # one that lands instead of silently losing that entire checkpoint.
 LAST_RUN_FILE = os.environ.get("GRADE_LAST_RUN_FILE", "last_grade.json")
 MIN_GAP_MINUTES = 100
+CATCHUP_HOUR_ET = 7
 
 
 def grade_hours_open(now_utc=None):
@@ -48,7 +52,7 @@ def grade_hours_open(now_utc=None):
     from zoneinfo import ZoneInfo
     now_utc = now_utc or datetime.now(timezone.utc)
     et_hour = now_utc.astimezone(ZoneInfo("America/New_York")).hour
-    if not (et_hour >= 18 or et_hour <= 4):
+    if not (et_hour >= 18 or et_hour <= 4 or et_hour == CATCHUP_HOUR_ET):
         return False
     last = load_json(LAST_RUN_FILE, {}).get("at")
     if last:
@@ -110,14 +114,14 @@ def winner_side(res):
 
 def settle_play(play, res):
     """Return ('win'/'loss'/None, units_delta) for a moneyline play.
-    units_delta is 0 for parlay legs."""
+    Cap-rule (parlay-leg) plays settle with their real risk/to_win now, same
+    as any other pick -- grade_moneylines() additionally tallies them into
+    parlay_legs for the separate leg-only W-L view, but the units always
+    reflect what actually happened."""
     side = winner_side(res)
     if side is None:
         return None, 0.0
     won = (side == play["bet_side"])
-    is_parlay = play.get("cap") == "must_parlay"
-    if is_parlay:
-        return ("win" if won else "loss"), 0.0     # info only, not added to units
     delta = play["to_win"] if won else -play["risk"]
     return ("win" if won else "loss"), delta
 
@@ -182,24 +186,30 @@ def grade_moneylines(ledger, results_cache, day, discord_sent):
             tag_bucket = _bucket(ledger["by_tag"], tag)
             stars = play.get("stars", 3)
             star_bucket = _bucket(ledger["by_stars"], str(stars))
-            if play.get("cap") == "must_parlay":
+            # Cap-rule plays (-150+ favorites, meant to be parlayed together
+            # rather than played straight) count fully in the normal
+            # record/units now -- same as any other pick -- AND still
+            # increment parlay_legs separately below, so you can see both
+            # "how did everything grade" and "how did the parlay pieces
+            # specifically do" without double-counting either view.
+            is_parlay_leg = play.get("cap") == "must_parlay"
+            if is_parlay_leg:
                 ledger["parlay_legs"]["w" if outcome == "win" else "l"] += 1
-                mark = "🔗leg"
-            else:
-                ledger["mlb_units"] = round(ledger["mlb_units"] + delta, 2)
-                ledger["record"]["w" if outcome == "win" else "l"] += 1
-                tag_bucket["w" if outcome == "win" else "l"] += 1
-                tag_bucket["units"] = round(tag_bucket["units"] + delta, 2)
-                star_bucket["w" if outcome == "win" else "l"] += 1
-                star_bucket["units"] = round(star_bucket["units"] + delta, 2)
-                day["w" if outcome == "win" else "l"] += 1
-                day["units"] = round(day["units"] + delta, 2)
-                mark = f"{delta:+.2f}u"
-                if is_discord:
-                    day["discord_w" if outcome == "win" else "discord_l"] += 1
-                    day["discord_units"] = round(day["discord_units"] + delta, 2)
-                    ledger["discord_units"] = round(ledger["discord_units"] + delta, 2)
-                    ledger["discord_record"]["w" if outcome == "win" else "l"] += 1
+
+            ledger["mlb_units"] = round(ledger["mlb_units"] + delta, 2)
+            ledger["record"]["w" if outcome == "win" else "l"] += 1
+            tag_bucket["w" if outcome == "win" else "l"] += 1
+            tag_bucket["units"] = round(tag_bucket["units"] + delta, 2)
+            star_bucket["w" if outcome == "win" else "l"] += 1
+            star_bucket["units"] = round(star_bucket["units"] + delta, 2)
+            day["w" if outcome == "win" else "l"] += 1
+            day["units"] = round(day["units"] + delta, 2)
+            mark = f"{delta:+.2f}u" + (" 🔗leg" if is_parlay_leg else "")
+            if is_discord:
+                day["discord_w" if outcome == "win" else "discord_l"] += 1
+                day["discord_units"] = round(day["discord_units"] + delta, 2)
+                ledger["discord_units"] = round(ledger["discord_units"] + delta, 2)
+                ledger["discord_record"]["w" if outcome == "win" else "l"] += 1
             line = (f"{'✅' if outcome=='win' else '❌'} {play['selection']} "
                    f"{play['odds']:+d} [{tag}] {'★'*stars} {mark}")
             day["lines"].append(line)
@@ -276,7 +286,7 @@ def grade_all():
 
 def main():
     if not grade_hours_open():
-        print("Outside grading hours (6pm-4am ET) — skipping, no API calls made.")
+        print("Outside grading hours (6pm-4am ET + 7am catch-up) — skipping, no API calls made.")
         return
     record_run()
 
@@ -300,7 +310,7 @@ def main():
         body += f"\nTotals ledger: {ledger['totals_units']:+.2f}u ({tr['w']}-{tr['l']}, {tr['push']} push)"
     if ledger["parlay_legs"]["w"] or ledger["parlay_legs"]["l"]:
         pl = ledger["parlay_legs"]
-        body += f"\n🔗 parlay legs {pl['w']}-{pl['l']} (settle manually)"
+        body += f"\n🔗 parlay legs {pl['w']}-{pl['l']} (already counted above as straight bets; the real parlay payout is yours to track)"
     if tag_lines:
         body += "\n— by tag —\n" + "\n".join(tag_lines)
     if star_lines:

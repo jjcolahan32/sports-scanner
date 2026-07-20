@@ -2,9 +2,11 @@ name: nightly-grader
 # Fires hourly; grade.py's own DST-aware grade_hours_open() check decides
 # whether to actually do anything -- checkpoints are 6pm/8pm/10pm/12am/2am/4am
 # ET, every 2h, so a card finalizes at or before the last two checks after
-# any given game goes Final (extra innings/rain delays included). Firing
-# hourly in UTC and gating in Python means the schedule survives DST changes
-# automatically. Manual dispatch always runs regardless of the hour.
+# any given game goes Final (extra innings/rain delays included), PLUS a
+# standalone 7am ET catch-up the next morning for anything still ungraded
+# overnight. Firing hourly in UTC and gating in Python means the schedule
+# survives DST changes automatically. Manual dispatch always runs
+# regardless of the hour.
 #
 # Runs at :27 past the hour (staggered from card-scanner's :07 and
 # totals-scanner's :17) -- avoids the top-of-hour GitHub Actions scheduling
