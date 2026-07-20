@@ -1,27 +1,61 @@
 {
-  "mlb_units": 0.0,
+  "mlb_units": -0.19,
   "record": {
-    "w": 0,
-    "l": 0,
+    "w": 7,
+    "l": 7,
     "push": 0
   },
-  "by_tag": {},
-  "by_stars": {},
-  "totals_units": 0.0,
+  "by_tag": {
+    "NEUTRAL": {
+      "w": 6,
+      "l": 7,
+      "units": -2.47
+    },
+    "STEAM-FOR": {
+      "w": 1,
+      "l": 0,
+      "units": 2.28
+    }
+  },
+  "by_stars": {
+    "3": {
+      "w": 5,
+      "l": 3,
+      "units": 2.18
+    },
+    "4": {
+      "w": 3,
+      "l": 2,
+      "units": 0.82
+    },
+    "2": {
+      "w": 2,
+      "l": 3,
+      "units": -1.19
+    }
+  },
+  "totals_units": 2.0,
   "totals_record": {
-    "w": 0,
-    "l": 0,
+    "w": 3,
+    "l": 1,
     "push": 0
   },
   "parlay_legs": {
-    "w": 0,
+    "w": 3,
     "l": 0
   },
-  "discord_units": 0.0,
+  "discord_units": 3.17,
   "discord_record": {
-    "w": 0,
-    "l": 0,
+    "w": 6,
+    "l": 3,
     "push": 0
   },
-  "history": []
+  "history": [
+    {
+      "graded_at": "2026-07-20T11:53:42.512272+00:00",
+      "w": 10,
+      "l": 8,
+      "units": 1.81
+    }
+  ]
 }

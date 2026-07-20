@@ -14,8 +14,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Cincinnati Reds 9\u20136 Colorado Rockies"
+      }
     },
     {
       "game_pk": 824978,
@@ -30,8 +33,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Washington Nationals 5\u20132 Athletics"
+      }
     },
     {
       "game_pk": 823113,
@@ -46,8 +52,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "San Francisco Giants 3\u20136 Seattle Mariners"
+      }
     },
     {
       "game_pk": 825057,
@@ -62,8 +71,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 4,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "St. Louis Cardinals 7\u20138 Arizona Diamondbacks"
+      }
     },
     {
       "game_pk": 823521,
@@ -78,8 +90,11 @@
       "verdict": "PLAY",
       "rlm_tag": "STEAM-FOR",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Los Angeles Dodgers 1\u20132 New York Yankees"
+      }
     }
   ]
 }

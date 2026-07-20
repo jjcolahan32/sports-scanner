@@ -17,8 +17,11 @@
       "cap": "single_ok",
       "verdict": "PLAY",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Texas Rangers 5\u20138 Atlanta Braves"
+      }
     }
   ]
 }

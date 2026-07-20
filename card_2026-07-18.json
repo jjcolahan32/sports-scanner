@@ -13,8 +13,11 @@
       "cap": "single_ok",
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Pittsburgh Pirates 7\u20131 Cleveland Guardians"
+      }
     },
     {
       "game_pk": 823441,
@@ -28,8 +31,11 @@
       "cap": "must_parlay",
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "New York Mets 1\u20136 Philadelphia Phillies"
+      },
       "stars": 4
     },
     {
@@ -44,8 +50,11 @@
       "cap": "single_ok",
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cincinnati Reds 3\u201310 Colorado Rockies"
+      },
       "stars": 4
     },
     {
@@ -60,8 +69,11 @@
       "cap": "single_ok",
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Baltimore Orioles 4\u20132 Houston Astros"
+      },
       "stars": 4
     },
     {
@@ -76,8 +88,11 @@
       "cap": "single_ok",
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "San Diego Padres 1\u20136 Kansas City Royals"
+      },
       "stars": 3
     },
     {
@@ -92,8 +107,11 @@
       "cap": "single_ok",
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "St. Louis Cardinals 3\u20135 Arizona Diamondbacks"
+      },
       "stars": 2
     },
     {
@@ -108,8 +126,11 @@
       "cap": "single_ok",
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Tampa Bay Rays 6\u20137 Boston Red Sox"
+      },
       "stars": 2
     },
     {
@@ -124,8 +145,11 @@
       "cap": "single_ok",
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Miami Marlins 6\u20138 Milwaukee Brewers"
+      },
       "stars": 2
     },
     {
@@ -141,8 +165,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Pittsburgh Pirates 3\u20135 Cleveland Guardians"
+      }
     }
   ]
 }
