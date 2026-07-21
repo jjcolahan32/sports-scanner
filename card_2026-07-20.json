@@ -1,1 +1,81 @@
-{"date": "2026-07-20", "plays": [{"game_pk": 824410, "start_utc": "2026-07-20T22:40:00Z", "bet_team": "Minnesota Twins", "bet_side": "away", "selection": "Minnesota Twins ML (back J. Ryan; fade T. Bibee, dynamic)", "odds": -132, "risk": 2.64, "to_win": 2.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823522, "start_utc": "2026-07-20T23:05:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "away", "selection": "Pittsburgh Pirates ML (back B. Ashcraft)", "odds": 100, "risk": 1.0, "to_win": 1.0, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824087, "start_utc": "2026-07-20T23:40:00Z", "bet_team": "San Francisco Giants", "bet_side": "away", "selection": "San Francisco Giants ML (fade M. Wacha; back T. McDonald, dynamic)", "odds": 102, "risk": 2.0, "to_win": 2.04, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824328, "start_utc": "2026-07-21T00:40:00Z", "bet_team": "Colorado Rockies", "bet_side": "home", "selection": "Colorado Rockies ML (back K. Freeland, dynamic)", "odds": 106, "risk": 1.0, "to_win": 1.06, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-07-20",
+  "plays": [
+    {
+      "game_pk": 824410,
+      "start_utc": "2026-07-20T22:40:00Z",
+      "bet_team": "Minnesota Twins",
+      "bet_side": "away",
+      "selection": "Minnesota Twins ML (back J. Ryan; fade T. Bibee, dynamic)",
+      "odds": -132,
+      "risk": 2.64,
+      "to_win": 2.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Minnesota Twins 4\u201313 Cleveland Guardians"
+      }
+    },
+    {
+      "game_pk": 823522,
+      "start_utc": "2026-07-20T23:05:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "away",
+      "selection": "Pittsburgh Pirates ML (back B. Ashcraft)",
+      "odds": 100,
+      "risk": 1.0,
+      "to_win": 1.0,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Pittsburgh Pirates 5\u20138 New York Yankees"
+      }
+    },
+    {
+      "game_pk": 824087,
+      "start_utc": "2026-07-20T23:40:00Z",
+      "bet_team": "San Francisco Giants",
+      "bet_side": "away",
+      "selection": "San Francisco Giants ML (fade M. Wacha; back T. McDonald, dynamic)",
+      "odds": 102,
+      "risk": 2.0,
+      "to_win": 2.04,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "San Francisco Giants 3\u20134 Kansas City Royals"
+      }
+    },
+    {
+      "game_pk": 824328,
+      "start_utc": "2026-07-21T00:40:00Z",
+      "bet_team": "Colorado Rockies",
+      "bet_side": "home",
+      "selection": "Colorado Rockies ML (back K. Freeland, dynamic)",
+      "odds": 106,
+      "risk": 1.0,
+      "to_win": 1.06,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Washington Nationals 7\u20133 Colorado Rockies"
+      }
+    }
+  ]
+}
