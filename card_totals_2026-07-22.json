@@ -1,1 +1,65 @@
-{"date": "2026-07-22", "plays": [{"game_pk": 824732, "start_utc": "2026-07-22T23:10:00Z", "home": "Boston Red Sox", "away": "Baltimore Orioles", "side": "Over", "home_prob": null, "away_prob": "Kyle Bradish", "selection": "Baltimore Orioles @ Boston Red Sox Over 9.0", "total": 9.0, "odds": 102, "risk": 1.0, "to_win": 1.02, "cap": "dog", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824004, "start_utc": "2026-07-22T20:07:00Z", "home": "Los Angeles Angels", "away": "St. Louis Cardinals", "side": "Over", "home_prob": "Reid Detmers", "away_prob": "Hunter Dobbins", "selection": "St. Louis Cardinals @ Los Angeles Angels Over 8.5", "total": 8.5, "odds": -122, "risk": 1.22, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824896, "start_utc": "2026-07-22T23:15:00Z", "home": "Atlanta Braves", "away": "San Diego Padres", "side": "Over", "home_prob": "Mart\u00edn P\u00e9rez", "away_prob": "Michael King", "selection": "San Diego Padres @ Atlanta Braves Over 8.5", "total": 8.5, "odds": -118, "risk": 1.18, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 5, "graded": false, "result": null}]}
+{
+  "date": "2026-07-22",
+  "plays": [
+    {
+      "game_pk": 824732,
+      "start_utc": "2026-07-22T23:10:00Z",
+      "home": "Boston Red Sox",
+      "away": "Baltimore Orioles",
+      "side": "Over",
+      "home_prob": null,
+      "away_prob": "Kyle Bradish",
+      "selection": "Baltimore Orioles @ Boston Red Sox Over 9.0",
+      "total": 9.0,
+      "odds": 102,
+      "risk": 1.0,
+      "to_win": 1.02,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 824004,
+      "start_utc": "2026-07-22T20:07:00Z",
+      "home": "Los Angeles Angels",
+      "away": "St. Louis Cardinals",
+      "side": "Over",
+      "home_prob": "Reid Detmers",
+      "away_prob": "Hunter Dobbins",
+      "selection": "St. Louis Cardinals @ Los Angeles Angels Over 8.5",
+      "total": 8.5,
+      "odds": -122,
+      "risk": 1.22,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "St. Louis Cardinals 1\u20130 Los Angeles Angels"
+      }
+    },
+    {
+      "game_pk": 824896,
+      "start_utc": "2026-07-22T23:15:00Z",
+      "home": "Atlanta Braves",
+      "away": "San Diego Padres",
+      "side": "Over",
+      "home_prob": "Mart\u00edn P\u00e9rez",
+      "away_prob": "Michael King",
+      "selection": "San Diego Padres @ Atlanta Braves Over 8.5",
+      "total": 8.5,
+      "odds": -118,
+      "risk": 1.18,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 5,
+      "graded": false,
+      "result": null
+    }
+  ]
+}
