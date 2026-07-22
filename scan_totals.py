@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 
 from model import run, totals_lean, star_rating
 import fetch_mlb, fetch_odds, fetch_savant, fetch_weather, notify, discord_notify, ballparks
-from scan import in_window, _fmt, dynamic_match, _today, load_json, save_json, market_hours_open, record_run, _star_str
+from scan import in_window, _fmt, dynamic_match, _today, load_json, save_json, market_hours_open, record_run, _star_str, _local_time
 
 STATE_FILE = os.environ.get("TOTALS_STATE_FILE", "state_totals.json")
 LAST_RUN_FILE = os.environ.get("TOTALS_LAST_RUN_FILE", "last_totals.json")  # own file -- separate cadence tracking from scan.py
@@ -149,7 +149,7 @@ def main():
 
     lines, discord_lines = [], []
     for row, m in fresh:
-        pick = (f"PLAY: {row['sel']} {row['odds']:+d} "
+        pick = (f"PLAY: {row['sel']} — {_local_time(m['start_utc'])} {row['odds']:+d} "
                 f"(risk {row['risk']}u/win {row['to_win']}u)  {_star_str(row['stars'])}")
         reason = row['reason']
         lines.append(f"{pick}\n   {reason}")

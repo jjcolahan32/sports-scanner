@@ -294,7 +294,22 @@ def _star_str(n):
     return "★" * n + "☆" * (5 - n)
 
 
-def _pick_and_reason(row):
+def _local_time(start_utc):
+    """'2026-07-18T23:05:00Z' -> '7:05 PM ET'. Same conversion the dashboard
+    uses -- included in every notification so two games between the same
+    teams (a doubleheader) are never ambiguous about which one fired."""
+    if not start_utc:
+        return "time TBD"
+    try:
+        from zoneinfo import ZoneInfo
+        dt = datetime.fromisoformat(start_utc.replace("Z", "+00:00"))
+        et = dt.astimezone(ZoneInfo("America/New_York"))
+        return et.strftime("%-I:%M %p ET")
+    except Exception:
+        return start_utc
+
+
+def _pick_and_reason(row, m=None):
     """Split a graded row into (pick line, reason line) so callers can
     format each notification channel differently -- e.g. Discord bolds
     just the pick, ntfy stays plain text for both."""
@@ -303,7 +318,8 @@ def _pick_and_reason(row):
     if row.get("rlm"):
         tag = f"  [{row['rlm']['tag']} {row['rlm']['detail']}]"
     note = f"  {row.get('rlm_note','')}" if row.get("rlm_note") else ""
-    pick = (f"{flag}: {row['sel']} {row['odds']:+d} "
+    when = f" — {_local_time(m['start_utc'])}" if m else ""
+    pick = (f"{flag}: {row['sel']}{when} {row['odds']:+d} "
             f"(risk {row['risk']}u/win {row['to_win']}u){tag}  {_star_str(row.get('stars'))}")
     reason = f"{row['reason']}{note}"
     return pick, reason
@@ -384,7 +400,7 @@ def main():
 
     lines, discord_lines = [], []
     for row, m in fresh:
-        pick, reason = _pick_and_reason(row)
+        pick, reason = _pick_and_reason(row, m)
         lines.append(f"{pick}\n   {reason}")
         discord_lines.append(f"**{pick}**\n{reason}")
         sent.add(str(m["game_pk"]))
