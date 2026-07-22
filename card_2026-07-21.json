@@ -1,1 +1,157 @@
-{"date": "2026-07-21", "plays": [{"game_pk": 824409, "start_utc": "2026-07-21T22:40:00Z", "bet_team": "Cleveland Guardians", "bet_side": "home", "selection": "Cleveland Guardians ML (back P. Messick; fade K. Rojas, dynamic)", "odds": -154, "risk": 3.08, "to_win": 2.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823437, "start_utc": "2026-07-21T22:40:00Z", "bet_team": "Philadelphia Phillies", "bet_side": "home", "selection": "Philadelphia Phillies ML (fade J. Wrobleski; back Z. Wheeler)", "odds": -120, "risk": 2.4, "to_win": 2.0, "cap": "single_ok", "verdict": "REVIEW", "rlm_tag": "STEAM-AGAINST", "stars": 4, "graded": false, "result": null}, {"game_pk": 822787, "start_utc": "2026-07-21T23:07:00Z", "bet_team": "Tampa Bay Rays", "bet_side": "away", "selection": "Tampa Bay Rays ML (back D. Rasmussen)", "odds": -108, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824895, "start_utc": "2026-07-21T23:15:00Z", "bet_team": "San Diego Padres", "bet_side": "away", "selection": "San Diego Padres ML (back W. Buehler, dynamic; fade R. L\u00f3pez, dynamic)", "odds": 124, "risk": 2.0, "to_win": 2.48, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824085, "start_utc": "2026-07-21T23:40:00Z", "bet_team": "San Francisco Giants", "bet_side": "away", "selection": "San Francisco Giants ML (back T. Mahle, dynamic)", "odds": -110, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823760, "start_utc": "2026-07-21T23:40:00Z", "bet_team": "Milwaukee Brewers", "bet_side": "home", "selection": "Milwaukee Brewers ML (fade Z. Thornton, dynamic)", "odds": -134, "risk": 1.34, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824652, "start_utc": "2026-07-22T00:05:00Z", "bet_team": "Chicago Cubs", "bet_side": "home", "selection": "Chicago Cubs ML (back D. Peterson, dynamic)", "odds": -120, "risk": 1.2, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824165, "start_utc": "2026-07-22T00:10:00Z", "bet_team": "Houston Astros", "bet_side": "home", "selection": "Houston Astros ML (fade T. Phillips, dynamic; back T. Imai, dynamic)", "odds": -126, "risk": 2.52, "to_win": 2.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-07-21",
+  "plays": [
+    {
+      "game_pk": 824409,
+      "start_utc": "2026-07-21T22:40:00Z",
+      "bet_team": "Cleveland Guardians",
+      "bet_side": "home",
+      "selection": "Cleveland Guardians ML (back P. Messick; fade K. Rojas, dynamic)",
+      "odds": -154,
+      "risk": 3.08,
+      "to_win": 2.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Minnesota Twins 2\u20135 Cleveland Guardians"
+      }
+    },
+    {
+      "game_pk": 823437,
+      "start_utc": "2026-07-21T22:40:00Z",
+      "bet_team": "Philadelphia Phillies",
+      "bet_side": "home",
+      "selection": "Philadelphia Phillies ML (fade J. Wrobleski; back Z. Wheeler)",
+      "odds": -120,
+      "risk": 2.4,
+      "to_win": 2.0,
+      "cap": "single_ok",
+      "verdict": "REVIEW",
+      "rlm_tag": "STEAM-AGAINST",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Dodgers 2\u20131 Philadelphia Phillies"
+      }
+    },
+    {
+      "game_pk": 822787,
+      "start_utc": "2026-07-21T23:07:00Z",
+      "bet_team": "Tampa Bay Rays",
+      "bet_side": "away",
+      "selection": "Tampa Bay Rays ML (back D. Rasmussen)",
+      "odds": -108,
+      "risk": 1.08,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Tampa Bay Rays 12\u20132 Toronto Blue Jays"
+      }
+    },
+    {
+      "game_pk": 824895,
+      "start_utc": "2026-07-21T23:15:00Z",
+      "bet_team": "San Diego Padres",
+      "bet_side": "away",
+      "selection": "San Diego Padres ML (back W. Buehler, dynamic; fade R. L\u00f3pez, dynamic)",
+      "odds": 124,
+      "risk": 2.0,
+      "to_win": 2.48,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "San Diego Padres 8\u20133 Atlanta Braves"
+      }
+    },
+    {
+      "game_pk": 824085,
+      "start_utc": "2026-07-21T23:40:00Z",
+      "bet_team": "San Francisco Giants",
+      "bet_side": "away",
+      "selection": "San Francisco Giants ML (back T. Mahle, dynamic)",
+      "odds": -110,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "San Francisco Giants 2\u20133 Kansas City Royals"
+      }
+    },
+    {
+      "game_pk": 823760,
+      "start_utc": "2026-07-21T23:40:00Z",
+      "bet_team": "Milwaukee Brewers",
+      "bet_side": "home",
+      "selection": "Milwaukee Brewers ML (fade Z. Thornton, dynamic)",
+      "odds": -134,
+      "risk": 1.34,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "New York Mets 4\u20130 Milwaukee Brewers"
+      }
+    },
+    {
+      "game_pk": 824652,
+      "start_utc": "2026-07-22T00:05:00Z",
+      "bet_team": "Chicago Cubs",
+      "bet_side": "home",
+      "selection": "Chicago Cubs ML (back D. Peterson, dynamic)",
+      "odds": -120,
+      "risk": 1.2,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Detroit Tigers 2\u201311 Chicago Cubs"
+      }
+    },
+    {
+      "game_pk": 824165,
+      "start_utc": "2026-07-22T00:10:00Z",
+      "bet_team": "Houston Astros",
+      "bet_side": "home",
+      "selection": "Houston Astros ML (fade T. Phillips, dynamic; back T. Imai, dynamic)",
+      "odds": -126,
+      "risk": 2.52,
+      "to_win": 2.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Miami Marlins 3\u20135 Houston Astros"
+      }
+    }
+  ]
+}
