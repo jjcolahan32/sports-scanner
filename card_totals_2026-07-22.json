@@ -17,8 +17,11 @@
       "cap": "dog",
       "verdict": "PLAY",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Baltimore Orioles 5\u20131 Boston Red Sox"
+      }
     },
     {
       "game_pk": 824004,
@@ -58,8 +61,11 @@
       "cap": "single_ok",
       "verdict": "PLAY",
       "stars": 5,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "San Diego Padres 6\u20137 Atlanta Braves"
+      }
     }
   ]
 }

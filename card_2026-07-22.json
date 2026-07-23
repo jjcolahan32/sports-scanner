@@ -128,8 +128,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 4,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Dodgers 9\u20135 Philadelphia Phillies"
+      }
     },
     {
       "game_pk": 822784,
@@ -144,8 +147,11 @@
       "verdict": "PLAY",
       "rlm_tag": "STEAM-FOR",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Tampa Bay Rays 4\u20132 Toronto Blue Jays"
+      }
     },
     {
       "game_pk": 822873,
@@ -160,8 +166,11 @@
       "verdict": "REVIEW",
       "rlm_tag": "STEAM-AGAINST",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Chicago White Sox 4\u20132 Texas Rangers"
+      }
     }
   ]
 }
