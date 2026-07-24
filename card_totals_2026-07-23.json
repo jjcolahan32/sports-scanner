@@ -1,1 +1,27 @@
-{"date": "2026-07-23", "plays": [{"game_pk": 822785, "start_utc": "2026-07-23T19:07:00Z", "home": "Toronto Blue Jays", "away": "Tampa Bay Rays", "side": "Over", "home_prob": "Shane Bieber", "away_prob": "Casey Legumina", "selection": "Tampa Bay Rays @ Toronto Blue Jays Over 8.5", "total": 8.5, "odds": -112, "risk": 1.12, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-07-23",
+  "plays": [
+    {
+      "game_pk": 822785,
+      "start_utc": "2026-07-23T19:07:00Z",
+      "home": "Toronto Blue Jays",
+      "away": "Tampa Bay Rays",
+      "side": "Over",
+      "home_prob": "Shane Bieber",
+      "away_prob": "Casey Legumina",
+      "selection": "Tampa Bay Rays @ Toronto Blue Jays Over 8.5",
+      "total": 8.5,
+      "odds": -112,
+      "risk": 1.12,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Tampa Bay Rays 1\u20133 Toronto Blue Jays"
+      }
+    }
+  ]
+}
