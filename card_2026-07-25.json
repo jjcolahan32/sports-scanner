@@ -1,1 +1,196 @@
-{"date": "2026-07-25", "plays": [{"game_pk": 824244, "start_utc": "2026-07-25T17:10:00Z", "bet_team": "Detroit Tigers", "bet_side": "home", "selection": "Detroit Tigers ML (fade M. Wacha; back C. Mize)", "odds": -158, "risk": 3.16, "to_win": 2.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 822704, "start_utc": "2026-07-25T20:05:00Z", "bet_team": "Arizona Diamondbacks", "bet_side": "away", "selection": "Arizona Diamondbacks ML (fade F. Griffin, dynamic)", "odds": 116, "risk": 1.0, "to_win": 1.16, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823197, "start_utc": "2026-07-25T20:05:00Z", "bet_team": "Los Angeles Angels", "bet_side": "away", "selection": "Los Angeles Angels ML (back R. Johnson, dynamic; fade R. Ray, dynamic)", "odds": 110, "risk": 2.0, "to_win": 2.2, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824734, "start_utc": "2026-07-25T20:10:00Z", "bet_team": "Toronto Blue Jays", "bet_side": "away", "selection": "Toronto Blue Jays ML (back D. Cease; fade S. Gray)", "odds": -106, "risk": 2.12, "to_win": 2.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823841, "start_utc": "2026-07-25T20:10:00Z", "bet_team": "Miami Marlins", "bet_side": "home", "selection": "Miami Marlins ML (fade R. V\u00e1squez, dynamic)", "odds": -142, "risk": 1.42, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 822948, "start_utc": "2026-07-25T22:10:00Z", "bet_team": "Tampa Bay Rays", "bet_side": "home", "selection": "Tampa Bay Rays ML (back N. Martinez)", "odds": -124, "risk": 1.24, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823355, "start_utc": "2026-07-25T22:40:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "home", "selection": "Pittsburgh Pirates ML (back P. Skenes)", "odds": -120, "risk": 1.2, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824811, "start_utc": "2026-07-25T23:05:00Z", "bet_team": "Atlanta Braves", "bet_side": "away", "selection": "Atlanta Braves ML (fade B. Young, dynamic)", "odds": -102, "risk": 1.02, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824571, "start_utc": "2026-07-25T23:10:00Z", "bet_team": "Houston Astros", "bet_side": "away", "selection": "Houston Astros ML (back H. Brown)", "odds": 102, "risk": 1.0, "to_win": 1.02, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823758, "start_utc": "2026-07-25T23:10:00Z", "bet_team": "Milwaukee Brewers", "bet_side": "home", "selection": "Milwaukee Brewers ML (back R. Gasser, dynamic)", "odds": -230, "risk": 2.3, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823027, "start_utc": "2026-07-25T23:15:00Z", "bet_team": "Cincinnati Reds", "bet_side": "away", "selection": "Cincinnati Reds ML (back H. Greene, dynamic)", "odds": -104, "risk": 1.04, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-07-25",
+  "plays": [
+    {
+      "game_pk": 824244,
+      "start_utc": "2026-07-25T17:10:00Z",
+      "bet_team": "Detroit Tigers",
+      "bet_side": "home",
+      "selection": "Detroit Tigers ML (fade M. Wacha; back C. Mize)",
+      "odds": -158,
+      "risk": 3.16,
+      "to_win": 2.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Kansas City Royals 3\u20132 Detroit Tigers"
+      }
+    },
+    {
+      "game_pk": 822704,
+      "start_utc": "2026-07-25T20:05:00Z",
+      "bet_team": "Arizona Diamondbacks",
+      "bet_side": "away",
+      "selection": "Arizona Diamondbacks ML (fade F. Griffin, dynamic)",
+      "odds": 116,
+      "risk": 1.0,
+      "to_win": 1.16,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Arizona Diamondbacks 3\u20135 Washington Nationals"
+      }
+    },
+    {
+      "game_pk": 823197,
+      "start_utc": "2026-07-25T20:05:00Z",
+      "bet_team": "Los Angeles Angels",
+      "bet_side": "away",
+      "selection": "Los Angeles Angels ML (back R. Johnson, dynamic; fade R. Ray, dynamic)",
+      "odds": 110,
+      "risk": 2.0,
+      "to_win": 2.2,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Angels 2\u20139 San Francisco Giants"
+      }
+    },
+    {
+      "game_pk": 824734,
+      "start_utc": "2026-07-25T20:10:00Z",
+      "bet_team": "Toronto Blue Jays",
+      "bet_side": "away",
+      "selection": "Toronto Blue Jays ML (back D. Cease; fade S. Gray)",
+      "odds": -106,
+      "risk": 2.12,
+      "to_win": 2.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Toronto Blue Jays 6\u20130 Boston Red Sox"
+      }
+    },
+    {
+      "game_pk": 823841,
+      "start_utc": "2026-07-25T20:10:00Z",
+      "bet_team": "Miami Marlins",
+      "bet_side": "home",
+      "selection": "Miami Marlins ML (fade R. V\u00e1squez, dynamic)",
+      "odds": -142,
+      "risk": 1.42,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "San Diego Padres 7\u20132 Miami Marlins"
+      }
+    },
+    {
+      "game_pk": 822948,
+      "start_utc": "2026-07-25T22:10:00Z",
+      "bet_team": "Tampa Bay Rays",
+      "bet_side": "home",
+      "selection": "Tampa Bay Rays ML (back N. Martinez)",
+      "odds": -124,
+      "risk": 1.24,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 823355,
+      "start_utc": "2026-07-25T22:40:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "home",
+      "selection": "Pittsburgh Pirates ML (back P. Skenes)",
+      "odds": -120,
+      "risk": 1.2,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 824811,
+      "start_utc": "2026-07-25T23:05:00Z",
+      "bet_team": "Atlanta Braves",
+      "bet_side": "away",
+      "selection": "Atlanta Braves ML (fade B. Young, dynamic)",
+      "odds": -102,
+      "risk": 1.02,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 824571,
+      "start_utc": "2026-07-25T23:10:00Z",
+      "bet_team": "Houston Astros",
+      "bet_side": "away",
+      "selection": "Houston Astros ML (back H. Brown)",
+      "odds": 102,
+      "risk": 1.0,
+      "to_win": 1.02,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 823758,
+      "start_utc": "2026-07-25T23:10:00Z",
+      "bet_team": "Milwaukee Brewers",
+      "bet_side": "home",
+      "selection": "Milwaukee Brewers ML (back R. Gasser, dynamic)",
+      "odds": -230,
+      "risk": 2.3,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 823027,
+      "start_utc": "2026-07-25T23:15:00Z",
+      "bet_team": "Cincinnati Reds",
+      "bet_side": "away",
+      "selection": "Cincinnati Reds ML (back H. Greene, dynamic)",
+      "odds": -104,
+      "risk": 1.04,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": false,
+      "result": null
+    }
+  ]
+}
