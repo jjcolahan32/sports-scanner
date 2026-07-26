@@ -109,8 +109,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 4,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Cleveland Guardians 0\u20133 Tampa Bay Rays"
+      }
     },
     {
       "game_pk": 823355,
@@ -125,8 +128,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 4,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Chicago Cubs 11\u20130 Pittsburgh Pirates"
+      }
     },
     {
       "game_pk": 824811,
@@ -141,8 +147,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Atlanta Braves 2\u20133 Baltimore Orioles"
+      }
     },
     {
       "game_pk": 824571,
@@ -157,8 +166,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 4,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Houston Astros 4\u20131 Chicago White Sox"
+      }
     },
     {
       "game_pk": 823758,
@@ -173,8 +185,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Colorado Rockies 5\u20138 Milwaukee Brewers"
+      }
     },
     {
       "game_pk": 823027,
@@ -189,8 +204,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cincinnati Reds 0\u20137 St. Louis Cardinals"
+      }
     }
   ]
 }
