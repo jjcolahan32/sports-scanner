@@ -1,1 +1,137 @@
-{"date": "2026-07-26", "plays": [{"game_pk": 823354, "start_utc": "2026-07-26T17:35:00Z", "home": "Pittsburgh Pirates", "away": "Chicago Cubs", "side": "Under", "home_prob": "Braxton Ashcraft", "away_prob": "Jameson Taillon", "selection": "Chicago Cubs @ Pittsburgh Pirates Under 8.5", "total": 8.5, "odds": 102, "risk": 1.0, "to_win": 1.02, "cap": "dog", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 823599, "start_utc": "2026-07-26T17:40:00Z", "home": "New York Mets", "away": "Los Angeles Dodgers", "side": "Under", "home_prob": "Freddy Peralta", "away_prob": "Emmet Sheehan", "selection": "Los Angeles Dodgers @ New York Mets Under 9.0", "total": 9.0, "odds": -110, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 4, "graded": false, "result": null}, {"game_pk": 823840, "start_utc": "2026-07-26T17:40:00Z", "home": "Miami Marlins", "away": "San Diego Padres", "side": "Under", "home_prob": "Janson Junk", "away_prob": "Walker Buehler", "selection": "San Diego Padres @ Miami Marlins Under 8.5", "total": 8.5, "odds": -104, "risk": 1.04, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 4, "graded": false, "result": null}, {"game_pk": 823028, "start_utc": "2026-07-26T18:15:00Z", "home": "St. Louis Cardinals", "away": "Cincinnati Reds", "side": "Over", "home_prob": "Kyle Leahy", "away_prob": "Andrew Abbott", "selection": "Cincinnati Reds @ St. Louis Cardinals Over 8.5", "total": 8.5, "odds": -118, "risk": 1.18, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 823194, "start_utc": "2026-07-26T20:05:00Z", "home": "San Francisco Giants", "away": "Los Angeles Angels", "side": "Over", "home_prob": "Carson Whisenhunt", "away_prob": "Jos\u00e9 Soriano", "selection": "Los Angeles Angels @ San Francisco Giants Over 8.5", "total": 8.5, "odds": -105, "risk": 1.05, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 823755, "start_utc": "2026-07-26T18:10:00Z", "home": "Milwaukee Brewers", "away": "Colorado Rockies", "side": "Under", "home_prob": "Jacob Misiorowski", "away_prob": "Kyle Freeland", "selection": "Colorado Rockies @ Milwaukee Brewers Under 8.0", "total": 8.0, "odds": -114, "risk": 1.14, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-07-26",
+  "plays": [
+    {
+      "game_pk": 823354,
+      "start_utc": "2026-07-26T17:35:00Z",
+      "home": "Pittsburgh Pirates",
+      "away": "Chicago Cubs",
+      "side": "Under",
+      "home_prob": "Braxton Ashcraft",
+      "away_prob": "Jameson Taillon",
+      "selection": "Chicago Cubs @ Pittsburgh Pirates Under 8.5",
+      "total": 8.5,
+      "odds": 102,
+      "risk": 1.0,
+      "to_win": 1.02,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Chicago Cubs 7\u20138 Pittsburgh Pirates"
+      }
+    },
+    {
+      "game_pk": 823599,
+      "start_utc": "2026-07-26T17:40:00Z",
+      "home": "New York Mets",
+      "away": "Los Angeles Dodgers",
+      "side": "Under",
+      "home_prob": "Freddy Peralta",
+      "away_prob": "Emmet Sheehan",
+      "selection": "Los Angeles Dodgers @ New York Mets Under 9.0",
+      "total": 9.0,
+      "odds": -110,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Dodgers 3\u20138 New York Mets"
+      }
+    },
+    {
+      "game_pk": 823840,
+      "start_utc": "2026-07-26T17:40:00Z",
+      "home": "Miami Marlins",
+      "away": "San Diego Padres",
+      "side": "Under",
+      "home_prob": "Janson Junk",
+      "away_prob": "Walker Buehler",
+      "selection": "San Diego Padres @ Miami Marlins Under 8.5",
+      "total": 8.5,
+      "odds": -104,
+      "risk": 1.04,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "San Diego Padres 5\u20133 Miami Marlins"
+      }
+    },
+    {
+      "game_pk": 823028,
+      "start_utc": "2026-07-26T18:15:00Z",
+      "home": "St. Louis Cardinals",
+      "away": "Cincinnati Reds",
+      "side": "Over",
+      "home_prob": "Kyle Leahy",
+      "away_prob": "Andrew Abbott",
+      "selection": "Cincinnati Reds @ St. Louis Cardinals Over 8.5",
+      "total": 8.5,
+      "odds": -118,
+      "risk": 1.18,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cincinnati Reds 5\u20133 St. Louis Cardinals"
+      }
+    },
+    {
+      "game_pk": 823194,
+      "start_utc": "2026-07-26T20:05:00Z",
+      "home": "San Francisco Giants",
+      "away": "Los Angeles Angels",
+      "side": "Over",
+      "home_prob": "Carson Whisenhunt",
+      "away_prob": "Jos\u00e9 Soriano",
+      "selection": "Los Angeles Angels @ San Francisco Giants Over 8.5",
+      "total": 8.5,
+      "odds": -105,
+      "risk": 1.05,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Angels 4\u20133 San Francisco Giants"
+      }
+    },
+    {
+      "game_pk": 823755,
+      "start_utc": "2026-07-26T18:10:00Z",
+      "home": "Milwaukee Brewers",
+      "away": "Colorado Rockies",
+      "side": "Under",
+      "home_prob": "Jacob Misiorowski",
+      "away_prob": "Kyle Freeland",
+      "selection": "Colorado Rockies @ Milwaukee Brewers Under 8.0",
+      "total": 8.0,
+      "odds": -114,
+      "risk": 1.14,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Colorado Rockies 2\u201311 Milwaukee Brewers"
+      }
+    }
+  ]
+}
