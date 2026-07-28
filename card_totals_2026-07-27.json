@@ -1,1 +1,90 @@
-{"date": "2026-07-27", "plays": [{"game_pk": 824490, "start_utc": "2026-07-27T23:10:00Z", "home": "Cincinnati Reds", "away": "Cleveland Guardians", "side": "Over", "home_prob": "Chase Burns", "away_prob": "Slade Cecconi", "selection": "Cleveland Guardians @ Cincinnati Reds Over 8.5", "total": 8.5, "odds": -109, "risk": 1.09, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 823597, "start_utc": "2026-07-27T23:10:00Z", "home": "New York Mets", "away": "Atlanta Braves", "side": "Over", "home_prob": "Zac Thornton", "away_prob": "Mart\u00edn P\u00e9rez", "selection": "Atlanta Braves @ New York Mets Over 8.5", "total": 8.5, "odds": -122, "risk": 1.22, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 823025, "start_utc": "2026-07-27T23:45:00Z", "home": "St. Louis Cardinals", "away": "Chicago Cubs", "side": "Over", "home_prob": null, "away_prob": "David Peterson", "selection": "Chicago Cubs @ St. Louis Cardinals Over 9.5", "total": 9.5, "odds": -110, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824001, "start_utc": "2026-07-28T01:38:00Z", "home": "Los Angeles Angels", "away": "Houston Astros", "side": "Over", "home_prob": "Walbert Ure\u00f1a", "away_prob": "Tatsuya Imai", "selection": "Houston Astros @ Los Angeles Angels Over 8.5", "total": 8.5, "odds": -117, "risk": 1.17, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-07-27",
+  "plays": [
+    {
+      "game_pk": 824490,
+      "start_utc": "2026-07-27T23:10:00Z",
+      "home": "Cincinnati Reds",
+      "away": "Cleveland Guardians",
+      "side": "Over",
+      "home_prob": "Chase Burns",
+      "away_prob": "Slade Cecconi",
+      "selection": "Cleveland Guardians @ Cincinnati Reds Over 8.5",
+      "total": 8.5,
+      "odds": -109,
+      "risk": 1.09,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 823597,
+      "start_utc": "2026-07-27T23:10:00Z",
+      "home": "New York Mets",
+      "away": "Atlanta Braves",
+      "side": "Over",
+      "home_prob": "Zac Thornton",
+      "away_prob": "Mart\u00edn P\u00e9rez",
+      "selection": "Atlanta Braves @ New York Mets Over 8.5",
+      "total": 8.5,
+      "odds": -122,
+      "risk": 1.22,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Atlanta Braves 3\u201314 New York Mets"
+      }
+    },
+    {
+      "game_pk": 823025,
+      "start_utc": "2026-07-27T23:45:00Z",
+      "home": "St. Louis Cardinals",
+      "away": "Chicago Cubs",
+      "side": "Over",
+      "home_prob": null,
+      "away_prob": "David Peterson",
+      "selection": "Chicago Cubs @ St. Louis Cardinals Over 9.5",
+      "total": 9.5,
+      "odds": -110,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Chicago Cubs 7\u20133 St. Louis Cardinals"
+      }
+    },
+    {
+      "game_pk": 824001,
+      "start_utc": "2026-07-28T01:38:00Z",
+      "home": "Los Angeles Angels",
+      "away": "Houston Astros",
+      "side": "Over",
+      "home_prob": "Walbert Ure\u00f1a",
+      "away_prob": "Tatsuya Imai",
+      "selection": "Houston Astros @ Los Angeles Angels Over 8.5",
+      "total": 8.5,
+      "odds": -117,
+      "risk": 1.17,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Houston Astros 6\u20134 Los Angeles Angels"
+      }
+    }
+  ]
+}
