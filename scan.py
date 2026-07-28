@@ -250,16 +250,22 @@ def apply_conviction(slate, graded):
     """Multiply risk/to_win by conviction (see build_slate's same-side
     merge) and note the extra reason(s) so the notification explains why
     it's sized above 1 unit. Keeps model.py's staking math untouched --
-    this only scales the 1-unit result it already returned."""
+    this only scales the 1-unit result it already returned.
+
+    A 2-star pick is lower-confidence -- don't let it ride at the full 2x
+    conviction size just because two independent reasons happened to agree;
+    cap it at 1.5x instead. Requires stars to already be attached, so this
+    must run after attach_stars()."""
     for p, row in zip(slate, graded):
         conviction = p.get("conviction", 1)
         if row["verdict"] != "PLAY" or conviction <= 1:
             continue
-        row["risk"] = round(row["risk"] * conviction, 2)
-        row["to_win"] = round(row["to_win"] * conviction, 2)
+        effective = 1.5 if (conviction == 2 and row.get("stars") == 2) else conviction
+        row["risk"] = round(row["risk"] * effective, 2)
+        row["to_win"] = round(row["to_win"] * effective, 2)
         extra = p.get("extra_notes") or []
         if extra:
-            row["reason"] += f"  ({conviction}x conviction — also: {'; '.join(extra)})"
+            row["reason"] += f"  ({effective}x conviction — also: {'; '.join(extra)})"
     return graded
 
 
@@ -275,6 +281,54 @@ def apply_rlm(graded, meta):
         row["rlm"] = sig
         row["rlm_note"] = note
     return graded
+
+
+PENDING_REVIEW_FILE = os.environ.get("PENDING_REVIEW_FILE", "pending_review.json")
+REVIEW_HOLD_MINUTES = 60
+
+
+def resolve_reviews(graded, meta, now=None):
+    """REVIEW verdicts (RLM thinks the market opposes the play) are never
+    sent directly -- fully automate the "is this actually worth sending"
+    call instead of pushing that judgment onto the notification. Hold a
+    REVIEW game quietly; if a later run clears it back to a clean PLAY
+    within REVIEW_HOLD_MINUTES, it gets sent then like any other pick, same
+    as usual. Still REVIEW (or its window closes) once that deadline
+    passes -> drop it for good, never sent.
+
+    Caveat worth knowing: a full scan only runs roughly every ~100 minutes
+    (see market_hours_open's MIN_GAP_MINUTES -- a deliberate Odds API quota
+    throttle), so in practice a held play gets exactly one more look before
+    the 60-minute deadline is already behind it."""
+    now = now or datetime.now(timezone.utc)
+    pending = load_json(PENDING_REVIEW_FILE, {})
+    seen_this_run = set()
+    for row, m in zip(graded, meta):
+        pk = str(m["game_pk"])
+        if row["verdict"] == "REVIEW":
+            seen_this_run.add(pk)
+            if pk not in pending:
+                pending[pk] = now.isoformat()
+                print(f"Holding game_pk {pk} for review (first seen) -- not sending yet.")
+                continue
+            elapsed_min = (now - datetime.fromisoformat(pending[pk])).total_seconds() / 60.0
+            if elapsed_min >= REVIEW_HOLD_MINUTES:
+                print(f"game_pk {pk} still REVIEW after {elapsed_min:.0f}m -- dropping, never sending.")
+                del pending[pk]
+            else:
+                print(f"game_pk {pk} still REVIEW ({elapsed_min:.0f}m elapsed) -- holding, not sending yet.")
+        elif pk in pending:
+            print(f"game_pk {pk} cleared to PLAY -- releasing from review hold.")
+            del pending[pk]
+    for pk in list(pending):  # safety-net cleanup for entries a game's own window outran
+        if pk in seen_this_run:
+            continue
+        try:
+            if (now - datetime.fromisoformat(pending[pk])).total_seconds() / 3600.0 >= 24:
+                del pending[pk]
+        except Exception:
+            del pending[pk]
+    save_json(PENDING_REVIEW_FILE, pending)
 
 
 def attach_stars(slate, graded):
@@ -312,24 +366,28 @@ def _local_time(start_utc):
 def _pick_and_reason(row, m=None):
     """Split a graded row into (pick line, reason line) so callers can
     format each notification channel differently -- e.g. Discord bolds
-    just the pick, ntfy stays plain text for both."""
-    flag = "🔎REVIEW" if row["verdict"] == "REVIEW" else "PLAY"
+    just the pick, ntfy stays plain text for both. Only ever called for a
+    clean PLAY now -- REVIEW verdicts are held/dropped by resolve_reviews()
+    and never reach here directly."""
     tag = ""
     if row.get("rlm"):
         tag = f"  [{row['rlm']['tag']} {row['rlm']['detail']}]"
     note = f"  {row.get('rlm_note','')}" if row.get("rlm_note") else ""
     when = f" — {_local_time(m['start_utc'])}" if m else ""
-    pick = (f"{flag}: {row['sel']}{when} {row['odds']:+d} "
+    pick = (f"PLAY: {row['sel']}{when} {row['odds']:+d} "
             f"(risk {row['risk']}u/win {row['to_win']}u){tag}  {_star_str(row.get('stars'))}")
     reason = f"{row['reason']}{note}"
     return pick, reason
 
 
 def new_plays(graded, meta, sent):
-    """Return fresh PLAY/REVIEW rows whose game_pk hasn't been notified yet."""
+    """Return fresh PLAY rows whose game_pk hasn't been notified yet. REVIEW
+    verdicts are handled separately by resolve_reviews() -- held, not sent
+    directly, and only ever show up here if a later run clears them to a
+    clean PLAY."""
     fresh = []
     for row, m in zip(graded, meta):
-        if row["verdict"] in ("PLAY", "REVIEW") and str(m["game_pk"]) not in sent:
+        if row["verdict"] == "PLAY" and str(m["game_pk"]) not in sent:
             fresh.append((row, m))
     return fresh
 # --------------------------------------------------------------------------
@@ -388,9 +446,10 @@ def main():
 
     slate, meta = build_slate(games, odds, opens["lines"], public, savant_stats=savant_stats)
     graded, must_parlay = run(slate)
-    graded = apply_conviction(slate, graded)                      # merge same-side conviction picks
     graded = apply_rlm(graded, meta)                              # market overlay
+    resolve_reviews(graded, meta)                                 # hold/drop REVIEW verdicts -- never sent directly
     graded = attach_stars(slate, graded)                          # 1-5 confidence rating
+    graded = apply_conviction(slate, graded)                      # merge same-side conviction picks (star-aware sizing)
     sent = load_state()
     fresh = new_plays(graded, meta, sent)
 
