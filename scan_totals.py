@@ -161,7 +161,7 @@ def main():
         lines.append("Lone -150+ fav — parlay or log override.")
     if must_parlay:
         discord_lines.append(
-            "🔗 Cap rule: -150+ favorites can't stand alone (some books won't take them "
+            "🔗 Cap rule: -150+ favorites do not bet alone (some books won't take them "
             "straight), so each one opens as a parlay leg. Pair it with another -150+ leg "
             "whenever the system flags one — same day or a later one, no rush. Grading "
             "always settles each leg as its own straight single, regardless of how it's "
