@@ -514,11 +514,17 @@ def main():
         discord_lines.append(f"**{pick}**\n{reason}")
         sent.add(str(m["game_pk"]))
     if len(must_parlay) >= 2:
-        tail = "🔗 Cap rule: parlay the -150+ favs together."
-        lines.append(tail); discord_lines.append(tail)
+        lines.append("🔗 Cap rule: parlay the -150+ favs together.")
     elif len(must_parlay) == 1:
-        tail = "⚠️ Lone -150+ fav — parlay or log override."
-        lines.append(tail); discord_lines.append(tail)
+        lines.append("⚠️ Lone -150+ fav — parlay or log override.")
+    if must_parlay:
+        discord_lines.append(
+            "🔗 Cap rule: -150+ favorites can't stand alone (some books won't take them "
+            "straight), so each one opens as a parlay leg. Pair it with another -150+ leg "
+            "whenever the system flags one — same day or a later one, no rush. Grading "
+            "always settles each leg as its own straight single, regardless of how it's "
+            "actually parlayed."
+        )
 
     body = "\n".join(lines)
     title = f"⚾ {len(fresh)} play(s) — starts within {int(LEAD_HOURS)}h"
