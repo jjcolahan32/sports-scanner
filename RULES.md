@@ -16,6 +16,12 @@ _Account: JT111 (play610). Ledgers tracked separately per book._
 
 ## 3. MLB
 - Core: **confirmed-legit arms** vs **confirmed mirages** using ERA vs xERA / FIP / xFIP / SIERA / xwOBA.
+- **Being on a list below is not a standing auto-play.** Every start, listed or not, needs
+  *today's* actual Savant ERA-xERA gap to confirm the read (≥ DYNAMIC_GAP threshold, the
+  same live check a never-listed pitcher would need) before it fires. A name here is a
+  candidate worth checking, not a permanent green light — someone can quietly stop being a
+  mirage, or a "legit arm" can quietly stop pitching well, for weeks before this list gets
+  hand-updated. No live confirmation that day = no play, regardless of the list.
 - **Legit arms (back the side):** Misiorowski, Schlittler, C. Sánchez, Sale, Skenes, Wheeler, H. Brown,
   Ryan, Rasmussen, Mize, Miller, Cease, Harrison, Messick, McClanahan, Ashcraft, N. Martinez, Henderson,
   Detmers, Roupp, Luzardo (high-variance boom/bust), Woodruff.

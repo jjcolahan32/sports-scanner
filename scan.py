@@ -13,8 +13,9 @@ Timezone-proof: uses each game's real UTC start time — no day-of-week guessing
 import os, json, sys
 from datetime import datetime, timezone
 
-from model import run, american_to_stake, cap_rule, LEGIT_ARMS, MIRAGES, REVERSE_MIRAGES, DYNAMIC_GAP, star_rating
-import fetch_mlb, fetch_odds, fetch_savant, notify, discord_notify, rlm
+from model import (run, american_to_stake, cap_rule, LEGIT_ARMS, MIRAGES, REVERSE_MIRAGES,
+                    DYNAMIC_GAP, BULLPEN_EDGE_VETO, LINEUP_EDGE_VETO, star_rating)
+import fetch_mlb, fetch_odds, fetch_savant, fetch_teamstats, notify, discord_notify, rlm
 
 LEAD_HOURS = float(os.environ.get("LEAD_HOURS", "4"))   # notify within N hours of first pitch
 STATE_FILE = os.environ.get("STATE_FILE", "state.json")
@@ -98,6 +99,23 @@ def _list_tag(full):
     return None
 
 
+def team_support_ok(bet_team, opp_team, team_stats):
+    """Supporting-cast confirmation, layered on top of the starter-gap edge:
+    veto only when BOTH the bullpen AND the lineup point against the picked
+    team relative to their opponent -- a single-metric disagreement isn't
+    enough to kill an otherwise live starter-gap read, since either one
+    alone can be noisy over a partial season. Missing stats for either team
+    means benefit of the doubt (True), never a silent veto from bad data."""
+    bet, opp = team_stats.get(bet_team) or {}, team_stats.get(opp_team) or {}
+    bet_era, opp_era = bet.get("bullpen_era"), opp.get("bullpen_era")
+    bet_ops, opp_ops = bet.get("batting_ops"), opp.get("batting_ops")
+    if None in (bet_era, opp_era, bet_ops, opp_ops):
+        return True
+    bullpen_against = (bet_era - opp_era) >= BULLPEN_EDGE_VETO   # our pen meaningfully worse
+    lineup_against = (opp_ops - bet_ops) >= LINEUP_EDGE_VETO      # our lineup meaningfully worse
+    return not (bullpen_against and lineup_against)
+
+
 def dynamic_match(pk, savant_stats):
     """Look up a probable pitcher's season ERA-xERA gap by last name.
     Disambiguates same-surname pitchers by first-name initial. Returns the
@@ -117,7 +135,7 @@ def dynamic_match(pk, savant_stats):
     return None
 
 
-def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=None):
+def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=None, team_stats=None):
     """Turn qualifying games into model slate rows + market context for RLM.
 
     Back a legit/reverse-mirage arm -> bet HIS team's ML.
@@ -135,6 +153,11 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
     read carries more weight than a first-time discovery -- see
     attach_stars) but it never bypasses the live check on its own anymore.
 
+    On top of that, the picked team's bullpen + lineup (fetch_teamstats.py)
+    must not BOTH point against them relative to the opponent -- see
+    team_support_ok(). A great starter mismatch can still get erased by a
+    bad bullpen or a lineup that can't cash in on it.
+
     When two independent reasons land on the SAME side of the same game
     (e.g. the home pitcher is confirmed to back AND the away pitcher is
     confirmed to fade -- both mean "bet home"), that's conviction, not two
@@ -145,6 +168,7 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
     opens = opens or {}
     public = public or {}
     savant_stats = savant_stats or {}
+    team_stats = team_stats or {}
     rows, meta = [], []
     for g in games:
         if not in_window(g, now):
@@ -171,6 +195,10 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
             else:                                    # confirmed quality -> back
                 bet_side, bet_team = side, team
                 note = f"back {_fmt(pk)}" + (f", listed {listed}" if listed in ("legit", "reverse") else ", live gap")
+            if not team_support_ok(bet_team, g[opp_side], team_stats):
+                print(f"game_pk {g['game_pk']}: {bet_team} starter-gap edge vetoed -- "
+                      f"bullpen AND lineup both favor {g[opp_side]}.")
+                continue
             ml = o.get(f"{bet_side}_ml")
             if ml is None:
                 continue
@@ -436,7 +464,14 @@ def main():
         print(f"Savant fetch failed, skipping dynamic layer this run: {e}")
         savant_stats = {}
 
-    slate, meta = build_slate(games, odds, opens["lines"], public, savant_stats=savant_stats)
+    try:
+        team_stats = fetch_teamstats.all_team_stats()              # bullpen/lineup confirmation
+    except Exception as e:
+        print(f"Team-stats fetch failed, skipping supporting-cast check this run: {e}")
+        team_stats = {}
+
+    slate, meta = build_slate(games, odds, opens["lines"], public,
+                               savant_stats=savant_stats, team_stats=team_stats)
     graded, must_parlay = run(slate)
     graded = apply_rlm(graded, meta)                              # market overlay
     resolve_reviews(graded, meta)                                 # hold/drop REVIEW verdicts -- never sent directly

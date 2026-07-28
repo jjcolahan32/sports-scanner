@@ -11,7 +11,7 @@ up end to end.
 """
 import os, sys
 
-import fetch_mlb, fetch_odds, fetch_savant, fetch_weather, ballparks, notify, discord_notify
+import fetch_mlb, fetch_odds, fetch_savant, fetch_teamstats, fetch_weather, ballparks, notify, discord_notify
 
 
 def main():
@@ -81,6 +81,19 @@ def main():
         except Exception as e:
             print(f"FAIL  discord_notify.push — {e}")
             results.append(False)
+
+    try:
+        team_stats = fetch_teamstats.all_team_stats()
+        ok = sum(1 for v in team_stats.values() if v["bullpen_era"] is not None and v["batting_ops"] is not None)
+        if ok < 25:   # allow a handful of missed teams without failing the whole check
+            raise RuntimeError(f"only {ok}/{len(team_stats)} teams loaded cleanly")
+        print(f"PASS  fetch_teamstats.all_team_stats — {ok}/{len(team_stats)} teams "
+              f"(bullpen ERA + batting OPS)")
+        results.append(True)
+    except Exception as e:
+        print(f"FAIL  fetch_teamstats.all_team_stats — {e} "
+              f"(scan.py just skips the supporting-cast check when this happens)")
+        results.append(False)
 
     try:
         park = ballparks.for_team("Colorado Rockies")

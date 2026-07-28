@@ -29,6 +29,18 @@ RETIREMENT_PROFILE = {"dimitrov","djokovic"}
 # thresholds. Source: fetch_savant.py (Baseball Savant, free but unofficial).
 DYNAMIC_GAP = 0.75
 
+# Supporting-cast confirmation (bullpen + lineup) — a starter-gap edge (above)
+# is necessary but no longer sufficient to fire. A great starter matchup can
+# still get erased by a bad bullpen, and a great pitching mismatch doesn't
+# matter if the lineup can't score. Only vetoes when BOTH point against the
+# picked team (single-metric disagreement isn't enough to kill an otherwise
+# live starter-gap read) -- see scan.py's team_support_ok(). Source:
+# fetch_teamstats.py (MLB Stats API, official, free, no quota).
+# Thresholds set at roughly half a league-wide stdev as of 2026-07:
+# bullpen ERA stdev ~0.6 (mean ~4.15), team OPS stdev ~0.024 (mean ~0.721).
+BULLPEN_EDGE_VETO = 0.3     # opponent's bullpen ERA this much lower = real disadvantage
+LINEUP_EDGE_VETO = 0.012    # opponent's team OPS this much higher = real disadvantage
+
 # Totals (over/under) composite lean — each signal below contributes +1/-1
 # toward OVER/UNDER; net score crossing TOTALS_LEAN_THRESHOLD fires a play.
 # Tune here. Source: ballparks.py (park factor) + fetch_weather.py (NWS,
