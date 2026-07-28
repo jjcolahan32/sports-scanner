@@ -1,19 +1,22 @@
 name: card-scanner
-# Fires hourly; scan.py's own DST-aware market_hours_open() check (zoneinfo,
-# America/New_York) decides whether to actually do anything -- active
-# checkpoints are 11am/1/3/5/7/9pm ET, every 2h. Firing hourly in UTC and
-# gating in Python means the intended ET schedule survives DST changes
-# automatically; a fixed UTC cron would silently drift by an hour each time
-# clocks change. Manual dispatch always runs regardless of the hour.
+# scan.py's own DST-aware market_hours_open() check (zoneinfo,
+# America/New_York) decides whether to actually do anything -- exact
+# checkpoints are 11am, 12:30pm, 2pm, 5pm, 6:30pm, 8pm ET (SCAN_CHECKPOINTS_ET
+# in scan.py), not an hourly/2h window. Cron fires every 10 minutes so a
+# checkpoint gets caught even if GitHub drops/delays a specific tick (see
+# below); the Python gate is what actually decides whether a given tick is
+# within grace of a checkpoint. Comparing in ET via zoneinfo means the
+# schedule survives DST changes automatically -- a fixed set of UTC times
+# would silently drift by an hour each time clocks change.
 #
-# Runs at :07 past the hour, not :00 -- GitHub's own docs warn that the top
-# of the hour is the most congested scheduling window across all of GitHub
-# Actions and scheduled runs there are prone to being delayed or dropped
-# entirely. Confirmed happening here: with "0 * * * *" this workflow only
-# actually fired a small fraction of its expected hourly ticks.
+# Offset by :03 from each 10-minute mark (3,13,23,... not 0,10,20,...) --
+# GitHub's own docs warn that round-number marks (especially :00) are the
+# most congested scheduling windows across all of GitHub Actions, and
+# scheduled runs there are prone to being delayed or dropped entirely.
+# Confirmed happening here previously with "0 * * * *" hourly cron.
 on:
   schedule:
-    - cron: "7 * * * *"
+    - cron: "3,13,23,33,43,53 * * * *"
   workflow_dispatch: {}          # lets you trigger a manual run from the Actions tab
 
 permissions:

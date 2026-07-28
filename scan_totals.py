@@ -122,7 +122,7 @@ def log_totals_card(fresh):
 
 def main():
     if not market_hours_open(last_run_file=LAST_RUN_FILE):
-        print("Outside active scan hours (11am-9pm ET) — skipping, no API calls made.")
+        print("Not within grace of a scan checkpoint — skipping, no API calls made.")
         return
     record_run(last_run_file=LAST_RUN_FILE)
 

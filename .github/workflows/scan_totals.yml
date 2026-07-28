@@ -1,18 +1,21 @@
 name: totals-scanner
-# Fires hourly; scan_totals.py's own DST-aware market_hours_open() check
-# decides whether to actually do anything -- same 11am/1/3/5/7/9pm ET
-# checkpoints as card-scanner, now that quota allows it (6 checks/day for
-# each market = 360/month combined, comfortably under the 500 free cap).
-# Firing hourly in UTC and gating in Python means the schedule survives DST
-# changes automatically. Manual dispatch always runs regardless of the hour.
+# scan_totals.py's own DST-aware market_hours_open() check decides whether
+# to actually do anything -- same exact checkpoints as card-scanner (11am,
+# 12:30pm, 2pm, 5pm, 6:30pm, 8pm ET -- SCAN_CHECKPOINTS_ET in scan.py), each
+# job tracking its own "fired today" state independently. 6 checks/day for
+# each market = 360/month combined, comfortably under the 500 free Odds API
+# cap. Cron fires every 10 minutes so a checkpoint gets caught even if
+# GitHub drops/delays a specific tick; comparing in ET means the schedule
+# survives DST changes automatically.
 #
-# Runs at :17 past the hour (staggered from card-scanner's :07 and
-# nightly-grader's :27) -- avoids the top-of-hour GitHub Actions scheduling
-# congestion (see card-scanner's scan.yml comment) and keeps our own three
-# workflows from landing in the same minute.
+# Offset :08 past each 10-minute mark -- staggered from card-scanner's :03
+# and nightly-grader's :27 (none of :08/18/28/38/48/58 land exactly on :27)
+# to avoid the top-of-hour GitHub Actions scheduling congestion (see
+# card-scanner's scan.yml comment) and keep our own workflows from landing
+# in the same minute as each other.
 on:
   schedule:
-    - cron: "17 * * * *"
+    - cron: "8,18,28,38,48,58 * * * *"
   workflow_dispatch: {}
 
 permissions:

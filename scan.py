@@ -22,44 +22,67 @@ STATE_FILE = os.environ.get("STATE_FILE", "state.json")
 OPENS_FILE = os.environ.get("OPENS_FILE", "opens.json")   # opening-line snapshots (for RLM)
 PUBLIC_FILE = os.environ.get("PUBLIC_FILE", "public.json")  # OPTIONAL bet% you supply
 
-# Active scan window in US Eastern time (DST-aware): 11am-9pm ET, roughly
-# every 2h within it. Only enforced on scheduled (cron) runs; manual
-# dispatch and local runs always proceed.
+# Exact scan checkpoints in US Eastern time (DST-aware) -- not a window,
+# not "roughly every N hours": these specific times, and nothing else.
+# Only enforced on scheduled (cron) runs; manual dispatch and local runs
+# always proceed.
 #
-# Not gated on an exact-hour match anymore. GitHub's `schedule:` trigger is
-# documented as best-effort, and in practice here it dropped the large
-# majority of its hourly ticks -- exact checkpoints (11am/1/3/5/7/9pm ET)
-# went silently unfired for hours at a stretch. Fixed by decoupling from
-# exact-hour alignment: stay inside the broad window and fire on whichever
-# tick actually lands, throttled to roughly once every MIN_GAP_MINUTES by a
-# persisted last-run timestamp -- so a dropped tick just delays to the next
-# one that lands, instead of silently losing that entire checkpoint.
+# GitHub's `schedule:` trigger is documented as best-effort and in practice
+# drops a real fraction of ticks (confirmed here previously), so cron itself
+# fires often (every 10 minutes, see scan.yml/scan_totals.yml) and this gate
+# decides whether a given tick lands within CHECKPOINT_GRACE_MINUTES after
+# one of these times. A late/dropped tick still catches the checkpoint on
+# the next one that lands; each checkpoint fires at most once per day,
+# tracked in last_run_file (resets at midnight ET).
+SCAN_CHECKPOINTS_ET = [
+    (11, 0), (12, 30), (14, 0), (17, 0), (18, 30), (20, 0),
+]
+CHECKPOINT_GRACE_MINUTES = 20   # tightest gap between checkpoints here is 90 min, plenty of margin
 LAST_RUN_FILE = os.environ.get("LAST_RUN_FILE", "last_scan.json")
-MIN_GAP_MINUTES = 100
+
+
+def _et_now_and_today(now_utc):
+    from zoneinfo import ZoneInfo
+    et = now_utc.astimezone(ZoneInfo("America/New_York"))
+    return et, et.strftime("%Y-%m-%d")
+
+
+def _due_checkpoints(et, fired):
+    """Checkpoints (as 'HH:MM' labels) that are within grace and not yet
+    fired today."""
+    now_minutes = et.hour * 60 + et.minute
+    due = []
+    for hh, mm in SCAN_CHECKPOINTS_ET:
+        label = f"{hh:02d}:{mm:02d}"
+        if label in fired:
+            continue
+        if 0 <= now_minutes - (hh * 60 + mm) <= CHECKPOINT_GRACE_MINUTES:
+            due.append(label)
+    return due
 
 
 def market_hours_open(now_utc=None, last_run_file=None):
     if os.environ.get("GITHUB_EVENT_NAME") != "schedule":
         return True
-    from zoneinfo import ZoneInfo
     now_utc = now_utc or datetime.now(timezone.utc)
-    et_hour = now_utc.astimezone(ZoneInfo("America/New_York")).hour
-    if not (11 <= et_hour <= 21):
-        return False
-    last = load_json(last_run_file or LAST_RUN_FILE, {}).get("at")
-    if last:
-        try:
-            last_dt = datetime.fromisoformat(last)
-            if (now_utc - last_dt).total_seconds() < MIN_GAP_MINUTES * 60:
-                return False
-        except Exception:
-            pass
-    return True
+    et, today = _et_now_and_today(now_utc)
+    state = load_json(last_run_file or LAST_RUN_FILE, {})
+    fired = set(state.get("fired", [])) if state.get("date") == today else set()
+    return bool(_due_checkpoints(et, fired))
 
 
 def record_run(last_run_file=None, now_utc=None):
+    """Mark whichever checkpoint(s) are due right now as fired for today --
+    normally just one, but if a tick was delayed enough to straddle two
+    checkpoints' grace windows, marks both so a later tick doesn't re-fire
+    the earlier one."""
     now_utc = now_utc or datetime.now(timezone.utc)
-    save_json(last_run_file or LAST_RUN_FILE, {"at": now_utc.isoformat()})
+    et, today = _et_now_and_today(now_utc)
+    path = last_run_file or LAST_RUN_FILE
+    state = load_json(path, {})
+    fired = set(state.get("fired", [])) if state.get("date") == today else set()
+    fired.update(_due_checkpoints(et, fired))
+    save_json(path, {"date": today, "fired": sorted(fired)})
 
 
 # ---------- pure, testable core -------------------------------------------
@@ -447,7 +470,7 @@ def save_json(path, obj):
 
 def main():
     if not market_hours_open():
-        print("Outside active scan hours (11am-9pm ET) — skipping, no API calls made.")
+        print("Not within grace of a scan checkpoint — skipping, no API calls made.")
         return
     record_run()
 
