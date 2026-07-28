@@ -20,7 +20,6 @@ LEAD_HOURS = float(os.environ.get("LEAD_HOURS", "4"))   # notify within N hours 
 STATE_FILE = os.environ.get("STATE_FILE", "state.json")
 OPENS_FILE = os.environ.get("OPENS_FILE", "opens.json")   # opening-line snapshots (for RLM)
 PUBLIC_FILE = os.environ.get("PUBLIC_FILE", "public.json")  # OPTIONAL bet% you supply
-VETTED = LEGIT_ARMS | MIRAGES | REVERSE_MIRAGES
 
 # Active scan window in US Eastern time (DST-aware): 11am-9pm ET, roughly
 # every 2h within it. Only enforced on scheduled (cron) runs; manual
@@ -81,28 +80,22 @@ def in_window(game, now=None):
     return 0 < h <= LEAD_HOURS
 
 
-def qualifying_pitchers(game):
-    """Yield (side, pitcher_full, team) for probable pitchers on a vetted list."""
-    for side, pk, team in (("away", game.get("away_prob"), game.get("away")),
-                           ("home", game.get("home_prob"), game.get("home"))):
-        if pk and _last(pk).split()[-1] in {v.split()[-1] for v in VETTED} and _last(pk) in _matchset(pk):
-            yield side, pk, team
-
-
-def _matchset(pitcher_full):
-    """Match a full name against the vetted lists' 'X. Last' or 'last' forms."""
-    last = _last(pitcher_full).split()[-1]
-    hits = set()
-    for v in VETTED:
-        if v.split()[-1] == last:
-            hits.add(v)
-            hits.add(_last(pitcher_full))
-    return hits
-
-
-def _is_mirage(full):
+def _list_tag(full):
+    """Cross-reference a pitcher's live-confirmed read against the
+    hand-vetted RULES.md lists. Context for the notification only -- being
+    on a list is no longer a firing gate by itself (see build_slate); every
+    pitcher, listed or not, needs today's actual Savant gap to confirm the
+    read before anything fires."""
+    if not full:
+        return None
     last = _last(full).split()[-1]
-    return any(v.split()[-1] == last for v in MIRAGES)
+    if any(v.split()[-1] == last for v in MIRAGES):
+        return "mirage"
+    if any(v.split()[-1] == last for v in REVERSE_MIRAGES):
+        return "reverse"
+    if any(v.split()[-1] == last for v in LEGIT_ARMS):
+        return "legit"
+    return None
 
 
 def dynamic_match(pk, savant_stats):
@@ -130,14 +123,21 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
     Back a legit/reverse-mirage arm -> bet HIS team's ML.
     Fade a mirage arm            -> bet the OPPONENT's ML.
 
-    Layered on top: any probable pitcher NOT on the hand-vetted lists is also
-    checked against Baseball Savant's ERA-xERA gap (fetch_savant.py) — a big
-    enough gap either way surfaces as its own "dynamic" candidate, tagged
-    separately in the notification so you can see which signal fired it.
+    Being on a RULES.md list is no longer enough to fire by itself. Every
+    probable pitcher -- listed or not -- needs TODAY's actual Baseball
+    Savant ERA-xERA gap (fetch_savant.py) to clear DYNAMIC_GAP in the
+    matching direction before anything fires: a big enough negative gap
+    confirms a mirage (fade), a big enough positive gap confirms genuine
+    quality (back). A pitcher can quietly stop being a mirage -- or a
+    "legit arm" can quietly stop pitching well -- for weeks before anyone
+    hand-updates RULES.md; requiring today's number closes that gap. List
+    membership still shows up in the reason text (a listed + live-confirmed
+    read carries more weight than a first-time discovery -- see
+    attach_stars) but it never bypasses the live check on its own anymore.
 
     When two independent reasons land on the SAME side of the same game
-    (e.g. the home pitcher is a legit arm to back AND the away pitcher is a
-    mirage to fade -- both mean "bet home"), that's conviction, not two
+    (e.g. the home pitcher is confirmed to back AND the away pitcher is
+    confirmed to fade -- both mean "bet home"), that's conviction, not two
     plays: merged into one row sized at conviction units instead of firing
     twice. Only genuinely opposing sides (the model disagreeing with
     itself) still get skipped as a conflict.
@@ -152,41 +152,30 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
         key = f"{fetch_odds._norm(g['away'])}@{fetch_odds._norm(g['home'])}"
         entries = odds.get((fetch_odds._norm(g["away"]), fetch_odds._norm(g["home"])), [])
         o = fetch_odds.closest(entries, g["start_utc"]) or {}
-        vetted_sides = set()
-        candidates = []  # dicts: bet_side, bet_team, note, pitcher, dyn -- collected
+        candidates = []  # dicts: bet_side, bet_team, note, pitcher, dyn, listed -- collected
                           # before committing, so same-side conviction merges and
                           # opposing-side conflicts can both be resolved first
 
-        for side, pk, team in qualifying_pitchers(g):
-            vetted_sides.add(side)
-            opp_side = "home" if side == "away" else "away"
-            if _is_mirage(pk):                      # fade -> opponent
-                bet_side, bet_team, note = opp_side, g[opp_side], f"fade {_fmt(pk)}"
-            else:                                   # back -> his team
-                bet_side, bet_team, note = side, team, f"back {_fmt(pk)}"
-            ml = o.get(f"{bet_side}_ml")
-            if ml is None:
-                continue
-            candidates.append({"bet_side": bet_side, "bet_team": bet_team, "note": note,
-                               "pitcher": _fmt(pk), "ml": ml, "dyn": None})
-
         for side, pk, team in (("away", g.get("away_prob"), g.get("away")),
                                ("home", g.get("home_prob"), g.get("home"))):
-            if not pk or side in vetted_sides:
+            if not pk:
                 continue
             stat = dynamic_match(pk, savant_stats)
             if not stat or abs(stat["gap"]) < DYNAMIC_GAP:
                 continue
+            listed = _list_tag(pk)
             opp_side = "home" if side == "away" else "away"
-            if stat["gap"] <= -DYNAMIC_GAP:          # mirage -> fade
-                bet_side, bet_team, note = opp_side, g[opp_side], f"fade {_fmt(pk)}, dynamic"
-            else:                                    # reverse-mirage -> back
-                bet_side, bet_team, note = side, team, f"back {_fmt(pk)}, dynamic"
+            if stat["gap"] <= -DYNAMIC_GAP:          # confirmed mirage -> fade
+                bet_side, bet_team = opp_side, g[opp_side]
+                note = f"fade {_fmt(pk)}" + (", listed mirage" if listed == "mirage" else ", live gap")
+            else:                                    # confirmed quality -> back
+                bet_side, bet_team = side, team
+                note = f"back {_fmt(pk)}" + (f", listed {listed}" if listed in ("legit", "reverse") else ", live gap")
             ml = o.get(f"{bet_side}_ml")
             if ml is None:
                 continue
             candidates.append({"bet_side": bet_side, "bet_team": bet_team, "note": note,
-                               "pitcher": _fmt(pk), "ml": ml, "dyn": stat})
+                               "pitcher": _fmt(pk), "ml": ml, "dyn": stat, "listed": listed is not None})
 
         if not candidates:
             continue
@@ -211,11 +200,9 @@ def build_slate(games, odds, opens=None, public=None, now=None, savant_stats=Non
         row = {"sport": "mlb", "selection": f"{bet_team} ML ({notes})",
                "pitcher": primary["pitcher"], "odds": ml, "market": "ml",
                "venue": "coors" if "Coors" in g["venue"] else g["venue"],
-               "conviction": conviction, "extra_notes": [e["note"] for e in extras]}
-        if primary["dyn"]:
-            row["dyn_gap"] = primary["dyn"]["gap"]
-            row["dyn_era"] = primary["dyn"]["era"]
-            row["dyn_xera"] = primary["dyn"]["xera"]
+               "conviction": conviction, "extra_notes": [e["note"] for e in extras],
+               "dyn_gap": primary["dyn"]["gap"], "dyn_era": primary["dyn"]["era"],
+               "dyn_xera": primary["dyn"]["xera"], "listed": primary["listed"]}
         m = {"game_pk": g["game_pk"], "selection": f"{bet_team} ML",
              "bet_side": bet_side, "bet_team": bet_team,
              "start_utc": g["start_utc"],
@@ -332,12 +319,17 @@ def resolve_reviews(graded, meta, now=None):
 
 
 def attach_stars(slate, graded):
-    """Attach a 1-5 star confidence rating to each graded row. Reads dyn_gap
-    from the original slate row (model.run()'s output doesn't carry custom
-    fields through -- same reason the totals 'total' field needed meta) and
-    the RLM tag apply_rlm() already attached."""
+    """Attach a 1-5 star confidence rating to each graded row. Every pick
+    now carries a live dyn_gap (see build_slate), so "is_dynamic" here means
+    "not on a RULES.md list" specifically -- a listed pitcher whose current
+    numbers ALSO confirm the read is a stronger signal (double-confirmed)
+    than a pitcher discovered from live numbers alone, same distinction the
+    star rubric drew before this pick, with dyn_gap read from the original
+    slate row since model.run()'s output doesn't carry custom fields through
+    (same reason the totals 'total' field needed meta), and the RLM tag
+    apply_rlm() already attached."""
     for p, row in zip(slate, graded):
-        is_dynamic = p.get("dyn_gap") is not None
+        is_dynamic = not p.get("listed", False)
         rlm_tag = (row.get("rlm") or {}).get("tag")
         row["stars"] = star_rating(is_dynamic=is_dynamic, dyn_gap=p.get("dyn_gap"), rlm_tag=rlm_tag)
     return graded
