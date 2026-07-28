@@ -35,7 +35,7 @@ PUBLIC_FILE = os.environ.get("PUBLIC_FILE", "public.json")  # OPTIONAL bet% you 
 # the next one that lands; each checkpoint fires at most once per day,
 # tracked in last_run_file (resets at midnight ET).
 SCAN_CHECKPOINTS_ET = [
-    (11, 0), (12, 30), (14, 0), (17, 0), (18, 30), (20, 0),
+    (11, 0), (12, 30), (14, 0), (17, 0), (18, 30), (20, 0), (21, 0),
 ]
 CHECKPOINT_GRACE_MINUTES = 20   # tightest gap between checkpoints here is 90 min, plenty of margin
 LAST_RUN_FILE = os.environ.get("LAST_RUN_FILE", "last_scan.json")

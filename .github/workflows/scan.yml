@@ -1,8 +1,8 @@
 name: card-scanner
 # scan.py's own DST-aware market_hours_open() check (zoneinfo,
 # America/New_York) decides whether to actually do anything -- exact
-# checkpoints are 11am, 12:30pm, 2pm, 5pm, 6:30pm, 8pm ET (SCAN_CHECKPOINTS_ET
-# in scan.py), not an hourly/2h window. Cron fires every 10 minutes so a
+# checkpoints are 11am, 12:30pm, 2pm, 5pm, 6:30pm, 8pm, 9pm ET
+# (SCAN_CHECKPOINTS_ET in scan.py), not an hourly/2h window. Cron fires every 10 minutes so a
 # checkpoint gets caught even if GitHub drops/delays a specific tick (see
 # below); the Python gate is what actually decides whether a given tick is
 # within grace of a checkpoint. Comparing in ET via zoneinfo means the
