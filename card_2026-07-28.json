@@ -1,1 +1,100 @@
-{"date": "2026-07-28", "plays": [{"game_pk": 824243, "start_utc": "2026-07-28T22:40:00Z", "bet_team": "Baltimore Orioles", "bet_side": "away", "selection": "Baltimore Orioles ML (fade T. Melton, listed mirage)", "odds": 120, "risk": 1.0, "to_win": 1.2, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 822703, "start_utc": "2026-07-28T22:45:00Z", "bet_team": "Washington Nationals", "bet_side": "home", "selection": "Washington Nationals ML (fade S. Bieber, live gap)", "odds": -142, "risk": 1.42, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823676, "start_utc": "2026-07-28T23:40:00Z", "bet_team": "Minnesota Twins", "bet_side": "home", "selection": "Minnesota Twins ML (fade S. Lugo, live gap)", "odds": -178, "risk": 1.78, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824569, "start_utc": "2026-07-28T23:40:00Z", "bet_team": "New York Yankees", "bet_side": "away", "selection": "New York Yankees ML (fade A. Kay, live gap)", "odds": -122, "risk": 1.22, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823026, "start_utc": "2026-07-28T23:45:00Z", "bet_team": "Chicago Cubs", "bet_side": "away", "selection": "Chicago Cubs ML (fade M. McGreevy, live gap)", "odds": -112, "risk": 1.12, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-07-28",
+  "plays": [
+    {
+      "game_pk": 824243,
+      "start_utc": "2026-07-28T22:40:00Z",
+      "bet_team": "Baltimore Orioles",
+      "bet_side": "away",
+      "selection": "Baltimore Orioles ML (fade T. Melton, listed mirage)",
+      "odds": 120,
+      "risk": 1.0,
+      "to_win": 1.2,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Baltimore Orioles 0\u201314 Detroit Tigers"
+      }
+    },
+    {
+      "game_pk": 822703,
+      "start_utc": "2026-07-28T22:45:00Z",
+      "bet_team": "Washington Nationals",
+      "bet_side": "home",
+      "selection": "Washington Nationals ML (fade S. Bieber, live gap)",
+      "odds": -142,
+      "risk": 1.42,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Toronto Blue Jays 6\u20138 Washington Nationals"
+      }
+    },
+    {
+      "game_pk": 823676,
+      "start_utc": "2026-07-28T23:40:00Z",
+      "bet_team": "Minnesota Twins",
+      "bet_side": "home",
+      "selection": "Minnesota Twins ML (fade S. Lugo, live gap)",
+      "odds": -178,
+      "risk": 1.78,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Kansas City Royals 2\u20133 Minnesota Twins"
+      }
+    },
+    {
+      "game_pk": 824569,
+      "start_utc": "2026-07-28T23:40:00Z",
+      "bet_team": "New York Yankees",
+      "bet_side": "away",
+      "selection": "New York Yankees ML (fade A. Kay, live gap)",
+      "odds": -122,
+      "risk": 1.22,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "New York Yankees 3\u20132 Chicago White Sox"
+      }
+    },
+    {
+      "game_pk": 823026,
+      "start_utc": "2026-07-28T23:45:00Z",
+      "bet_team": "Chicago Cubs",
+      "bet_side": "away",
+      "selection": "Chicago Cubs ML (fade M. McGreevy, live gap)",
+      "odds": -112,
+      "risk": 1.12,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Chicago Cubs 10\u20132 St. Louis Cardinals"
+      }
+    }
+  ]
+}
