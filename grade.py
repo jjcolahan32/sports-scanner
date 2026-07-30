@@ -27,47 +27,57 @@ import fetch_mlb, notify, discord_notify
 
 LEDGER_FILE = os.environ.get("LEDGER_FILE", "ledger.json")
 
-# Broad grading window in US Eastern time (DST-aware): 6pm-4am ET, roughly
-# every 2h within it, PLUS a standalone 7am ET catch-up checkpoint the
-# following morning for anything still ungraded overnight (a game running
-# long, a late tick never landing, etc). Only enforced on scheduled (cron)
-# runs; manual dispatch and local runs always proceed.
+# Exact grading checkpoints in US Eastern time (DST-aware): midnight, 4am,
+# 11am ET -- then nothing until the next day's midnight. Only enforced on
+# scheduled (cron) runs; manual dispatch and local runs always proceed.
 #
-# Not gated on an exact-hour match anymore. GitHub's `schedule:` trigger is
-# documented as best-effort, and in practice here it dropped the large
-# majority of its hourly ticks -- overnight on 2026-07-18 zero of the
-# 6pm-4am checkpoints actually fired. Fixed the same way as scan.py's
-# market_hours_open(): stay inside the window and fire on whichever tick
-# actually lands, throttled to roughly once every MIN_GAP_MINUTES by a
-# persisted last-run timestamp, so a dropped tick just delays to the next
-# one that lands instead of silently losing that entire checkpoint.
+# Same pattern as scan.py's SCAN_CHECKPOINTS_ET: GitHub's `schedule:`
+# trigger is documented as best-effort and drops a real fraction of ticks
+# (confirmed here previously), so cron fires often (see grade.yml) and this
+# gate decides whether a given tick lands within CHECKPOINT_GRACE_MINUTES
+# after an unfired checkpoint for the day. A late/dropped tick still
+# catches the checkpoint on the next one that lands; each checkpoint fires
+# at most once per day, tracked in LAST_RUN_FILE (resets at midnight ET).
+GRADE_CHECKPOINTS_ET = [(0, 0), (4, 0), (11, 0)]
+CHECKPOINT_GRACE_MINUTES = 20
 LAST_RUN_FILE = os.environ.get("GRADE_LAST_RUN_FILE", "last_grade.json")
-MIN_GAP_MINUTES = 100
-CATCHUP_HOUR_ET = 7
+
+
+def _et_now_and_today(now_utc):
+    from zoneinfo import ZoneInfo
+    et = now_utc.astimezone(ZoneInfo("America/New_York"))
+    return et, et.strftime("%Y-%m-%d")
+
+
+def _due_checkpoints(et, fired):
+    now_minutes = et.hour * 60 + et.minute
+    due = []
+    for hh, mm in GRADE_CHECKPOINTS_ET:
+        label = f"{hh:02d}:{mm:02d}"
+        if label in fired:
+            continue
+        if 0 <= now_minutes - (hh * 60 + mm) <= CHECKPOINT_GRACE_MINUTES:
+            due.append(label)
+    return due
 
 
 def grade_hours_open(now_utc=None):
     if os.environ.get("GITHUB_EVENT_NAME") != "schedule":
         return True
-    from zoneinfo import ZoneInfo
     now_utc = now_utc or datetime.now(timezone.utc)
-    et_hour = now_utc.astimezone(ZoneInfo("America/New_York")).hour
-    if not (et_hour >= 18 or et_hour <= 4 or et_hour == CATCHUP_HOUR_ET):
-        return False
-    last = load_json(LAST_RUN_FILE, {}).get("at")
-    if last:
-        try:
-            last_dt = datetime.fromisoformat(last)
-            if (now_utc - last_dt).total_seconds() < MIN_GAP_MINUTES * 60:
-                return False
-        except Exception:
-            pass
-    return True
+    et, today = _et_now_and_today(now_utc)
+    state = load_json(LAST_RUN_FILE, {})
+    fired = set(state.get("fired", [])) if state.get("date") == today else set()
+    return bool(_due_checkpoints(et, fired))
 
 
 def record_run(now_utc=None):
     now_utc = now_utc or datetime.now(timezone.utc)
-    save_json(LAST_RUN_FILE, {"at": now_utc.isoformat()})
+    et, today = _et_now_and_today(now_utc)
+    state = load_json(LAST_RUN_FILE, {})
+    fired = set(state.get("fired", [])) if state.get("date") == today else set()
+    fired.update(_due_checkpoints(et, fired))
+    save_json(LAST_RUN_FILE, {"date": today, "fired": sorted(fired)})
 
 
 def load_json(path, default):
@@ -286,7 +296,7 @@ def grade_all():
 
 def main():
     if not grade_hours_open():
-        print("Outside grading hours (6pm-4am ET + 7am catch-up) — skipping, no API calls made.")
+        print("Not within grace of a grading checkpoint — skipping, no API calls made.")
         return
     record_run()
 

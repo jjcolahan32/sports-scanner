@@ -1,20 +1,19 @@
 name: nightly-grader
-# Fires hourly; grade.py's own DST-aware grade_hours_open() check decides
-# whether to actually do anything -- checkpoints are 6pm/8pm/10pm/12am/2am/4am
-# ET, every 2h, so a card finalizes at or before the last two checks after
-# any given game goes Final (extra innings/rain delays included), PLUS a
-# standalone 7am ET catch-up the next morning for anything still ungraded
-# overnight. Firing hourly in UTC and gating in Python means the schedule
+# grade.py's own DST-aware grade_hours_open() check decides whether to
+# actually do anything -- exact checkpoints are midnight, 4am, 11am ET
+# (GRADE_CHECKPOINTS_ET in grade.py), then nothing until the next day's
+# midnight. Cron fires every 10 minutes so a checkpoint gets caught even if
+# GitHub drops/delays a specific tick; comparing in ET means the schedule
 # survives DST changes automatically. Manual dispatch always runs
 # regardless of the hour.
 #
-# Runs at :27 past the hour (staggered from card-scanner's :07 and
-# totals-scanner's :17) -- avoids the top-of-hour GitHub Actions scheduling
-# congestion (see card-scanner's scan.yml comment) and keeps our own three
-# workflows from landing in the same minute.
+# Offset :07 past each 10-minute mark (staggered from card-scanner's :03
+# and totals-scanner's :08) -- avoids the top-of-hour GitHub Actions
+# scheduling congestion (see card-scanner's scan.yml comment) and keeps our
+# own three workflows from landing in the same minute.
 on:
   schedule:
-    - cron: "27 * * * *"
+    - cron: "7,17,27,37,47,57 * * * *"
   workflow_dispatch: {}
 
 permissions:
