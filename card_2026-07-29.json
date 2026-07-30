@@ -71,8 +71,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Texas Rangers 0\u20133 Tampa Bay Rays"
+      }
     },
     {
       "game_pk": 823677,
@@ -87,8 +90,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Kansas City Royals 4\u20130 Minnesota Twins"
+      }
     },
     {
       "game_pk": 824973,
@@ -103,8 +109,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Boston Red Sox 4\u20132 Athletics"
+      }
     },
     {
       "game_pk": 823924,
@@ -119,8 +128,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Seattle Mariners 2\u20134 Los Angeles Dodgers"
+      }
     }
   ]
 }

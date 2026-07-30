@@ -1,1 +1,27 @@
-{"date": "2026-07-29", "plays": [{"game_pk": 824002, "start_utc": "2026-07-30T01:38:00Z", "home": "Los Angeles Angels", "away": "Houston Astros", "side": "Over", "home_prob": "Grayson Rodriguez", "away_prob": "Hayden Wesneski", "selection": "Houston Astros @ Los Angeles Angels Over 9.5", "total": 9.5, "odds": -115, "risk": 1.15, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-07-29",
+  "plays": [
+    {
+      "game_pk": 824002,
+      "start_utc": "2026-07-30T01:38:00Z",
+      "home": "Los Angeles Angels",
+      "away": "Houston Astros",
+      "side": "Over",
+      "home_prob": "Grayson Rodriguez",
+      "away_prob": "Hayden Wesneski",
+      "selection": "Houston Astros @ Los Angeles Angels Over 9.5",
+      "total": 9.5,
+      "odds": -115,
+      "risk": 1.15,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Houston Astros 7\u20134 Los Angeles Angels"
+      }
+    }
+  ]
+}
