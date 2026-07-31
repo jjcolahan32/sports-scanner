@@ -1,1 +1,62 @@
-{"date": "2026-07-30", "plays": [{"game_pk": 823023, "start_utc": "2026-07-30T18:15:00Z", "bet_team": "St. Louis Cardinals", "bet_side": "home", "selection": "St. Louis Cardinals ML (fade J. Assad, live gap)", "odds": -118, "risk": 1.18, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824894, "start_utc": "2026-07-30T23:15:00Z", "bet_team": "Washington Nationals", "bet_side": "away", "selection": "Washington Nationals ML (fade G. Holmes, live gap)", "odds": 130, "risk": 1.0, "to_win": 1.3, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823921, "start_utc": "2026-07-31T02:10:00Z", "bet_team": "Seattle Mariners", "bet_side": "away", "selection": "Seattle Mariners ML (back B. Woo, live gap)", "odds": 122, "risk": 1.0, "to_win": 1.22, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-07-30",
+  "plays": [
+    {
+      "game_pk": 823023,
+      "start_utc": "2026-07-30T18:15:00Z",
+      "bet_team": "St. Louis Cardinals",
+      "bet_side": "home",
+      "selection": "St. Louis Cardinals ML (fade J. Assad, live gap)",
+      "odds": -118,
+      "risk": 1.18,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Chicago Cubs 4\u20132 St. Louis Cardinals"
+      }
+    },
+    {
+      "game_pk": 824894,
+      "start_utc": "2026-07-30T23:15:00Z",
+      "bet_team": "Washington Nationals",
+      "bet_side": "away",
+      "selection": "Washington Nationals ML (fade G. Holmes, live gap)",
+      "odds": 130,
+      "risk": 1.0,
+      "to_win": 1.3,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Washington Nationals 4\u20135 Atlanta Braves"
+      }
+    },
+    {
+      "game_pk": 823921,
+      "start_utc": "2026-07-31T02:10:00Z",
+      "bet_team": "Seattle Mariners",
+      "bet_side": "away",
+      "selection": "Seattle Mariners ML (back B. Woo, live gap)",
+      "odds": 122,
+      "risk": 1.0,
+      "to_win": 1.22,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Seattle Mariners 2\u20136 Los Angeles Dodgers"
+      }
+    }
+  ]
+}

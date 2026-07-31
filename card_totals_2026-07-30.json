@@ -1,1 +1,71 @@
-{"date": "2026-07-30", "plays": [{"game_pk": 823023, "start_utc": "2026-07-30T18:15:00Z", "home": "St. Louis Cardinals", "away": "Chicago Cubs", "side": "Over", "home_prob": "Andre Pallante", "away_prob": "Javier Assad", "selection": "Chicago Cubs @ St. Louis Cardinals Over 8.5", "total": 8.5, "odds": -110, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824894, "start_utc": "2026-07-30T23:15:00Z", "home": "Atlanta Braves", "away": "Washington Nationals", "side": "Over", "home_prob": "Grant Holmes", "away_prob": "Jake Irvin", "selection": "Washington Nationals @ Atlanta Braves Over 9.5", "total": 9.5, "odds": -115, "risk": 1.15, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824974, "start_utc": "2026-07-31T01:40:00Z", "home": "Athletics", "away": "Boston Red Sox", "side": "Over", "home_prob": "Mason Barnett", "away_prob": "Sonny Gray", "selection": "Boston Red Sox @ Athletics Over 10.5", "total": 10.5, "odds": 102, "risk": 1.0, "to_win": 1.02, "cap": "dog", "verdict": "PLAY", "stars": 4, "graded": false, "result": null}]}
+{
+  "date": "2026-07-30",
+  "plays": [
+    {
+      "game_pk": 823023,
+      "start_utc": "2026-07-30T18:15:00Z",
+      "home": "St. Louis Cardinals",
+      "away": "Chicago Cubs",
+      "side": "Over",
+      "home_prob": "Andre Pallante",
+      "away_prob": "Javier Assad",
+      "selection": "Chicago Cubs @ St. Louis Cardinals Over 8.5",
+      "total": 8.5,
+      "odds": -110,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Chicago Cubs 4\u20132 St. Louis Cardinals"
+      }
+    },
+    {
+      "game_pk": 824894,
+      "start_utc": "2026-07-30T23:15:00Z",
+      "home": "Atlanta Braves",
+      "away": "Washington Nationals",
+      "side": "Over",
+      "home_prob": "Grant Holmes",
+      "away_prob": "Jake Irvin",
+      "selection": "Washington Nationals @ Atlanta Braves Over 9.5",
+      "total": 9.5,
+      "odds": -115,
+      "risk": 1.15,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Washington Nationals 4\u20135 Atlanta Braves"
+      }
+    },
+    {
+      "game_pk": 824974,
+      "start_utc": "2026-07-31T01:40:00Z",
+      "home": "Athletics",
+      "away": "Boston Red Sox",
+      "side": "Over",
+      "home_prob": "Mason Barnett",
+      "away_prob": "Sonny Gray",
+      "selection": "Boston Red Sox @ Athletics Over 10.5",
+      "total": 10.5,
+      "odds": 102,
+      "risk": 1.0,
+      "to_win": 1.02,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Boston Red Sox 5\u20134 Athletics"
+      }
+    }
+  ]
+}
