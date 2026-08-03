@@ -1,1 +1,81 @@
-{"date": "2026-08-02", "plays": [{"game_pk": 822783, "start_utc": "2026-08-02T17:37:00Z", "bet_team": "Toronto Blue Jays", "bet_side": "home", "selection": "Toronto Blue Jays ML (back M. Scherzer, live gap)", "odds": -126, "risk": 1.26, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 824404, "start_utc": "2026-08-02T17:40:00Z", "bet_team": "Cleveland Guardians", "bet_side": "home", "selection": "Cleveland Guardians ML (fade M. Kelly, live gap)", "odds": -168, "risk": 1.68, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 824483, "start_utc": "2026-08-02T17:40:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "away", "selection": "Pittsburgh Pirates ML (fade C. Burns, live gap)", "odds": 126, "risk": 1.0, "to_win": 1.26, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824648, "start_utc": "2026-08-02T18:20:00Z", "bet_team": "New York Yankees", "bet_side": "away", "selection": "New York Yankees ML (fade C. Rea, live gap)", "odds": -122, "risk": 1.22, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-08-02",
+  "plays": [
+    {
+      "game_pk": 822783,
+      "start_utc": "2026-08-02T17:37:00Z",
+      "bet_team": "Toronto Blue Jays",
+      "bet_side": "home",
+      "selection": "Toronto Blue Jays ML (back M. Scherzer, live gap)",
+      "odds": -126,
+      "risk": 1.26,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "St. Louis Cardinals 5\u20131 Toronto Blue Jays"
+      }
+    },
+    {
+      "game_pk": 824404,
+      "start_utc": "2026-08-02T17:40:00Z",
+      "bet_team": "Cleveland Guardians",
+      "bet_side": "home",
+      "selection": "Cleveland Guardians ML (fade M. Kelly, live gap)",
+      "odds": -168,
+      "risk": 1.68,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Arizona Diamondbacks 0\u20135 Cleveland Guardians"
+      }
+    },
+    {
+      "game_pk": 824483,
+      "start_utc": "2026-08-02T17:40:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "away",
+      "selection": "Pittsburgh Pirates ML (fade C. Burns, live gap)",
+      "odds": 126,
+      "risk": 1.0,
+      "to_win": 1.26,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Pittsburgh Pirates 2\u201310 Cincinnati Reds"
+      }
+    },
+    {
+      "game_pk": 824648,
+      "start_utc": "2026-08-02T18:20:00Z",
+      "bet_team": "New York Yankees",
+      "bet_side": "away",
+      "selection": "New York Yankees ML (fade C. Rea, live gap)",
+      "odds": -122,
+      "risk": 1.22,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "New York Yankees 2\u20131 Chicago Cubs"
+      }
+    }
+  ]
+}
