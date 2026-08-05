@@ -1,0 +1,105 @@
+{
+  "date": "2026-08-04",
+  "plays": [
+    {
+      "game_pk": 824484,
+      "start_utc": "2026-08-04T22:40:00Z",
+      "home": "Cincinnati Reds",
+      "away": "Athletics",
+      "side": "Over",
+      "selection": "Athletics @ Cincinnati Reds Over 9.0",
+      "total": 9.0,
+      "odds": -105,
+      "risk": 1.05,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "push",
+        "score": "Athletics 4\u20135 Cincinnati Reds"
+      }
+    },
+    {
+      "game_pk": 823432,
+      "start_utc": "2026-08-04T22:40:00Z",
+      "home": "Philadelphia Phillies",
+      "away": "Washington Nationals",
+      "side": "Under",
+      "selection": "Washington Nationals @ Philadelphia Phillies Under 9.0",
+      "total": 9.0,
+      "odds": -122,
+      "risk": 1.22,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Washington Nationals 0\u20135 Philadelphia Phillies"
+      }
+    },
+    {
+      "game_pk": 824731,
+      "start_utc": "2026-08-04T23:10:00Z",
+      "home": "Boston Red Sox",
+      "away": "Chicago White Sox",
+      "side": "Over",
+      "selection": "Chicago White Sox @ Boston Red Sox Over 9.0",
+      "total": 9.0,
+      "odds": -105,
+      "risk": 1.05,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Chicago White Sox 2\u201314 Boston Red Sox"
+      }
+    },
+    {
+      "game_pk": 824645,
+      "start_utc": "2026-08-05T00:05:00Z",
+      "home": "Chicago Cubs",
+      "away": "Los Angeles Dodgers",
+      "side": "Over",
+      "selection": "Los Angeles Dodgers @ Chicago Cubs Over 9.0",
+      "total": 9.0,
+      "odds": -115,
+      "risk": 1.15,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Dodgers 1\u20135 Chicago Cubs"
+      }
+    },
+    {
+      "game_pk": 825054,
+      "start_utc": "2026-08-05T01:40:00Z",
+      "home": "Arizona Diamondbacks",
+      "away": "San Diego Padres",
+      "side": "Over",
+      "selection": "San Diego Padres @ Arizona Diamondbacks Over 9.0",
+      "total": 9.0,
+      "odds": -105,
+      "risk": 1.05,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "San Diego Padres 9\u20134 Arizona Diamondbacks"
+      }
+    }
+  ]
+}
