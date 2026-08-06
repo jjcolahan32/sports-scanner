@@ -1,1 +1,138 @@
-{"date": "2026-08-05", "plays": [{"game_pk": 822866, "start_utc": "2026-08-05T18:35:00Z", "bet_team": "Texas Rangers", "bet_side": "home", "selection": "Texas Rangers ML (fade C. Whisenhunt, live gap)", "odds": -154, "risk": 1.54, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824402, "start_utc": "2026-08-05T22:40:00Z", "bet_team": "Cleveland Guardians", "bet_side": "home", "selection": "Cleveland Guardians ML (fade C. Scott, listed mirage)", "odds": -108, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824482, "start_utc": "2026-08-05T22:40:00Z", "bet_team": "Athletics", "bet_side": "away", "selection": "Athletics ML (back J. Lopez, live gap)", "odds": 151, "risk": 1.0, "to_win": 1.51, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823429, "start_utc": "2026-08-05T22:40:00Z", "bet_team": "Philadelphia Phillies", "bet_side": "home", "selection": "Philadelphia Phillies ML (back A. Painter, live gap)", "odds": -186, "risk": 1.86, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824728, "start_utc": "2026-08-05T23:10:00Z", "bet_team": "Chicago White Sox", "bet_side": "away", "selection": "Chicago White Sox ML (fade S. Gray, listed mirage)", "odds": -126, "risk": 1.26, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824082, "start_utc": "2026-08-05T23:40:00Z", "bet_team": "Minnesota Twins", "bet_side": "away", "selection": "Minnesota Twins ML (back D. Kremer, live gap)", "odds": 106, "risk": 1.0, "to_win": 1.06, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823753, "start_utc": "2026-08-05T23:40:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "away", "selection": "Pittsburgh Pirates ML (back P. Skenes, listed legit)", "odds": 119, "risk": 1.0, "to_win": 1.19, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}]}
+{
+  "date": "2026-08-05",
+  "plays": [
+    {
+      "game_pk": 822866,
+      "start_utc": "2026-08-05T18:35:00Z",
+      "bet_team": "Texas Rangers",
+      "bet_side": "home",
+      "selection": "Texas Rangers ML (fade C. Whisenhunt, live gap)",
+      "odds": -154,
+      "risk": 1.54,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "San Francisco Giants 0\u20136 Texas Rangers"
+      }
+    },
+    {
+      "game_pk": 824402,
+      "start_utc": "2026-08-05T22:40:00Z",
+      "bet_team": "Cleveland Guardians",
+      "bet_side": "home",
+      "selection": "Cleveland Guardians ML (fade C. Scott, listed mirage)",
+      "odds": -108,
+      "risk": 1.08,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "New York Mets 6\u20135 Cleveland Guardians"
+      }
+    },
+    {
+      "game_pk": 824482,
+      "start_utc": "2026-08-05T22:40:00Z",
+      "bet_team": "Athletics",
+      "bet_side": "away",
+      "selection": "Athletics ML (back J. Lopez, live gap)",
+      "odds": 151,
+      "risk": 1.0,
+      "to_win": 1.51,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Athletics 2\u20133 Cincinnati Reds"
+      }
+    },
+    {
+      "game_pk": 823429,
+      "start_utc": "2026-08-05T22:40:00Z",
+      "bet_team": "Philadelphia Phillies",
+      "bet_side": "home",
+      "selection": "Philadelphia Phillies ML (back A. Painter, live gap)",
+      "odds": -186,
+      "risk": 1.86,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Washington Nationals 10\u20134 Philadelphia Phillies"
+      }
+    },
+    {
+      "game_pk": 824728,
+      "start_utc": "2026-08-05T23:10:00Z",
+      "bet_team": "Chicago White Sox",
+      "bet_side": "away",
+      "selection": "Chicago White Sox ML (fade S. Gray, listed mirage)",
+      "odds": -126,
+      "risk": 1.26,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Chicago White Sox 0\u20134 Boston Red Sox"
+      }
+    },
+    {
+      "game_pk": 824082,
+      "start_utc": "2026-08-05T23:40:00Z",
+      "bet_team": "Minnesota Twins",
+      "bet_side": "away",
+      "selection": "Minnesota Twins ML (back D. Kremer, live gap)",
+      "odds": 106,
+      "risk": 1.0,
+      "to_win": 1.06,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Minnesota Twins 1\u20132 Kansas City Royals"
+      }
+    },
+    {
+      "game_pk": 823753,
+      "start_utc": "2026-08-05T23:40:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "away",
+      "selection": "Pittsburgh Pirates ML (back P. Skenes, listed legit)",
+      "odds": 119,
+      "risk": 1.0,
+      "to_win": 1.19,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Pittsburgh Pirates 2\u20134 Milwaukee Brewers"
+      }
+    }
+  ]
+}
