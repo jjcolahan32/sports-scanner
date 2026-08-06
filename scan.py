@@ -22,20 +22,22 @@ STATE_FILE = os.environ.get("STATE_FILE", "state.json")
 OPENS_FILE = os.environ.get("OPENS_FILE", "opens.json")   # opening-line snapshots (for RLM)
 PUBLIC_FILE = os.environ.get("PUBLIC_FILE", "public.json")  # OPTIONAL bet% you supply
 
-# Exact scan checkpoints in US Eastern time (DST-aware) -- not a window,
-# not "roughly every N hours": these specific times, and nothing else.
-# Only enforced on scheduled (cron) runs; manual dispatch and local runs
-# always proceed.
+# Exact scan checkpoints in US Eastern time (DST-aware), every 2h from
+# 11am-9pm ET. Only enforced on scheduled (cron) runs; manual dispatch and
+# local runs always proceed.
 #
-# GitHub's `schedule:` trigger is documented as best-effort and in practice
-# drops a real fraction of ticks (confirmed here previously), so cron itself
-# fires often (every 10 minutes, see scan.yml/scan_totals.yml) and this gate
-# decides whether a given tick lands within CHECKPOINT_GRACE_MINUTES after
-# one of these times. A late/dropped tick still catches the checkpoint on
-# the next one that lands; each checkpoint fires at most once per day,
-# tracked in last_run_file (resets at midnight ET).
+# GitHub's own `schedule:` trigger is unreliable (documented best-effort,
+# confirmed dropping a real fraction of ticks here) AND, when left active
+# alongside an external trigger, caused two independent sources to fire
+# close together -- some runs got cancelled by the concurrency lock, others
+# hit git-push contention and exhausted their retry budget. Triggering is
+# now handled entirely by an external cron service calling GitHub's
+# workflow_dispatch API on this exact schedule (see scan.yml) -- reliable
+# and on-demand, not best-effort. This gate is a safety-net dedup layer:
+# a checkpoint fires at most once per day even if triggered twice, tracked
+# in last_run_file (resets at midnight ET).
 SCAN_CHECKPOINTS_ET = [
-    (11, 0), (12, 30), (14, 0), (17, 0), (18, 30), (20, 0), (21, 0),
+    (11, 0), (13, 0), (15, 0), (17, 0), (19, 0), (21, 0),
 ]
 CHECKPOINT_GRACE_MINUTES = 20   # tightest gap between checkpoints here is 90 min, plenty of margin
 LAST_RUN_FILE = os.environ.get("LAST_RUN_FILE", "last_scan.json")

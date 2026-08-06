@@ -31,13 +31,14 @@ LEDGER_FILE = os.environ.get("LEDGER_FILE", "ledger.json")
 # 11am ET -- then nothing until the next day's midnight. Only enforced on
 # scheduled (cron) runs; manual dispatch and local runs always proceed.
 #
-# Same pattern as scan.py's SCAN_CHECKPOINTS_ET: GitHub's `schedule:`
-# trigger is documented as best-effort and drops a real fraction of ticks
-# (confirmed here previously), so cron fires often (see grade.yml) and this
-# gate decides whether a given tick lands within CHECKPOINT_GRACE_MINUTES
-# after an unfired checkpoint for the day. A late/dropped tick still
-# catches the checkpoint on the next one that lands; each checkpoint fires
-# at most once per day, tracked in LAST_RUN_FILE (resets at midnight ET).
+# Same pattern as scan.py's SCAN_CHECKPOINTS_ET: triggering is handled by
+# an external cron service calling GitHub's workflow_dispatch API on this
+# exact schedule (see grade.yml) -- GitHub's own `schedule:` trigger proved
+# unreliable and, left active alongside the external trigger, caused
+# collisions (cancelled/failed runs from two sources firing close
+# together). This gate is a safety-net dedup layer: a checkpoint fires at
+# most once per day even if triggered twice, tracked in LAST_RUN_FILE
+# (resets at midnight ET).
 GRADE_CHECKPOINTS_ET = [(0, 0), (4, 0), (11, 0)]
 CHECKPOINT_GRACE_MINUTES = 20
 LAST_RUN_FILE = os.environ.get("GRADE_LAST_RUN_FILE", "last_grade.json")

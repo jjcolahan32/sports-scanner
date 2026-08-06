@@ -1,23 +1,16 @@
 name: card-scanner
-# scan.py's own DST-aware market_hours_open() check (zoneinfo,
-# America/New_York) decides whether to actually do anything -- exact
-# checkpoints are 11am, 12:30pm, 2pm, 5pm, 6:30pm, 8pm, 9pm ET
-# (SCAN_CHECKPOINTS_ET in scan.py), not an hourly/2h window. Cron fires every 10 minutes so a
-# checkpoint gets caught even if GitHub drops/delays a specific tick (see
-# below); the Python gate is what actually decides whether a given tick is
-# within grace of a checkpoint. Comparing in ET via zoneinfo means the
-# schedule survives DST changes automatically -- a fixed set of UTC times
-# would silently drift by an hour each time clocks change.
-#
-# Offset by :03 from each 10-minute mark (3,13,23,... not 0,10,20,...) --
-# GitHub's own docs warn that round-number marks (especially :00) are the
-# most congested scheduling windows across all of GitHub Actions, and
-# scheduled runs there are prone to being delayed or dropped entirely.
-# Confirmed happening here previously with "0 * * * *" hourly cron.
+# Triggered by an external cron service (cron-job.org) calling GitHub's
+# workflow_dispatch API every 2h, 11am-9pm ET -- see scan.py's
+# SCAN_CHECKPOINTS_ET for the exact checkpoints and the reasoning. No
+# `schedule:` trigger here on purpose: GitHub's own scheduler is documented
+# best-effort and confirmed unreliable in this repo (dropped most ticks),
+# and briefly running it alongside the external trigger caused two sources
+# to fire close together -- cancelled runs (concurrency lock) and failed
+# runs (git-push contention exhausting the retry budget). workflow_dispatch
+# is immediate and on-demand, not best-effort, so the external trigger
+# alone is both simpler and more reliable.
 on:
-  schedule:
-    - cron: "3,13,23,33,43,53 * * * *"
-  workflow_dispatch: {}          # lets you trigger a manual run from the Actions tab
+  workflow_dispatch: {}          # called by the external cron service, or manually from the Actions tab
 
 permissions:
   contents: write                # allow committing state.json back for dedupe

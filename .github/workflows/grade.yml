@@ -1,19 +1,13 @@
 name: nightly-grader
-# grade.py's own DST-aware grade_hours_open() check decides whether to
-# actually do anything -- exact checkpoints are midnight, 4am, 11am ET
-# (GRADE_CHECKPOINTS_ET in grade.py), then nothing until the next day's
-# midnight. Cron fires every 10 minutes so a checkpoint gets caught even if
-# GitHub drops/delays a specific tick; comparing in ET means the schedule
-# survives DST changes automatically. Manual dispatch always runs
-# regardless of the hour.
+# Triggered by an external cron service (cron-job.org) calling GitHub's
+# workflow_dispatch API at exactly midnight, 4am, 11am ET (GRADE_CHECKPOINTS_ET
+# in grade.py), then nothing until the next day's midnight.
 #
-# Offset :07 past each 10-minute mark (staggered from card-scanner's :03
-# and totals-scanner's :08) -- avoids the top-of-hour GitHub Actions
-# scheduling congestion (see card-scanner's scan.yml comment) and keeps our
-# own three workflows from landing in the same minute.
+# No `schedule:` trigger here on purpose -- see card-scanner's scan.yml
+# comment: GitHub's own scheduler proved unreliable, and running it
+# alongside the external trigger caused two sources to collide (cancelled
+# and failed runs). Manual dispatch always runs regardless of the hour.
 on:
-  schedule:
-    - cron: "7,17,27,37,47,57 * * * *"
   workflow_dispatch: {}
 
 permissions:
