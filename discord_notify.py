@@ -3,10 +3,12 @@ discord_notify.py — push the same picks to a Discord channel via a webhook,
 alongside (not instead of) the ntfy phone push.
 
 Setup: in Discord, go to the target channel -> Edit Channel -> Integrations
--> Webhooks -> New Webhook. Name it (e.g. "Card Scanner"), copy the Webhook
-URL, and set it as the DISCORD_WEBHOOK_URL secret. No bot invite, no OAuth,
-no persistent process required -- a webhook is just a POST endpoint Discord
-renders as a message from that identity in the channel.
+-> Webhooks -> New Webhook. Copy the Webhook URL and set it as the
+DISCORD_WEBHOOK_URL secret -- the webhook's own name in Discord doesn't
+matter, since every message overrides it with DISPLAY_NAME below. No bot
+invite, no OAuth, no persistent process required -- a webhook is just a
+POST endpoint Discord renders as a message from that identity in the
+channel.
 
 Optional by design: if DISCORD_WEBHOOK_URL isn't set, or the POST fails,
 this fails soft (prints a note, returns False) rather than raising -- a
@@ -17,6 +19,7 @@ import os, json, urllib.request
 
 DISCORD_MAX = 2000  # Discord's hard limit on a single message's content
 SENT_FILE = "discord_sent.json"
+DISPLAY_NAME = "Fade These Picks"  # webhook "username" override -- shown as the poster's name
 
 
 def push(title, body, webhook_url=None):
@@ -26,7 +29,7 @@ def push(title, body, webhook_url=None):
     text = f"**{title}**\n{body}"
     if len(text) > DISCORD_MAX:
         text = text[:DISCORD_MAX - 20] + "\n… (truncated)"
-    payload = json.dumps({"content": text}).encode("utf-8")
+    payload = json.dumps({"content": text, "username": DISPLAY_NAME}).encode("utf-8")
     req = urllib.request.Request(
         url, data=payload, method="POST",
         headers={"Content-Type": "application/json", "User-Agent": "card-scanner/1.0"})
