@@ -1,1 +1,49 @@
-{"date": "2026-08-06", "plays": [{"game_pk": 824804, "start_utc": "2026-08-06T16:35:00Z", "home": "Baltimore Orioles", "away": "Los Angeles Angels", "side": "Over", "home_prob": "Brandon Young", "away_prob": "Ryan Johnson", "selection": "Los Angeles Angels @ Baltimore Orioles Over 10.0", "total": 10.0, "odds": -104, "risk": 1.04, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824729, "start_utc": "2026-08-06T23:10:00Z", "home": "Boston Red Sox", "away": "Chicago White Sox", "side": "Over", "home_prob": "Ranger Suarez", "away_prob": "Luis Castillo", "selection": "Chicago White Sox @ Boston Red Sox Over 9.0", "total": 9.0, "odds": -106, "risk": 1.06, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 4, "graded": false, "result": null}]}
+{
+  "date": "2026-08-06",
+  "plays": [
+    {
+      "game_pk": 824804,
+      "start_utc": "2026-08-06T16:35:00Z",
+      "home": "Baltimore Orioles",
+      "away": "Los Angeles Angels",
+      "side": "Over",
+      "home_prob": "Brandon Young",
+      "away_prob": "Ryan Johnson",
+      "selection": "Los Angeles Angels @ Baltimore Orioles Over 10.0",
+      "total": 10.0,
+      "odds": -104,
+      "risk": 1.04,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Angels 4\u20131 Baltimore Orioles"
+      }
+    },
+    {
+      "game_pk": 824729,
+      "start_utc": "2026-08-06T23:10:00Z",
+      "home": "Boston Red Sox",
+      "away": "Chicago White Sox",
+      "side": "Over",
+      "home_prob": "Ranger Suarez",
+      "away_prob": "Luis Castillo",
+      "selection": "Chicago White Sox @ Boston Red Sox Over 9.0",
+      "total": 9.0,
+      "odds": -106,
+      "risk": 1.06,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Chicago White Sox 11\u201312 Boston Red Sox"
+      }
+    }
+  ]
+}
