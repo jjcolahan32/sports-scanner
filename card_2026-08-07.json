@@ -14,8 +14,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Toronto Blue Jays 5\u20134 Philadelphia Phillies"
+      }
     },
     {
       "game_pk": 822699,
@@ -49,8 +52,11 @@
       "verdict": "PLAY",
       "rlm_tag": "STEAM-FOR",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Atlanta Braves 2\u20133 New York Yankees"
+      }
     },
     {
       "game_pk": 824727,
@@ -103,8 +109,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Dodgers 3\u20134 Arizona Diamondbacks"
+      }
     },
     {
       "game_pk": 823266,
@@ -119,8 +128,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Houston Astros 6\u20133 San Diego Padres"
+      }
     },
     {
       "game_pk": 823191,
@@ -135,8 +147,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Detroit Tigers 2\u20135 San Francisco Giants"
+      }
     }
   ]
 }
