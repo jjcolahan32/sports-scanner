@@ -1,1 +1,94 @@
-{"date": "2026-08-10", "plays": [{"game_pk": 822780, "start_utc": "2026-08-10T23:07:00Z", "bet_team": "Toronto Blue Jays", "bet_side": "home", "selection": "Toronto Blue Jays ML (fade S. Gray, listed mirage)", "odds": 143, "risk": 1.0, "to_win": 1.43, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823675, "start_utc": "2026-08-10T23:40:00Z", "bet_team": "Minnesota Twins", "bet_side": "home", "selection": "Minnesota Twins ML (back D. Kremer, live gap)", "odds": -109, "risk": 1.09, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823018, "start_utc": "2026-08-10T23:45:00Z", "bet_team": "Philadelphia Phillies", "bet_side": "away", "selection": "Philadelphia Phillies ML (back A. Painter, live gap)", "odds": -112, "risk": 1.12, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824969, "start_utc": "2026-08-11T01:40:00Z", "bet_team": "Tampa Bay Rays", "bet_side": "away", "selection": "Tampa Bay Rays ML (back F. Peralta, live gap)", "odds": -154, "risk": 1.54, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823189, "start_utc": "2026-08-11T01:45:00Z", "bet_team": "San Francisco Giants", "bet_side": "home", "selection": "San Francisco Giants ML (fade H. Wesneski, live gap)", "odds": 132, "risk": 1.0, "to_win": 1.32, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-08-10",
+  "plays": [
+    {
+      "game_pk": 822780,
+      "start_utc": "2026-08-10T23:07:00Z",
+      "bet_team": "Toronto Blue Jays",
+      "bet_side": "home",
+      "selection": "Toronto Blue Jays ML (fade S. Gray, listed mirage)",
+      "odds": 143,
+      "risk": 1.0,
+      "to_win": 1.43,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Boston Red Sox 1\u20132 Toronto Blue Jays"
+      }
+    },
+    {
+      "game_pk": 823675,
+      "start_utc": "2026-08-10T23:40:00Z",
+      "bet_team": "Minnesota Twins",
+      "bet_side": "home",
+      "selection": "Minnesota Twins ML (back D. Kremer, live gap)",
+      "odds": -109,
+      "risk": 1.09,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Baltimore Orioles 5\u20139 Minnesota Twins"
+      }
+    },
+    {
+      "game_pk": 823018,
+      "start_utc": "2026-08-10T23:45:00Z",
+      "bet_team": "Philadelphia Phillies",
+      "bet_side": "away",
+      "selection": "Philadelphia Phillies ML (back A. Painter, live gap)",
+      "odds": -112,
+      "risk": 1.12,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Philadelphia Phillies 6\u20135 St. Louis Cardinals"
+      }
+    },
+    {
+      "game_pk": 824969,
+      "start_utc": "2026-08-11T01:40:00Z",
+      "bet_team": "Tampa Bay Rays",
+      "bet_side": "away",
+      "selection": "Tampa Bay Rays ML (back F. Peralta, live gap)",
+      "odds": -154,
+      "risk": 1.54,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 823189,
+      "start_utc": "2026-08-11T01:45:00Z",
+      "bet_team": "San Francisco Giants",
+      "bet_side": "home",
+      "selection": "San Francisco Giants ML (fade H. Wesneski, live gap)",
+      "odds": 132,
+      "risk": 1.0,
+      "to_win": 1.32,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": false,
+      "result": null
+    }
+  ]
+}
