@@ -71,8 +71,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Tampa Bay Rays 10\u20136 Athletics"
+      }
     },
     {
       "game_pk": 823189,
@@ -87,8 +90,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Houston Astros 6\u20133 San Francisco Giants"
+      }
     }
   ]
 }
