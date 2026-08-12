@@ -90,8 +90,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 4,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Colorado Rockies 3\u20132 Arizona Diamondbacks"
+      }
     }
   ]
 }
