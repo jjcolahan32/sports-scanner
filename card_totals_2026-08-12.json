@@ -39,8 +39,11 @@
       "cap": "single_ok",
       "verdict": "PLAY",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Texas Rangers 2\u20135 Los Angeles Angels"
+      }
     }
   ]
 }
