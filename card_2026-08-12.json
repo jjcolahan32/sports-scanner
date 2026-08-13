@@ -1,1 +1,157 @@
-{"date": "2026-08-12", "plays": [{"game_pk": 823017, "start_utc": "2026-08-12T18:15:00Z", "bet_team": "Philadelphia Phillies", "bet_side": "away", "selection": "Philadelphia Phillies ML (fade K. Leahy, live gap)", "odds": -158, "risk": 1.58, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 825047, "start_utc": "2026-08-12T19:40:00Z", "bet_team": "Colorado Rockies", "bet_side": "away", "selection": "Colorado Rockies ML (fade M. Kelly, live gap)", "odds": 161, "risk": 1.0, "to_win": 1.61, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823263, "start_utc": "2026-08-12T20:10:00Z", "bet_team": "Milwaukee Brewers", "bet_side": "away", "selection": "Milwaukee Brewers ML (fade R. Ray, live gap)", "odds": -120, "risk": 1.2, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824241, "start_utc": "2026-08-12T22:40:00Z", "bet_team": "Detroit Tigers", "bet_side": "home", "selection": "Detroit Tigers ML (fade F. Griffin, live gap)", "odds": -123, "risk": 1.23, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823833, "start_utc": "2026-08-12T22:40:00Z", "bet_team": "Miami Marlins", "bet_side": "home", "selection": "Miami Marlins ML (fade C. Mlodzinski, live gap)", "odds": -106, "risk": 1.06, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 822698, "start_utc": "2026-08-12T22:45:00Z", "bet_team": "Washington Nationals", "bet_side": "home", "selection": "Washington Nationals ML (back J. Kent, live gap)", "odds": 147, "risk": 1.0, "to_win": 1.47, "cap": "dog", "verdict": "PLAY", "rlm_tag": "STEAM-FOR", "stars": 3, "graded": false, "result": null}, {"game_pk": 822779, "start_utc": "2026-08-12T23:07:00Z", "bet_team": "Boston Red Sox", "bet_side": "away", "selection": "Boston Red Sox ML (fade J. Soriano, live gap)", "odds": -129, "risk": 1.29, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824883, "start_utc": "2026-08-12T23:15:00Z", "bet_team": "Atlanta Braves", "bet_side": "home", "selection": "Atlanta Braves ML (fade Z. Thornton, live gap; back T. Mahle, live gap)", "odds": -170, "risk": 3.4, "to_win": 2.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-08-12",
+  "plays": [
+    {
+      "game_pk": 823017,
+      "start_utc": "2026-08-12T18:15:00Z",
+      "bet_team": "Philadelphia Phillies",
+      "bet_side": "away",
+      "selection": "Philadelphia Phillies ML (fade K. Leahy, live gap)",
+      "odds": -158,
+      "risk": 1.58,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Philadelphia Phillies 1\u20137 St. Louis Cardinals"
+      }
+    },
+    {
+      "game_pk": 825047,
+      "start_utc": "2026-08-12T19:40:00Z",
+      "bet_team": "Colorado Rockies",
+      "bet_side": "away",
+      "selection": "Colorado Rockies ML (fade M. Kelly, live gap)",
+      "odds": 161,
+      "risk": 1.0,
+      "to_win": 1.61,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Colorado Rockies 6\u20134 Arizona Diamondbacks"
+      }
+    },
+    {
+      "game_pk": 823263,
+      "start_utc": "2026-08-12T20:10:00Z",
+      "bet_team": "Milwaukee Brewers",
+      "bet_side": "away",
+      "selection": "Milwaukee Brewers ML (fade R. Ray, live gap)",
+      "odds": -120,
+      "risk": 1.2,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Milwaukee Brewers 3\u20134 San Diego Padres"
+      }
+    },
+    {
+      "game_pk": 824241,
+      "start_utc": "2026-08-12T22:40:00Z",
+      "bet_team": "Detroit Tigers",
+      "bet_side": "home",
+      "selection": "Detroit Tigers ML (fade F. Griffin, live gap)",
+      "odds": -123,
+      "risk": 1.23,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cleveland Guardians 6\u20134 Detroit Tigers"
+      }
+    },
+    {
+      "game_pk": 823833,
+      "start_utc": "2026-08-12T22:40:00Z",
+      "bet_team": "Miami Marlins",
+      "bet_side": "home",
+      "selection": "Miami Marlins ML (fade C. Mlodzinski, live gap)",
+      "odds": -106,
+      "risk": 1.06,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Pittsburgh Pirates 2\u20138 Miami Marlins"
+      }
+    },
+    {
+      "game_pk": 822698,
+      "start_utc": "2026-08-12T22:45:00Z",
+      "bet_team": "Washington Nationals",
+      "bet_side": "home",
+      "selection": "Washington Nationals ML (back J. Kent, live gap)",
+      "odds": 147,
+      "risk": 1.0,
+      "to_win": 1.47,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "STEAM-FOR",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Chicago Cubs 12\u20136 Washington Nationals"
+      }
+    },
+    {
+      "game_pk": 822779,
+      "start_utc": "2026-08-12T23:07:00Z",
+      "bet_team": "Boston Red Sox",
+      "bet_side": "away",
+      "selection": "Boston Red Sox ML (fade J. Soriano, live gap)",
+      "odds": -129,
+      "risk": 1.29,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Boston Red Sox 4\u20136 Toronto Blue Jays"
+      }
+    },
+    {
+      "game_pk": 824883,
+      "start_utc": "2026-08-12T23:15:00Z",
+      "bet_team": "Atlanta Braves",
+      "bet_side": "home",
+      "selection": "Atlanta Braves ML (fade Z. Thornton, live gap; back T. Mahle, live gap)",
+      "odds": -170,
+      "risk": 3.4,
+      "to_win": 2.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "New York Mets 3\u20136 Atlanta Braves"
+      }
+    }
+  ]
+}
