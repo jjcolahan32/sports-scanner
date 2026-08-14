@@ -1,1 +1,27 @@
-{"date": "2026-08-13", "plays": [{"game_pk": 824238, "start_utc": "2026-08-13T17:10:00Z", "home": "Detroit Tigers", "away": "Cleveland Guardians", "side": "Under", "home_prob": "Keider Montero", "away_prob": "Parker Messick", "selection": "Cleveland Guardians @ Detroit Tigers Under 8.0", "total": 8.0, "odds": -104, "risk": 1.04, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-08-13",
+  "plays": [
+    {
+      "game_pk": 824238,
+      "start_utc": "2026-08-13T17:10:00Z",
+      "home": "Detroit Tigers",
+      "away": "Cleveland Guardians",
+      "side": "Under",
+      "home_prob": "Keider Montero",
+      "away_prob": "Parker Messick",
+      "selection": "Cleveland Guardians @ Detroit Tigers Under 8.0",
+      "total": 8.0,
+      "odds": -104,
+      "risk": 1.04,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Cleveland Guardians 0\u20133 Detroit Tigers"
+      }
+    }
+  ]
+}

@@ -1,1 +1,62 @@
-{"date": "2026-08-13", "plays": [{"game_pk": 824561, "start_utc": "2026-08-13T17:10:00Z", "bet_team": "Chicago White Sox", "bet_side": "home", "selection": "Chicago White Sox ML (fade A. Abbott, live gap)", "odds": -128, "risk": 1.28, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823829, "start_utc": "2026-08-13T17:10:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "away", "selection": "Pittsburgh Pirates ML (fade T. Phillips, live gap)", "odds": -120, "risk": 1.2, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823669, "start_utc": "2026-08-13T23:30:00Z", "bet_team": "Philadelphia Phillies", "bet_side": "away", "selection": "Philadelphia Phillies ML (back A. Nola, listed reverse)", "odds": -103, "risk": 1.03, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}]}
+{
+  "date": "2026-08-13",
+  "plays": [
+    {
+      "game_pk": 824561,
+      "start_utc": "2026-08-13T17:10:00Z",
+      "bet_team": "Chicago White Sox",
+      "bet_side": "home",
+      "selection": "Chicago White Sox ML (fade A. Abbott, live gap)",
+      "odds": -128,
+      "risk": 1.28,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cincinnati Reds 9\u20138 Chicago White Sox"
+      }
+    },
+    {
+      "game_pk": 823829,
+      "start_utc": "2026-08-13T17:10:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "away",
+      "selection": "Pittsburgh Pirates ML (fade T. Phillips, live gap)",
+      "odds": -120,
+      "risk": 1.2,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Pittsburgh Pirates 13\u20131 Miami Marlins"
+      }
+    },
+    {
+      "game_pk": 823669,
+      "start_utc": "2026-08-13T23:30:00Z",
+      "bet_team": "Philadelphia Phillies",
+      "bet_side": "away",
+      "selection": "Philadelphia Phillies ML (back A. Nola, listed reverse)",
+      "odds": -103,
+      "risk": 1.03,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Philadelphia Phillies 7\u20131 Minnesota Twins"
+      }
+    }
+  ]
+}
