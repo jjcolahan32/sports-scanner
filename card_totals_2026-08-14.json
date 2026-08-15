@@ -1,1 +1,27 @@
-{"date": "2026-08-14", "plays": [{"game_pk": 823993, "start_utc": "2026-08-15T01:38:00Z", "home": "Los Angeles Angels", "away": "Kansas City Royals", "side": "Over", "home_prob": "Grayson Rodriguez", "away_prob": "Seth Lugo", "selection": "Kansas City Royals @ Los Angeles Angels Over 8.5", "total": 8.5, "odds": -114, "risk": 1.14, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 4, "graded": false, "result": null}]}
+{
+  "date": "2026-08-14",
+  "plays": [
+    {
+      "game_pk": 823993,
+      "start_utc": "2026-08-15T01:38:00Z",
+      "home": "Los Angeles Angels",
+      "away": "Kansas City Royals",
+      "side": "Over",
+      "home_prob": "Grayson Rodriguez",
+      "away_prob": "Seth Lugo",
+      "selection": "Kansas City Royals @ Los Angeles Angels Over 8.5",
+      "total": 8.5,
+      "odds": -114,
+      "risk": 1.14,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Kansas City Royals 7\u20136 Los Angeles Angels"
+      }
+    }
+  ]
+}
