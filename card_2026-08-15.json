@@ -1,1 +1,62 @@
-{"date": "2026-08-15", "plays": [{"game_pk": 824157, "start_utc": "2026-08-15T23:10:00Z", "bet_team": "Seattle Mariners", "bet_side": "away", "selection": "Seattle Mariners ML (fade H. Wesneski, live gap)", "odds": 110, "risk": 1.0, "to_win": 1.1, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823347, "start_utc": "2026-08-15T23:15:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "home", "selection": "Pittsburgh Pirates ML (fade S. Gray, listed mirage; back J. Jones, live gap)", "odds": 102, "risk": 2.0, "to_win": 2.04, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823990, "start_utc": "2026-08-16T01:38:00Z", "bet_team": "Los Angeles Angels", "bet_side": "home", "selection": "Los Angeles Angels ML (fade R. Dobnak, live gap)", "odds": -153, "risk": 1.53, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-08-15",
+  "plays": [
+    {
+      "game_pk": 824157,
+      "start_utc": "2026-08-15T23:10:00Z",
+      "bet_team": "Seattle Mariners",
+      "bet_side": "away",
+      "selection": "Seattle Mariners ML (fade H. Wesneski, live gap)",
+      "odds": 110,
+      "risk": 1.0,
+      "to_win": 1.1,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Seattle Mariners 10\u20135 Houston Astros"
+      }
+    },
+    {
+      "game_pk": 823347,
+      "start_utc": "2026-08-15T23:15:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "home",
+      "selection": "Pittsburgh Pirates ML (fade S. Gray, listed mirage; back J. Jones, live gap)",
+      "odds": 102,
+      "risk": 2.0,
+      "to_win": 2.04,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Boston Red Sox 4\u20130 Pittsburgh Pirates"
+      }
+    },
+    {
+      "game_pk": 823990,
+      "start_utc": "2026-08-16T01:38:00Z",
+      "bet_team": "Los Angeles Angels",
+      "bet_side": "home",
+      "selection": "Los Angeles Angels ML (fade R. Dobnak, live gap)",
+      "odds": -153,
+      "risk": 1.53,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Kansas City Royals 0\u20131 Los Angeles Angels"
+      }
+    }
+  ]
+}
