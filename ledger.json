@@ -25,8 +25,8 @@
   "by_stars": {
     "3": {
       "w": 42,
-      "l": 55,
-      "units": -18.14
+      "l": 56,
+      "units": -19.14
     },
     "4": {
       "w": 24,
@@ -44,20 +44,20 @@
       "units": 2.0
     }
   },
-  "totals_units": -9.1,
+  "totals_units": -10.1,
   "totals_record": {
     "w": 31,
-    "l": 37,
+    "l": 38,
     "push": 2
   },
   "parlay_legs": {
     "w": 20,
     "l": 12
   },
-  "discord_units": -54.13,
+  "discord_units": -55.13,
   "discord_record": {
     "w": 91,
-    "l": 121,
+    "l": 122,
     "push": 2
   },
   "history": [
@@ -288,6 +288,12 @@
       "w": 5,
       "l": 1,
       "units": 3.12
+    },
+    {
+      "graded_at": "2026-08-16T08:00:21.030017+00:00",
+      "w": 0,
+      "l": 1,
+      "units": -1.0
     }
   ]
 }

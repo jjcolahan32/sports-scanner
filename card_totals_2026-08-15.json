@@ -83,8 +83,11 @@
       "cap": "dog",
       "verdict": "PLAY",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Texas Rangers 5\u20133 Athletics"
+      }
     }
   ]
 }
