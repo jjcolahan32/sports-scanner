@@ -1,1 +1,71 @@
-{"date": "2026-08-16", "plays": [{"game_pk": 824880, "start_utc": "2026-08-16T17:35:00Z", "home": "Atlanta Braves", "away": "Arizona Diamondbacks", "side": "Over", "home_prob": "Bryce Elder", "away_prob": "Michael Soroka", "selection": "Arizona Diamondbacks @ Atlanta Braves Over 9.0", "total": 9.0, "odds": 100, "risk": 1.0, "to_win": 1.0, "cap": "dog", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824477, "start_utc": "2026-08-16T17:40:00Z", "home": "Cincinnati Reds", "away": "Miami Marlins", "side": "Over", "home_prob": "Nick Lodolo", "away_prob": "Eury P\u00e9rez", "selection": "Miami Marlins @ Cincinnati Reds Over 8.5", "total": 8.5, "odds": -120, "risk": 1.2, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 5, "graded": false, "result": null}, {"game_pk": 823670, "start_utc": "2026-08-16T18:10:00Z", "home": "Minnesota Twins", "away": "Philadelphia Phillies", "side": "Under", "home_prob": "Dean Kremer", "away_prob": "Andrew Painter", "selection": "Philadelphia Phillies @ Minnesota Twins Under 9.5", "total": 9.5, "odds": -115, "risk": 1.15, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-08-16",
+  "plays": [
+    {
+      "game_pk": 824880,
+      "start_utc": "2026-08-16T17:35:00Z",
+      "home": "Atlanta Braves",
+      "away": "Arizona Diamondbacks",
+      "side": "Over",
+      "home_prob": "Bryce Elder",
+      "away_prob": "Michael Soroka",
+      "selection": "Arizona Diamondbacks @ Atlanta Braves Over 9.0",
+      "total": 9.0,
+      "odds": 100,
+      "risk": 1.0,
+      "to_win": 1.0,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Arizona Diamondbacks 3\u20135 Atlanta Braves"
+      }
+    },
+    {
+      "game_pk": 824477,
+      "start_utc": "2026-08-16T17:40:00Z",
+      "home": "Cincinnati Reds",
+      "away": "Miami Marlins",
+      "side": "Over",
+      "home_prob": "Nick Lodolo",
+      "away_prob": "Eury P\u00e9rez",
+      "selection": "Miami Marlins @ Cincinnati Reds Over 8.5",
+      "total": 8.5,
+      "odds": -120,
+      "risk": 1.2,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 5,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Miami Marlins 7\u20131 Cincinnati Reds"
+      }
+    },
+    {
+      "game_pk": 823670,
+      "start_utc": "2026-08-16T18:10:00Z",
+      "home": "Minnesota Twins",
+      "away": "Philadelphia Phillies",
+      "side": "Under",
+      "home_prob": "Dean Kremer",
+      "away_prob": "Andrew Painter",
+      "selection": "Philadelphia Phillies @ Minnesota Twins Under 9.5",
+      "total": 9.5,
+      "odds": -115,
+      "risk": 1.15,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Philadelphia Phillies 7\u20135 Minnesota Twins"
+      }
+    }
+  ]
+}

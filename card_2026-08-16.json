@@ -1,1 +1,100 @@
-{"date": "2026-08-16", "plays": [{"game_pk": 824880, "start_utc": "2026-08-16T17:35:00Z", "bet_team": "Atlanta Braves", "bet_side": "home", "selection": "Atlanta Braves ML (fade M. Soroka, live gap)", "odds": -120, "risk": 1.2, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824477, "start_utc": "2026-08-16T17:40:00Z", "bet_team": "Miami Marlins", "bet_side": "away", "selection": "Miami Marlins ML (fade N. Lodolo, live gap)", "odds": -120, "risk": 1.2, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823182, "start_utc": "2026-08-16T20:05:00Z", "bet_team": "Colorado Rockies", "bet_side": "away", "selection": "Colorado Rockies ML (back G. Hughes, live gap)", "odds": 116, "risk": 1.0, "to_win": 1.16, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 824965, "start_utc": "2026-08-16T20:05:00Z", "bet_team": "Athletics", "bet_side": "home", "selection": "Athletics ML (fade C. Bradford, live gap; back J. Lopez, live gap)", "odds": 122, "risk": 2.0, "to_win": 2.44, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823991, "start_utc": "2026-08-16T20:07:00Z", "bet_team": "Los Angeles Angels", "bet_side": "home", "selection": "Los Angeles Angels ML (back R. Johnson, live gap)", "odds": 102, "risk": 1.0, "to_win": 1.02, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-08-16",
+  "plays": [
+    {
+      "game_pk": 824880,
+      "start_utc": "2026-08-16T17:35:00Z",
+      "bet_team": "Atlanta Braves",
+      "bet_side": "home",
+      "selection": "Atlanta Braves ML (fade M. Soroka, live gap)",
+      "odds": -120,
+      "risk": 1.2,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Arizona Diamondbacks 3\u20135 Atlanta Braves"
+      }
+    },
+    {
+      "game_pk": 824477,
+      "start_utc": "2026-08-16T17:40:00Z",
+      "bet_team": "Miami Marlins",
+      "bet_side": "away",
+      "selection": "Miami Marlins ML (fade N. Lodolo, live gap)",
+      "odds": -120,
+      "risk": 1.2,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Miami Marlins 7\u20131 Cincinnati Reds"
+      }
+    },
+    {
+      "game_pk": 823182,
+      "start_utc": "2026-08-16T20:05:00Z",
+      "bet_team": "Colorado Rockies",
+      "bet_side": "away",
+      "selection": "Colorado Rockies ML (back G. Hughes, live gap)",
+      "odds": 116,
+      "risk": 1.0,
+      "to_win": 1.16,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Colorado Rockies 13\u20137 San Francisco Giants"
+      }
+    },
+    {
+      "game_pk": 824965,
+      "start_utc": "2026-08-16T20:05:00Z",
+      "bet_team": "Athletics",
+      "bet_side": "home",
+      "selection": "Athletics ML (fade C. Bradford, live gap; back J. Lopez, live gap)",
+      "odds": 122,
+      "risk": 2.0,
+      "to_win": 2.44,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Texas Rangers 2\u20135 Athletics"
+      }
+    },
+    {
+      "game_pk": 823991,
+      "start_utc": "2026-08-16T20:07:00Z",
+      "bet_team": "Los Angeles Angels",
+      "bet_side": "home",
+      "selection": "Los Angeles Angels ML (back R. Johnson, live gap)",
+      "odds": 102,
+      "risk": 1.0,
+      "to_win": 1.02,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Kansas City Royals 3\u20130 Los Angeles Angels"
+      }
+    }
+  ]
+}
