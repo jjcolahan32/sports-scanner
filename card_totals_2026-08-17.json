@@ -1,1 +1,49 @@
-{"date": "2026-08-17", "plays": [{"game_pk": 823668, "start_utc": "2026-08-17T23:40:00Z", "home": "Minnesota Twins", "away": "Atlanta Braves", "side": "Over", "home_prob": "Bailey Ober", "away_prob": "Mart\u00edn P\u00e9rez", "selection": "Atlanta Braves @ Minnesota Twins Over 9.5", "total": 9.5, "odds": 100, "risk": 1.0, "to_win": 1.0, "cap": "dog", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824725, "start_utc": "2026-08-17T23:10:00Z", "home": "Boston Red Sox", "away": "Arizona Diamondbacks", "side": "Over", "home_prob": "Alec Gamboa", "away_prob": "Mitch Bratt", "selection": "Arizona Diamondbacks @ Boston Red Sox Over 9.0", "total": 9.0, "odds": -105, "risk": 1.05, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-08-17",
+  "plays": [
+    {
+      "game_pk": 823668,
+      "start_utc": "2026-08-17T23:40:00Z",
+      "home": "Minnesota Twins",
+      "away": "Atlanta Braves",
+      "side": "Over",
+      "home_prob": "Bailey Ober",
+      "away_prob": "Mart\u00edn P\u00e9rez",
+      "selection": "Atlanta Braves @ Minnesota Twins Over 9.5",
+      "total": 9.5,
+      "odds": 100,
+      "risk": 1.0,
+      "to_win": 1.0,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Atlanta Braves 2\u20134 Minnesota Twins"
+      }
+    },
+    {
+      "game_pk": 824725,
+      "start_utc": "2026-08-17T23:10:00Z",
+      "home": "Boston Red Sox",
+      "away": "Arizona Diamondbacks",
+      "side": "Over",
+      "home_prob": "Alec Gamboa",
+      "away_prob": "Mitch Bratt",
+      "selection": "Arizona Diamondbacks @ Boston Red Sox Over 9.0",
+      "total": 9.0,
+      "odds": -105,
+      "risk": 1.05,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Arizona Diamondbacks 1\u201311 Boston Red Sox"
+      }
+    }
+  ]
+}

@@ -1,1 +1,100 @@
-{"date": "2026-08-17", "plays": [{"game_pk": 823427, "start_utc": "2026-08-17T22:40:00Z", "bet_team": "Miami Marlins", "bet_side": "away", "selection": "Miami Marlins ML (fade C. S\u00e1nchez, live gap)", "odds": 224, "risk": 1.0, "to_win": 2.24, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824725, "start_utc": "2026-08-17T23:10:00Z", "bet_team": "Arizona Diamondbacks", "bet_side": "away", "selection": "Arizona Diamondbacks ML (fade A. Gamboa, live gap)", "odds": 120, "risk": 1.0, "to_win": 1.2, "cap": "dog", "verdict": "PLAY", "rlm_tag": "STEAM-FOR", "stars": 3, "graded": false, "result": null}, {"game_pk": 823668, "start_utc": "2026-08-17T23:40:00Z", "bet_team": "Minnesota Twins", "bet_side": "home", "selection": "Minnesota Twins ML (fade M. P\u00e9rez, live gap)", "odds": 112, "risk": 1.0, "to_win": 1.12, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824320, "start_utc": "2026-08-18T00:40:00Z", "bet_team": "Los Angeles Dodgers", "bet_side": "away", "selection": "Los Angeles Dodgers ML (fade T. Sugano, listed mirage)", "odds": -260, "risk": 2.6, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823343, "start_utc": "2026-08-17T23:05:00Z", "bet_team": "Detroit Tigers", "bet_side": "away", "selection": "Detroit Tigers ML (fade C. Mlodzinski, live gap)", "odds": -108, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-08-17",
+  "plays": [
+    {
+      "game_pk": 823427,
+      "start_utc": "2026-08-17T22:40:00Z",
+      "bet_team": "Miami Marlins",
+      "bet_side": "away",
+      "selection": "Miami Marlins ML (fade C. S\u00e1nchez, live gap)",
+      "odds": 224,
+      "risk": 1.0,
+      "to_win": 2.24,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Miami Marlins 5\u20136 Philadelphia Phillies"
+      }
+    },
+    {
+      "game_pk": 824725,
+      "start_utc": "2026-08-17T23:10:00Z",
+      "bet_team": "Arizona Diamondbacks",
+      "bet_side": "away",
+      "selection": "Arizona Diamondbacks ML (fade A. Gamboa, live gap)",
+      "odds": 120,
+      "risk": 1.0,
+      "to_win": 1.2,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "STEAM-FOR",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Arizona Diamondbacks 1\u201311 Boston Red Sox"
+      }
+    },
+    {
+      "game_pk": 823668,
+      "start_utc": "2026-08-17T23:40:00Z",
+      "bet_team": "Minnesota Twins",
+      "bet_side": "home",
+      "selection": "Minnesota Twins ML (fade M. P\u00e9rez, live gap)",
+      "odds": 112,
+      "risk": 1.0,
+      "to_win": 1.12,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Atlanta Braves 2\u20134 Minnesota Twins"
+      }
+    },
+    {
+      "game_pk": 824320,
+      "start_utc": "2026-08-18T00:40:00Z",
+      "bet_team": "Los Angeles Dodgers",
+      "bet_side": "away",
+      "selection": "Los Angeles Dodgers ML (fade T. Sugano, listed mirage)",
+      "odds": -260,
+      "risk": 2.6,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Los Angeles Dodgers 11\u20135 Colorado Rockies"
+      }
+    },
+    {
+      "game_pk": 823343,
+      "start_utc": "2026-08-17T23:05:00Z",
+      "bet_team": "Detroit Tigers",
+      "bet_side": "away",
+      "selection": "Detroit Tigers ML (fade C. Mlodzinski, live gap)",
+      "odds": -108,
+      "risk": 1.08,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Detroit Tigers 8\u20135 Pittsburgh Pirates"
+      }
+    }
+  ]
+}
