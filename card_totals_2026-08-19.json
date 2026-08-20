@@ -1,1 +1,49 @@
-{"date": "2026-08-19", "plays": [{"game_pk": 824722, "start_utc": "2026-08-19T20:10:00Z", "home": "Boston Red Sox", "away": "Arizona Diamondbacks", "side": "Over", "home_prob": "Payton Tolle", "away_prob": "Brandon Pfaadt", "selection": "Arizona Diamondbacks @ Boston Red Sox Over 8.5", "total": 8.5, "odds": -108, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 4, "graded": false, "result": null}, {"game_pk": 824640, "start_utc": "2026-08-19T18:20:00Z", "home": "Chicago Cubs", "away": "Chicago White Sox", "side": "Over", "home_prob": "Clay Holmes", "away_prob": "Sean Newcomb", "selection": "Chicago White Sox @ Chicago Cubs Over 8.0", "total": 8.0, "odds": -105, "risk": 1.05, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-08-19",
+  "plays": [
+    {
+      "game_pk": 824722,
+      "start_utc": "2026-08-19T20:10:00Z",
+      "home": "Boston Red Sox",
+      "away": "Arizona Diamondbacks",
+      "side": "Over",
+      "home_prob": "Payton Tolle",
+      "away_prob": "Brandon Pfaadt",
+      "selection": "Arizona Diamondbacks @ Boston Red Sox Over 8.5",
+      "total": 8.5,
+      "odds": -108,
+      "risk": 1.08,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Arizona Diamondbacks 7\u20136 Boston Red Sox"
+      }
+    },
+    {
+      "game_pk": 824640,
+      "start_utc": "2026-08-19T18:20:00Z",
+      "home": "Chicago Cubs",
+      "away": "Chicago White Sox",
+      "side": "Over",
+      "home_prob": "Clay Holmes",
+      "away_prob": "Sean Newcomb",
+      "selection": "Chicago White Sox @ Chicago Cubs Over 8.0",
+      "total": 8.0,
+      "odds": -105,
+      "risk": 1.05,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Chicago White Sox 3\u20130 Chicago Cubs"
+      }
+    }
+  ]
+}
