@@ -39,8 +39,11 @@
       "cap": "single_ok",
       "verdict": "PLAY",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Cincinnati Reds 0\u20139 Arizona Diamondbacks"
+      }
     },
     {
       "game_pk": 823262,

@@ -109,8 +109,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Chicago Cubs 5\u20136 Seattle Mariners"
+      }
     }
   ]
 }
