@@ -1,1 +1,68 @@
-{"date": "2026-08-21", "plays": [{"game_pk": 824072, "start_utc": "2026-08-22T00:10:00Z", "home": "Kansas City Royals", "away": "Detroit Tigers", "side": "Over", "home_prob": "Noah Cameron", "away_prob": "Troy Melton", "selection": "Detroit Tigers @ Kansas City Royals Over 8.0", "total": 8.0, "odds": -118, "risk": 1.18, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 825045, "start_utc": "2026-08-22T01:40:00Z", "home": "Arizona Diamondbacks", "away": "Cincinnati Reds", "side": "Over", "home_prob": "Eduardo Rodriguez", "away_prob": "Nick Lodolo", "selection": "Cincinnati Reds @ Arizona Diamondbacks Over 8.5", "total": 8.5, "odds": -105, "risk": 1.05, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 823262, "start_utc": "2026-08-22T01:40:00Z", "home": "San Diego Padres", "away": "Minnesota Twins", "side": "Under", "home_prob": null, "away_prob": "Connor Prielipp", "selection": "Minnesota Twins @ San Diego Padres Under 8.0", "total": 8.0, "odds": 100, "risk": 1.0, "to_win": 1.0, "cap": "dog", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-08-21",
+  "plays": [
+    {
+      "game_pk": 824072,
+      "start_utc": "2026-08-22T00:10:00Z",
+      "home": "Kansas City Royals",
+      "away": "Detroit Tigers",
+      "side": "Over",
+      "home_prob": "Noah Cameron",
+      "away_prob": "Troy Melton",
+      "selection": "Detroit Tigers @ Kansas City Royals Over 8.0",
+      "total": 8.0,
+      "odds": -118,
+      "risk": 1.18,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Detroit Tigers 2\u20135 Kansas City Royals"
+      }
+    },
+    {
+      "game_pk": 825045,
+      "start_utc": "2026-08-22T01:40:00Z",
+      "home": "Arizona Diamondbacks",
+      "away": "Cincinnati Reds",
+      "side": "Over",
+      "home_prob": "Eduardo Rodriguez",
+      "away_prob": "Nick Lodolo",
+      "selection": "Cincinnati Reds @ Arizona Diamondbacks Over 8.5",
+      "total": 8.5,
+      "odds": -105,
+      "risk": 1.05,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 823262,
+      "start_utc": "2026-08-22T01:40:00Z",
+      "home": "San Diego Padres",
+      "away": "Minnesota Twins",
+      "side": "Under",
+      "home_prob": null,
+      "away_prob": "Connor Prielipp",
+      "selection": "Minnesota Twins @ San Diego Padres Under 8.0",
+      "total": 8.0,
+      "odds": 100,
+      "risk": 1.0,
+      "to_win": 1.0,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "push",
+        "score": "Minnesota Twins 2\u20136 San Diego Padres"
+      }
+    }
+  ]
+}
