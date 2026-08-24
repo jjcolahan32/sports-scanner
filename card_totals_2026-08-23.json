@@ -1,1 +1,49 @@
-{"date": "2026-08-23", "plays": [{"game_pk": 823827, "start_utc": "2026-08-23T17:40:00Z", "home": "Miami Marlins", "away": "Washington Nationals", "side": "Under", "home_prob": "Janson Junk", "away_prob": "Jackson Kent", "selection": "Washington Nationals @ Miami Marlins Under 8.5", "total": 8.5, "odds": -122, "risk": 1.22, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824558, "start_utc": "2026-08-23T18:10:00Z", "home": "Chicago White Sox", "away": "New York Mets", "side": "Over", "home_prob": "Sean Newcomb", "away_prob": "Nolan McLean", "selection": "New York Mets @ Chicago White Sox Over 8.5", "total": 8.5, "odds": 102, "risk": 1.0, "to_win": 1.02, "cap": "dog", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-08-23",
+  "plays": [
+    {
+      "game_pk": 823827,
+      "start_utc": "2026-08-23T17:40:00Z",
+      "home": "Miami Marlins",
+      "away": "Washington Nationals",
+      "side": "Under",
+      "home_prob": "Janson Junk",
+      "away_prob": "Jackson Kent",
+      "selection": "Washington Nationals @ Miami Marlins Under 8.5",
+      "total": 8.5,
+      "odds": -122,
+      "risk": 1.22,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Washington Nationals 2\u20136 Miami Marlins"
+      }
+    },
+    {
+      "game_pk": 824558,
+      "start_utc": "2026-08-23T18:10:00Z",
+      "home": "Chicago White Sox",
+      "away": "New York Mets",
+      "side": "Over",
+      "home_prob": "Sean Newcomb",
+      "away_prob": "Nolan McLean",
+      "selection": "New York Mets @ Chicago White Sox Over 8.5",
+      "total": 8.5,
+      "odds": 102,
+      "risk": 1.0,
+      "to_win": 1.02,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "New York Mets 1\u20132 Chicago White Sox"
+      }
+    }
+  ]
+}
