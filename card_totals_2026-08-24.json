@@ -1,1 +1,27 @@
-{"date": "2026-08-24", "plays": [{"game_pk": 824964, "start_utc": "2026-08-25T01:40:00Z", "home": "Athletics", "away": "Minnesota Twins", "side": "Over", "home_prob": "Jeffrey Springs", "away_prob": "Zebby Matthews", "selection": "Minnesota Twins @ Athletics Over 11.5", "total": 11.5, "odds": 102, "risk": 1.0, "to_win": 1.02, "cap": "dog", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-08-24",
+  "plays": [
+    {
+      "game_pk": 824964,
+      "start_utc": "2026-08-25T01:40:00Z",
+      "home": "Athletics",
+      "away": "Minnesota Twins",
+      "side": "Over",
+      "home_prob": "Jeffrey Springs",
+      "away_prob": "Zebby Matthews",
+      "selection": "Minnesota Twins @ Athletics Over 11.5",
+      "total": 11.5,
+      "odds": 102,
+      "risk": 1.0,
+      "to_win": 1.02,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Minnesota Twins 9\u20136 Athletics"
+      }
+    }
+  ]
+}

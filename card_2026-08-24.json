@@ -33,8 +33,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Cleveland Guardians 4\u20132 Los Angeles Angels"
+      }
     },
     {
       "game_pk": 825041,
@@ -49,8 +52,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Chicago Cubs 7\u20130 Arizona Diamondbacks"
+      }
     },
     {
       "game_pk": 824964,
@@ -65,8 +71,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Minnesota Twins 9\u20136 Athletics"
+      }
     }
   ]
 }
