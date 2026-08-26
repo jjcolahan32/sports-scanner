@@ -1,1 +1,49 @@
-{"date": "2026-08-25", "plays": [{"game_pk": 824962, "start_utc": "2026-08-26T01:40:00Z", "home": "Athletics", "away": "Minnesota Twins", "side": "Over", "home_prob": "Gage Jump", "away_prob": "Taj Bradley", "selection": "Minnesota Twins @ Athletics Over 10.0", "total": 10.0, "odds": -108, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 823098, "start_utc": "2026-08-26T01:40:00Z", "home": "Seattle Mariners", "away": "Philadelphia Phillies", "side": "Under", "home_prob": "George Kirby", "away_prob": "Aaron Nola", "selection": "Philadelphia Phillies @ Seattle Mariners Under 8.0", "total": 8.0, "odds": -112, "risk": 1.12, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-08-25",
+  "plays": [
+    {
+      "game_pk": 824962,
+      "start_utc": "2026-08-26T01:40:00Z",
+      "home": "Athletics",
+      "away": "Minnesota Twins",
+      "side": "Over",
+      "home_prob": "Gage Jump",
+      "away_prob": "Taj Bradley",
+      "selection": "Minnesota Twins @ Athletics Over 10.0",
+      "total": 10.0,
+      "odds": -108,
+      "risk": 1.08,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Minnesota Twins 2\u20134 Athletics"
+      }
+    },
+    {
+      "game_pk": 823098,
+      "start_utc": "2026-08-26T01:40:00Z",
+      "home": "Seattle Mariners",
+      "away": "Philadelphia Phillies",
+      "side": "Under",
+      "home_prob": "George Kirby",
+      "away_prob": "Aaron Nola",
+      "selection": "Philadelphia Phillies @ Seattle Mariners Under 8.0",
+      "total": 8.0,
+      "odds": -112,
+      "risk": 1.12,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Philadelphia Phillies 1\u20134 Seattle Mariners"
+      }
+    }
+  ]
+}

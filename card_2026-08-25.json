@@ -128,8 +128,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Chicago Cubs 4\u20135 Arizona Diamondbacks"
+      }
     },
     {
       "game_pk": 823098,
@@ -144,8 +147,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 4,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Philadelphia Phillies 1\u20134 Seattle Mariners"
+      }
     },
     {
       "game_pk": 823181,
@@ -160,8 +166,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cincinnati Reds 1\u20133 San Francisco Giants"
+      }
     }
   ]
 }
