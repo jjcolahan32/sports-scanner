@@ -1,1 +1,157 @@
-{"date": "2026-08-26", "plays": [{"game_pk": 824234, "start_utc": "2026-08-26T17:10:00Z", "bet_team": "Tampa Bay Rays", "bet_side": "away", "selection": "Tampa Bay Rays ML (back F. Peralta, live gap; fade T. Melton, listed mirage)", "odds": 104, "risk": 1.5, "to_win": 1.56, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823180, "start_utc": "2026-08-26T19:45:00Z", "bet_team": "San Francisco Giants", "bet_side": "home", "selection": "San Francisco Giants ML (fade N. Lodolo, live gap)", "odds": -118, "risk": 1.18, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "STEAM-FOR", "stars": 3, "graded": false, "result": null}, {"game_pk": 823255, "start_utc": "2026-08-26T20:10:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "away", "selection": "Pittsburgh Pirates ML (fade R. V\u00e1squez, live gap)", "odds": 120, "risk": 1.0, "to_win": 1.2, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823825, "start_utc": "2026-08-26T22:40:00Z", "bet_team": "Miami Marlins", "bet_side": "home", "selection": "Miami Marlins ML (fade S. Gray, listed mirage)", "odds": 120, "risk": 1.0, "to_win": 1.2, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823506, "start_utc": "2026-08-26T23:05:00Z", "bet_team": "Houston Astros", "bet_side": "away", "selection": "Houston Astros ML (fade E. Rodr\u00edguez, listed mirage)", "odds": 110, "risk": 1.0, "to_win": 1.1, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 822772, "start_utc": "2026-08-26T23:07:00Z", "bet_team": "Toronto Blue Jays", "bet_side": "home", "selection": "Toronto Blue Jays ML (fade R. Dobnak, live gap)", "odds": -148, "risk": 1.48, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823015, "start_utc": "2026-08-26T23:45:00Z", "bet_team": "Baltimore Orioles", "bet_side": "away", "selection": "Baltimore Orioles ML (fade M. McGreevy, live gap)", "odds": -108, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 824963, "start_utc": "2026-08-27T01:05:00Z", "bet_team": "Minnesota Twins", "bet_side": "away", "selection": "Minnesota Twins ML (back C. Prielipp, live gap)", "odds": -130, "risk": 1.3, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-08-26",
+  "plays": [
+    {
+      "game_pk": 824234,
+      "start_utc": "2026-08-26T17:10:00Z",
+      "bet_team": "Tampa Bay Rays",
+      "bet_side": "away",
+      "selection": "Tampa Bay Rays ML (back F. Peralta, live gap; fade T. Melton, listed mirage)",
+      "odds": 104,
+      "risk": 1.5,
+      "to_win": 1.56,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Tampa Bay Rays 3\u20130 Detroit Tigers"
+      }
+    },
+    {
+      "game_pk": 823180,
+      "start_utc": "2026-08-26T19:45:00Z",
+      "bet_team": "San Francisco Giants",
+      "bet_side": "home",
+      "selection": "San Francisco Giants ML (fade N. Lodolo, live gap)",
+      "odds": -118,
+      "risk": 1.18,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "STEAM-FOR",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cincinnati Reds 10\u20139 San Francisco Giants"
+      }
+    },
+    {
+      "game_pk": 823255,
+      "start_utc": "2026-08-26T20:10:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "away",
+      "selection": "Pittsburgh Pirates ML (fade R. V\u00e1squez, live gap)",
+      "odds": 120,
+      "risk": 1.0,
+      "to_win": 1.2,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Pittsburgh Pirates 0\u20133 San Diego Padres"
+      }
+    },
+    {
+      "game_pk": 823825,
+      "start_utc": "2026-08-26T22:40:00Z",
+      "bet_team": "Miami Marlins",
+      "bet_side": "home",
+      "selection": "Miami Marlins ML (fade S. Gray, listed mirage)",
+      "odds": 120,
+      "risk": 1.0,
+      "to_win": 1.2,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Boston Red Sox 0\u20134 Miami Marlins"
+      }
+    },
+    {
+      "game_pk": 823506,
+      "start_utc": "2026-08-26T23:05:00Z",
+      "bet_team": "Houston Astros",
+      "bet_side": "away",
+      "selection": "Houston Astros ML (fade E. Rodr\u00edguez, listed mirage)",
+      "odds": 110,
+      "risk": 1.0,
+      "to_win": 1.1,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Houston Astros 3\u20139 New York Yankees"
+      }
+    },
+    {
+      "game_pk": 822772,
+      "start_utc": "2026-08-26T23:07:00Z",
+      "bet_team": "Toronto Blue Jays",
+      "bet_side": "home",
+      "selection": "Toronto Blue Jays ML (fade R. Dobnak, live gap)",
+      "odds": -148,
+      "risk": 1.48,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Kansas City Royals 0\u20133 Toronto Blue Jays"
+      }
+    },
+    {
+      "game_pk": 823015,
+      "start_utc": "2026-08-26T23:45:00Z",
+      "bet_team": "Baltimore Orioles",
+      "bet_side": "away",
+      "selection": "Baltimore Orioles ML (fade M. McGreevy, live gap)",
+      "odds": -108,
+      "risk": 1.08,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Baltimore Orioles 8\u20137 St. Louis Cardinals"
+      }
+    },
+    {
+      "game_pk": 824963,
+      "start_utc": "2026-08-27T01:05:00Z",
+      "bet_team": "Minnesota Twins",
+      "bet_side": "away",
+      "selection": "Minnesota Twins ML (back C. Prielipp, live gap)",
+      "odds": -130,
+      "risk": 1.3,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Minnesota Twins 4\u20137 Athletics"
+      }
+    }
+  ]
+}
