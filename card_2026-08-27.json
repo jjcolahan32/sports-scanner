@@ -1,1 +1,43 @@
-{"date": "2026-08-27", "plays": [{"game_pk": 823014, "start_utc": "2026-08-27T18:15:00Z", "bet_team": "Baltimore Orioles", "bet_side": "away", "selection": "Baltimore Orioles ML (fade G. Graceffo, live gap)", "odds": -126, "risk": 1.26, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 824879, "start_utc": "2026-08-27T23:15:00Z", "bet_team": "Los Angeles Dodgers", "bet_side": "away", "selection": "Los Angeles Dodgers ML (fade C. Sale, live gap)", "odds": 106, "risk": 1.0, "to_win": 1.06, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}]}
+{
+  "date": "2026-08-27",
+  "plays": [
+    {
+      "game_pk": 823014,
+      "start_utc": "2026-08-27T18:15:00Z",
+      "bet_team": "Baltimore Orioles",
+      "bet_side": "away",
+      "selection": "Baltimore Orioles ML (fade G. Graceffo, live gap)",
+      "odds": -126,
+      "risk": 1.26,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Baltimore Orioles 5\u20137 St. Louis Cardinals"
+      }
+    },
+    {
+      "game_pk": 824879,
+      "start_utc": "2026-08-27T23:15:00Z",
+      "bet_team": "Los Angeles Dodgers",
+      "bet_side": "away",
+      "selection": "Los Angeles Dodgers ML (fade C. Sale, live gap)",
+      "odds": 106,
+      "risk": 1.0,
+      "to_win": 1.06,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Dodgers 0\u20131 Atlanta Braves"
+      }
+    }
+  ]
+}
