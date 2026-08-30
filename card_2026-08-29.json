@@ -1,1 +1,119 @@
-{"date": "2026-08-29", "plays": [{"game_pk": 823539, "start_utc": "2026-08-29T17:05:00Z", "bet_team": "Boston Red Sox", "bet_side": "away", "selection": "Boston Red Sox ML (fade C. Rod\u00f3n, live gap)", "odds": 104, "risk": 1.0, "to_win": 1.04, "cap": "dog", "verdict": "PLAY", "rlm_tag": "STEAM-FOR", "stars": 3, "graded": false, "result": null}, {"game_pk": 823011, "start_utc": "2026-08-29T18:15:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "away", "selection": "Pittsburgh Pirates ML (fade K. Leahy, live gap)", "odds": 110, "risk": 1.0, "to_win": 1.1, "cap": "dog", "verdict": "PLAY", "rlm_tag": "STEAM-FOR", "stars": 4, "graded": false, "result": null}, {"game_pk": 822770, "start_utc": "2026-08-29T19:07:00Z", "bet_team": "Seattle Mariners", "bet_side": "away", "selection": "Seattle Mariners ML (fade J. Soriano, live gap)", "odds": 100, "risk": 1.0, "to_win": 1.0, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823177, "start_utc": "2026-08-29T20:05:00Z", "bet_team": "San Francisco Giants", "bet_side": "home", "selection": "San Francisco Giants ML (fade M. Kelly, live gap)", "odds": -102, "risk": 1.02, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 822936, "start_utc": "2026-08-29T20:10:00Z", "bet_team": "San Diego Padres", "bet_side": "away", "selection": "San Diego Padres ML (fade N. Martinez, live gap)", "odds": 116, "risk": 1.0, "to_win": 1.16, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823741, "start_utc": "2026-08-29T23:15:00Z", "bet_team": "Milwaukee Brewers", "bet_side": "home", "selection": "Milwaukee Brewers ML (fade C. Quantrill, live gap)", "odds": -164, "risk": 1.64, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-08-29",
+  "plays": [
+    {
+      "game_pk": 823539,
+      "start_utc": "2026-08-29T17:05:00Z",
+      "bet_team": "Boston Red Sox",
+      "bet_side": "away",
+      "selection": "Boston Red Sox ML (fade C. Rod\u00f3n, live gap)",
+      "odds": 104,
+      "risk": 1.0,
+      "to_win": 1.04,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "STEAM-FOR",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Boston Red Sox 6\u20130 New York Yankees"
+      }
+    },
+    {
+      "game_pk": 823011,
+      "start_utc": "2026-08-29T18:15:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "away",
+      "selection": "Pittsburgh Pirates ML (fade K. Leahy, live gap)",
+      "odds": 110,
+      "risk": 1.0,
+      "to_win": 1.1,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "STEAM-FOR",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Pittsburgh Pirates 6\u20132 St. Louis Cardinals"
+      }
+    },
+    {
+      "game_pk": 822770,
+      "start_utc": "2026-08-29T19:07:00Z",
+      "bet_team": "Seattle Mariners",
+      "bet_side": "away",
+      "selection": "Seattle Mariners ML (fade J. Soriano, live gap)",
+      "odds": 100,
+      "risk": 1.0,
+      "to_win": 1.0,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Seattle Mariners 3\u20134 Toronto Blue Jays"
+      }
+    },
+    {
+      "game_pk": 823177,
+      "start_utc": "2026-08-29T20:05:00Z",
+      "bet_team": "San Francisco Giants",
+      "bet_side": "home",
+      "selection": "San Francisco Giants ML (fade M. Kelly, live gap)",
+      "odds": -102,
+      "risk": 1.02,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Arizona Diamondbacks 7\u20131 San Francisco Giants"
+      }
+    },
+    {
+      "game_pk": 822936,
+      "start_utc": "2026-08-29T20:10:00Z",
+      "bet_team": "San Diego Padres",
+      "bet_side": "away",
+      "selection": "San Diego Padres ML (fade N. Martinez, live gap)",
+      "odds": 116,
+      "risk": 1.0,
+      "to_win": 1.16,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "San Diego Padres 6\u20137 Tampa Bay Rays"
+      }
+    },
+    {
+      "game_pk": 823741,
+      "start_utc": "2026-08-29T23:15:00Z",
+      "bet_team": "Milwaukee Brewers",
+      "bet_side": "home",
+      "selection": "Milwaukee Brewers ML (fade C. Quantrill, live gap)",
+      "odds": -164,
+      "risk": 1.64,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Texas Rangers 3\u20135 Milwaukee Brewers"
+      }
+    }
+  ]
+}
