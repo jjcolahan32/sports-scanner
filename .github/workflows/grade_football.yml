@@ -1,0 +1,36 @@
+name: football-grader
+# Triggered by an external cron service (cron-job.org) at grade_football.py's
+# GRADE_CHECKPOINTS_ET: 06:00 and 12:00 US Eastern daily -- late enough to catch West
+# Coast Monday-night finishes, early enough to still feel like a same-day recap. No
+# `schedule:` trigger -- see scan_nfl.yml / the MLB grader's grade.yml for why.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  grade_football:
+    runs-on: ubuntu-latest
+    concurrency: football-grader
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Grade the day
+        env:
+          NTFY_TOPIC_FOOTBALL: ${{ secrets.NTFY_TOPIC_FOOTBALL }}
+        run: python grade_football.py
+      - name: Persist card + ledger state
+        run: |
+          git config user.name  "football-grader"
+          git config user.email "bot@users.noreply.github.com"
+          git add card_nfl_*.json card_cfb_*.json ledger_football.json last_grade_football.json || true
+          git commit -m "football grade: $(date -u +%F)" || echo "no change"
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            echo "push rejected, rebasing onto latest main (attempt $i)"
+            git fetch origin main
+            git rebase origin/main || { echo "rebase conflict -- leaving for manual resolution"; exit 1; }
+          done

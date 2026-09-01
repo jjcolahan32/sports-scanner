@@ -1,0 +1,39 @@
+name: cfb-scanner
+# Triggered by an external cron service (cron-job.org) at scan_cfb.py's
+# SCAN_CHECKPOINTS_ET: Tue 10:00, Wed 10:00, Thu 14:00, Fri 16:00, Sat 09:00 (all US
+# Eastern) -- one same-day scan per game-day, per RULES_FOOTBALL.md Section 6, plus the
+# Saturday-morning lock for the big slate. No `schedule:` trigger -- see scan_nfl.yml /
+# the MLB scanner's scan.yml for why.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  scan_cfb:
+    runs-on: ubuntu-latest
+    concurrency: cfb-scanner
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run CFB scan
+        env:
+          ODDS_API_KEY:         ${{ secrets.ODDS_API_KEY }}
+          CFBD_API_KEY:         ${{ secrets.CFBD_API_KEY }}
+          NTFY_TOPIC_FOOTBALL:  ${{ secrets.NTFY_TOPIC_FOOTBALL }}
+        run: python scan_cfb.py
+      - name: Persist dedupe + opening-line + venue-cache state
+        run: |
+          git config user.name  "cfb-scanner"
+          git config user.email "bot@users.noreply.github.com"
+          git add state_cfb.json opens_cfb.json card_cfb_*.json last_scan_cfb.json venues_cfb_cache.json || true
+          git commit -m "cfb state: $(date -u +%F_%H:%M)" || echo "no change"
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            echo "push rejected, rebasing onto latest main (attempt $i)"
+            git fetch origin main
+            git rebase origin/main || { echo "rebase conflict -- leaving for manual resolution"; exit 1; }
+          done

@@ -1,0 +1,41 @@
+name: nfl-scanner
+# Triggered by an external cron service (cron-job.org, same as the MLB scanner) calling
+# GitHub's workflow_dispatch API at the checkpoints in scan_nfl.py's
+# SCAN_CHECKPOINTS_ET: Tue/Wed 10:00, Thu 14:00, Fri 16:00, Sat 18:00, Mon 14:00 (all
+# US Eastern). No `schedule:` trigger here on purpose -- see the MLB scanner's scan.yml
+# comment for why (GitHub's own scheduler proved unreliable, and colliding with an
+# external trigger caused real problems). Manual dispatch always runs regardless of the
+# checkpoint (scan_nfl.py's market_hours_open() only enforces the checkpoint gate when
+# GITHUB_EVENT_NAME is "schedule", which workflow_dispatch never is).
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  scan_nfl:
+    runs-on: ubuntu-latest
+    concurrency: nfl-scanner
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run NFL scan
+        env:
+          ODDS_API_KEY:         ${{ secrets.ODDS_API_KEY }}
+          NTFY_TOPIC_FOOTBALL:  ${{ secrets.NTFY_TOPIC_FOOTBALL }}
+        run: python scan_nfl.py
+      - name: Persist dedupe + opening-line state
+        run: |
+          git config user.name  "nfl-scanner"
+          git config user.email "bot@users.noreply.github.com"
+          git add state_nfl.json opens_nfl.json card_nfl_*.json last_scan_nfl.json || true
+          git commit -m "nfl state: $(date -u +%F_%H:%M)" || echo "no change"
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            echo "push rejected, rebasing onto latest main (attempt $i)"
+            git fetch origin main
+            git rebase origin/main || { echo "rebase conflict -- leaving for manual resolution"; exit 1; }
+          done

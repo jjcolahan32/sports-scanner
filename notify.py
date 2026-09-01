@@ -11,13 +11,17 @@ import os, json, urllib.request
 PRIORITIES = {"min": 1, "low": 2, "default": 3, "high": 4, "max": 5, "urgent": 5}
 
 
-def push(title, body, priority="high", tag="baseball"):
+def push(title, body, priority="high", tag="baseball", topic=None):
     """Uses ntfy's JSON publish format (not the Title/Tags header form) so
     emoji in the title (e.g. scan.py's '⚾ 2 play(s)...') don't crash on
     Python's http.client, which restricts header values to Latin-1. Unlike
     the header form, ntfy's JSON API requires priority as a number (1-5),
-    not the word form, so map it here."""
-    topic = os.environ.get("NTFY_TOPIC", "")
+    not the word form, so map it here.
+
+    topic defaults to NTFY_TOPIC (every existing MLB call site) -- pass an
+    explicit topic (e.g. NTFY_TOPIC_FOOTBALL) to route to a different feed
+    without touching those call sites."""
+    topic = topic or os.environ.get("NTFY_TOPIC", "")
     if not topic:
         raise RuntimeError("Set NTFY_TOPIC to your private ntfy topic name")
     payload = json.dumps({
