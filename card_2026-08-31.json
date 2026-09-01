@@ -1,1 +1,129 @@
-{"date": "2026-08-31", "plays": [{"game_pk": 824473, "start_utc": "2026-08-31T22:40:00Z", "bet_team": "Cincinnati Reds", "bet_side": "home", "selection": "Cincinnati Reds ML (fade M. King, live gap)", "odds": 128, "risk": 1.0, "to_win": 1.28, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 822932, "start_utc": "2026-08-31T22:40:00Z", "bet_team": "New York Mets", "bet_side": "away", "selection": "New York Mets ML (back R. Stock, live gap)", "odds": 152, "risk": 1.0, "to_win": 1.52, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 824635, "start_utc": "2026-08-31T23:40:00Z", "bet_team": "Milwaukee Brewers", "bet_side": "away", "selection": "Milwaukee Brewers ML (fade C. Holmes, live gap)", "odds": 100, "risk": 1.0, "to_win": 1.0, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 824149, "start_utc": "2026-09-01T00:10:00Z", "bet_team": "Houston Astros", "bet_side": "home", "selection": "Houston Astros ML (fade A. Kay, live gap)", "odds": -126, "risk": 1.26, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824314, "start_utc": "2026-09-01T00:40:00Z", "bet_team": "Colorado Rockies", "bet_side": "home", "selection": "Colorado Rockies ML (back T. Gordon, live gap)", "odds": 108, "risk": 1.0, "to_win": 1.08, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823982, "start_utc": "2026-09-01T01:38:00Z", "bet_team": "Los Angeles Angels", "bet_side": "home", "selection": "Los Angeles Angels ML (fade E. Rodr\u00edguez, listed mirage)", "odds": 110, "risk": 1.0, "to_win": 1.1, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 825040, "start_utc": "2026-09-01T01:40:00Z", "bet_team": "Philadelphia Phillies", "bet_side": "away", "selection": "Philadelphia Phillies ML (back A. Nola, listed reverse)", "odds": -112, "risk": 1.12, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}]}
+{
+  "date": "2026-08-31",
+  "plays": [
+    {
+      "game_pk": 824473,
+      "start_utc": "2026-08-31T22:40:00Z",
+      "bet_team": "Cincinnati Reds",
+      "bet_side": "home",
+      "selection": "Cincinnati Reds ML (fade M. King, live gap)",
+      "odds": 128,
+      "risk": 1.0,
+      "to_win": 1.28,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "San Diego Padres 5\u20130 Cincinnati Reds"
+      }
+    },
+    {
+      "game_pk": 822932,
+      "start_utc": "2026-08-31T22:40:00Z",
+      "bet_team": "New York Mets",
+      "bet_side": "away",
+      "selection": "New York Mets ML (back R. Stock, live gap)",
+      "odds": 152,
+      "risk": 1.0,
+      "to_win": 1.52,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "New York Mets 3\u20132 Tampa Bay Rays"
+      }
+    },
+    {
+      "game_pk": 824635,
+      "start_utc": "2026-08-31T23:40:00Z",
+      "bet_team": "Milwaukee Brewers",
+      "bet_side": "away",
+      "selection": "Milwaukee Brewers ML (fade C. Holmes, live gap)",
+      "odds": 100,
+      "risk": 1.0,
+      "to_win": 1.0,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Milwaukee Brewers 3\u201317 Chicago Cubs"
+      }
+    },
+    {
+      "game_pk": 824149,
+      "start_utc": "2026-09-01T00:10:00Z",
+      "bet_team": "Houston Astros",
+      "bet_side": "home",
+      "selection": "Houston Astros ML (fade A. Kay, live gap)",
+      "odds": -126,
+      "risk": 1.26,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Chicago White Sox 3\u20136 Houston Astros"
+      }
+    },
+    {
+      "game_pk": 824314,
+      "start_utc": "2026-09-01T00:40:00Z",
+      "bet_team": "Colorado Rockies",
+      "bet_side": "home",
+      "selection": "Colorado Rockies ML (back T. Gordon, live gap)",
+      "odds": 108,
+      "risk": 1.0,
+      "to_win": 1.08,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 823982,
+      "start_utc": "2026-09-01T01:38:00Z",
+      "bet_team": "Los Angeles Angels",
+      "bet_side": "home",
+      "selection": "Los Angeles Angels ML (fade E. Rodr\u00edguez, listed mirage)",
+      "odds": 110,
+      "risk": 1.0,
+      "to_win": 1.1,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 825040,
+      "start_utc": "2026-09-01T01:40:00Z",
+      "bet_team": "Philadelphia Phillies",
+      "bet_side": "away",
+      "selection": "Philadelphia Phillies ML (back A. Nola, listed reverse)",
+      "odds": -112,
+      "risk": 1.12,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": false,
+      "result": null
+    }
+  ]
+}
