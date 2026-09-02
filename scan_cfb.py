@@ -308,7 +308,7 @@ def main():
                  if market_result["verdict"] == "CONFIRMED" else "informational — not staked")
         price_str = f"{market_result['price']:+d}" if market_result.get("price") is not None else ""
         when = datetime.fromisoformat(game["start_utc"].replace("Z", "+00:00")).astimezone(
-            ZoneInfo("America/New_York")).strftime("%a %-I:%M %p ET")
+            ZoneInfo("America/New_York")).strftime("%a %-m/%-d %-I:%M %p ET")
         title_line = (f"[CFB] {game['away']} @ {game['home']} — {market.upper()}  "
                       f"{market_result['verdict']}\n{sel} {price_str} ({stake}) — {when}")
         reason_line = market_result["reason"] + (f"  [{market_result['rlm']['tag']}]" if market_result.get("rlm") else "")
