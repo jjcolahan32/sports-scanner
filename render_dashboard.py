@@ -7,8 +7,17 @@ results/ledger show up); the workflows commit the resulting docs/index.html,
 and GitHub Pages serves it. No external template engine — plain string
 substitution, consistent with the rest of this project's zero-dependency style.
 """
-import json, os, glob
+import json, os, glob, re
 from datetime import datetime, timezone
+
+# Strict date-shaped match, not a bare glob -- same fix as grade.py's MLB_CARD_RE.
+# card_nfl_<date>.json / card_cfb_<date>.json (the separate football system, sharing
+# this repo) matched a bare "card_*.json" glob too: their "date" parsed out to
+# "nfl_2026-09-01", which showed up as a garbled day header on the live history page
+# (confirmed in docs/history.html) instead of crashing outright, since this file's
+# field access is all .get()-based. Matching only the real card_YYYY-MM-DD.json shape
+# excludes any other sport's card file by construction.
+MLB_CARD_RE = re.compile(r"^card_(?:totals_)?(\d{4}-\d{2}-\d{2})\.json$")
 
 OUT_DIR = "docs"
 OUT_PATH = os.path.join(OUT_DIR, "index.html")
@@ -198,9 +207,9 @@ def build_history_html():
     nothing new to track."""
     dates = set()
     for path in glob.glob("card_*.json"):
-        base = path[len("card_"):-len(".json")]
-        d = base[len("totals_"):] if base.startswith("totals_") else base
-        dates.add(d)
+        m = MLB_CARD_RE.match(path)
+        if m:
+            dates.add(m.group(1))
 
     blocks = []
     for d in sorted(dates, reverse=True):
