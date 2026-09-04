@@ -20,7 +20,7 @@ Notes / honesty:
   - REVIEW plays (market opposed) are graded and bucketed by their tag, so you can see
     how the "market said pass" spots actually turned out.
 """
-import os, json, glob
+import os, json, glob, re
 from datetime import datetime, timezone
 
 import fetch_mlb, notify, discord_notify
@@ -170,8 +170,19 @@ def _bucket(store, key):
     return store.setdefault(key, {"w": 0, "l": 0, "units": 0.0})
 
 
+MLB_CARD_RE = re.compile(r"^card_\d{4}-\d{2}-\d{2}\.json$")
+
+
 def grade_moneylines(ledger, results_cache, day, discord_sent):
-    for path in sorted(p for p in glob.glob("card_*.json") if "totals" not in p):
+    # Strict date-shaped match, not a blacklist -- a plain "totals" not in p"
+    # exclusion let card_nfl_<date>.json (from the separate football system,
+    # sharing this repo) slip through and get misread as an MLB card: its
+    # "date" parsed out to "nfl_2026-09-01", which MLB's schedule API
+    # correctly 400'd on, crashing every grading run. Matching only the
+    # real card_YYYY-MM-DD.json shape means any other sport's card file
+    # (nfl, cfb, whatever comes next) is excluded by construction, with no
+    # per-sport blacklist entry to remember to add.
+    for path in sorted(p for p in glob.glob("card_*.json") if MLB_CARD_RE.match(p)):
         card_date = path[len("card_"):-len(".json")]
         card = load_json(path, None)
         if not card:
