@@ -29,7 +29,16 @@ jobs:
         run: |
           git config user.name  "cfb-scanner"
           git config user.email "bot@users.noreply.github.com"
-          git add state_cfb.json opens_cfb.json card_cfb_*.json last_scan_cfb.json venues_cfb_cache.json || true
+          # One git-add call per file, not one combined call -- if any single pathspec
+          # here doesn't exist yet (e.g. card_cfb_*.json before the first day any CFB
+          # game was actually found in-window), git add aborts the WHOLE command and
+          # silently stages nothing at all, including files that do exist. Confirmed
+          # locally; this is what silently dropped every persisted file for weeks.
+          git add state_cfb.json || true
+          git add opens_cfb.json || true
+          git add card_cfb_*.json || true
+          git add last_scan_cfb.json || true
+          git add venues_cfb_cache.json || true
           git commit -m "cfb state: $(date -u +%F_%H:%M)" || echo "no change"
           for i in 1 2 3 4 5; do
             git push && exit 0

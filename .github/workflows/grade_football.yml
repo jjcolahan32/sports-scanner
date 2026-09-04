@@ -26,7 +26,14 @@ jobs:
         run: |
           git config user.name  "football-grader"
           git config user.email "bot@users.noreply.github.com"
-          git add card_nfl_*.json card_cfb_*.json ledger_football.json last_grade_football.json || true
+          # One git-add call per file -- see scan_cfb.yml's comment: a single combined
+          # git add aborts entirely (staging NOTHING) if any one pathspec doesn't exist
+          # yet, and card_cfb_*.json / ledger_football.json won't until there's
+          # something to log/settle.
+          git add card_nfl_*.json || true
+          git add card_cfb_*.json || true
+          git add ledger_football.json || true
+          git add last_grade_football.json || true
           git commit -m "football grade: $(date -u +%F)" || echo "no change"
           for i in 1 2 3 4 5; do
             git push && exit 0
