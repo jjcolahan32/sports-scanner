@@ -1,1 +1,93 @@
-{"date": "2026-09-03", "plays": [{"game_pk": 824796, "start_utc": "2026-09-03T23:15:00Z", "home": "Baltimore Orioles", "away": "Boston Red Sox", "side": "Over", "home_prob": "Brandon Young", "away_prob": "Jake Bennett", "selection": "Boston Red Sox @ Baltimore Orioles Over 8.5", "total": 8.5, "odds": -105, "risk": 1.05, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824632, "start_utc": "2026-09-03T23:15:00Z", "home": "Chicago Cubs", "away": "Milwaukee Brewers", "side": "Under", "home_prob": "Kevin Gausman", "away_prob": "Logan Henderson", "selection": "Milwaukee Brewers @ Chicago Cubs Under 8.5", "total": 8.5, "odds": -117, "risk": 1.17, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824069, "start_utc": "2026-09-03T23:40:00Z", "home": "Kansas City Royals", "away": "Miami Marlins", "side": "Over", "home_prob": "Michael Wacha", "away_prob": "Sandy Alcantara", "selection": "Miami Marlins @ Kansas City Royals Over 9.0", "total": 9.0, "odds": -110, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 4, "graded": false, "result": null}, {"game_pk": 824388, "start_utc": "2026-09-03T17:10:00Z", "home": "Cleveland Guardians", "away": "Toronto Blue Jays", "side": "Over", "home_prob": "Tanner Bibee", "away_prob": "Jos\u00e9 Soriano", "selection": "Toronto Blue Jays @ Cleveland Guardians Over 8.0", "total": 8.0, "odds": -102, "risk": 1.02, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-09-03",
+  "plays": [
+    {
+      "game_pk": 824796,
+      "start_utc": "2026-09-03T23:15:00Z",
+      "home": "Baltimore Orioles",
+      "away": "Boston Red Sox",
+      "side": "Over",
+      "home_prob": "Brandon Young",
+      "away_prob": "Jake Bennett",
+      "selection": "Boston Red Sox @ Baltimore Orioles Over 8.5",
+      "total": 8.5,
+      "odds": -105,
+      "risk": 1.05,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Boston Red Sox 6\u20135 Baltimore Orioles"
+      }
+    },
+    {
+      "game_pk": 824632,
+      "start_utc": "2026-09-03T23:15:00Z",
+      "home": "Chicago Cubs",
+      "away": "Milwaukee Brewers",
+      "side": "Under",
+      "home_prob": "Kevin Gausman",
+      "away_prob": "Logan Henderson",
+      "selection": "Milwaukee Brewers @ Chicago Cubs Under 8.5",
+      "total": 8.5,
+      "odds": -117,
+      "risk": 1.17,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Milwaukee Brewers 1\u20132 Chicago Cubs"
+      }
+    },
+    {
+      "game_pk": 824069,
+      "start_utc": "2026-09-03T23:40:00Z",
+      "home": "Kansas City Royals",
+      "away": "Miami Marlins",
+      "side": "Over",
+      "home_prob": "Michael Wacha",
+      "away_prob": "Sandy Alcantara",
+      "selection": "Miami Marlins @ Kansas City Royals Over 9.0",
+      "total": 9.0,
+      "odds": -110,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Miami Marlins 3\u20137 Kansas City Royals"
+      }
+    },
+    {
+      "game_pk": 824388,
+      "start_utc": "2026-09-03T17:10:00Z",
+      "home": "Cleveland Guardians",
+      "away": "Toronto Blue Jays",
+      "side": "Over",
+      "home_prob": "Tanner Bibee",
+      "away_prob": "Jos\u00e9 Soriano",
+      "selection": "Toronto Blue Jays @ Cleveland Guardians Over 8.0",
+      "total": 8.0,
+      "odds": -102,
+      "risk": 1.02,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Toronto Blue Jays 6\u20133 Cleveland Guardians"
+      }
+    }
+  ]
+}
