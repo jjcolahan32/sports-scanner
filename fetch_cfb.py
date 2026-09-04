@@ -50,7 +50,11 @@ def season_games(year=None, season_type="regular"):
     start_utc, away, home, away_score, home_score, venue_id, neutral_site} shape
     fetch_nfl.py uses, so current_week() works unmodified across both sports."""
     year = int(year or datetime.now(timezone.utc).year)
-    games = _get("/games", {"year": year, "seasonType": season_type})
+    # classification=fbs -- CFBD's /games returns every division (FCS, D-II, D-III) by
+    # default. Docstring above always claimed "FBS games" but the query never actually
+    # filtered to it, so this was silently pulling in D-III games (Albright, McDaniel,
+    # Misericordia, ...) that can never have a betting line -- pure noise/wasted calls.
+    games = _get("/games", {"year": year, "seasonType": season_type, "classification": "fbs"})
     out = []
     for g in games:
         start = _field(g, "startDate", "start_date")
