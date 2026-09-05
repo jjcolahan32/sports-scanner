@@ -216,6 +216,12 @@ def grade_game(game, candidate, odds, opens):
             continue
         price, point = _price_for(market, g["side"], entry)
         if price is None:
+            # A real 2+-category CONFIRMED edge with no live price yet still can't be
+            # staked or notified -- downgrade to NOTE so main()'s notify/stake code
+            # never sees a "CONFIRMED" row missing risk/to_win. Re-evaluated fresh next
+            # scan once a book actually posts this side.
+            if g["verdict"] == "CONFIRMED":
+                g["verdict"] = "NOTE"
             g["reason"] += " (no live price posted yet)"
             results.append({**g, "game": game})
             continue
