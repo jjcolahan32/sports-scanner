@@ -90,8 +90,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Athletics 7\u20136 Seattle Mariners"
+      }
     }
   ]
 }
