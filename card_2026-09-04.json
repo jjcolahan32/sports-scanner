@@ -1,1 +1,97 @@
-{"date": "2026-09-04", "plays": [{"game_pk": 823338, "start_utc": "2026-09-04T22:45:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "home", "selection": "Pittsburgh Pirates ML (back J. Jones, live gap)", "odds": -196, "risk": 1.96, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824387, "start_utc": "2026-09-04T23:15:00Z", "bet_team": "Detroit Tigers", "bet_side": "away", "selection": "Detroit Tigers ML (fade F. Griffin, live gap)", "odds": 118, "risk": 1.0, "to_win": 1.18, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 822852, "start_utc": "2026-09-05T00:05:00Z", "bet_team": "Texas Rangers", "bet_side": "home", "selection": "Texas Rangers ML (fade N. Martinez, live gap)", "odds": -110, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824146, "start_utc": "2026-09-05T00:10:00Z", "bet_team": "Houston Astros", "bet_side": "home", "selection": "Houston Astros ML (fade M. Kelly, live gap; back C. Javier, live gap)", "odds": -130, "risk": 2.6, "to_win": 2.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823093, "start_utc": "2026-09-05T02:10:00Z", "bet_team": "Athletics", "bet_side": "away", "selection": "Athletics ML (back K. Morris, live gap)", "odds": 192, "risk": 1.0, "to_win": 1.92, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-09-04",
+  "plays": [
+    {
+      "game_pk": 823338,
+      "start_utc": "2026-09-04T22:45:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "home",
+      "selection": "Pittsburgh Pirates ML (back J. Jones, live gap)",
+      "odds": -196,
+      "risk": 1.96,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Los Angeles Angels 0\u20131 Pittsburgh Pirates"
+      }
+    },
+    {
+      "game_pk": 824387,
+      "start_utc": "2026-09-04T23:15:00Z",
+      "bet_team": "Detroit Tigers",
+      "bet_side": "away",
+      "selection": "Detroit Tigers ML (fade F. Griffin, live gap)",
+      "odds": 118,
+      "risk": 1.0,
+      "to_win": 1.18,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Detroit Tigers 3\u20134 Cleveland Guardians"
+      }
+    },
+    {
+      "game_pk": 822852,
+      "start_utc": "2026-09-05T00:05:00Z",
+      "bet_team": "Texas Rangers",
+      "bet_side": "home",
+      "selection": "Texas Rangers ML (fade N. Martinez, live gap)",
+      "odds": -110,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Tampa Bay Rays 7\u20136 Texas Rangers"
+      }
+    },
+    {
+      "game_pk": 824146,
+      "start_utc": "2026-09-05T00:10:00Z",
+      "bet_team": "Houston Astros",
+      "bet_side": "home",
+      "selection": "Houston Astros ML (fade M. Kelly, live gap; back C. Javier, live gap)",
+      "odds": -130,
+      "risk": 2.6,
+      "to_win": 2.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Arizona Diamondbacks 1\u20133 Houston Astros"
+      }
+    },
+    {
+      "game_pk": 823093,
+      "start_utc": "2026-09-05T02:10:00Z",
+      "bet_team": "Athletics",
+      "bet_side": "away",
+      "selection": "Athletics ML (back K. Morris, live gap)",
+      "odds": 192,
+      "risk": 1.0,
+      "to_win": 1.92,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": false,
+      "result": null
+    }
+  ]
+}
