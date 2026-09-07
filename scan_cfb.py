@@ -340,15 +340,22 @@ def main():
 
 
 def log_card(all_results, today_key):
+    """Log every graded row, refreshing any not-yet-graded entry with the latest read
+    each run -- a game can go NOTE early in the day (no price posted, weak signal) and
+    CONFIRMED later (price posted, RLM promotes it), and the LATER read is what actually
+    gets notified/staked. Only ever overwriting the first-seen snapshot left the card
+    permanently out of sync with what was actually sent -- confirmed from a real case
+    (Hawaii/Nevada, 9/5) where the notified pick and the logged card row disagreed.
+    Once graded, an entry is frozen (never touched again, even if somehow re-evaluated)."""
     path = f"card_cfb_{today_key}.json"
     card = load_json(path, {"date": today_key, "plays": []})
-    seen = {(p["game_id"], p["market"]) for p in card["plays"]}
+    by_key = {(p["game_id"], p["market"]): i for i, p in enumerate(card["plays"])}
     for r in all_results:
         game = r["game"]
-        k = (game["game_id"], r["market"])
-        if k in seen or r["side"] is None:
+        if r["side"] is None:
             continue
-        card["plays"].append({
+        k = (game["game_id"], r["market"])
+        play = {
             "game_id": game["game_id"], "start_utc": game["start_utc"],
             "home": game["home"], "away": game["away"], "market": r["market"],
             "side": r["side"], "selection": _selection_label(r["market"], r),
@@ -356,8 +363,15 @@ def log_card(all_results, today_key):
             "risk": r.get("risk"), "to_win": r.get("to_win"), "cap": r.get("cap"),
             "verdict": r["verdict"], "rlm_tag": (r.get("rlm") or {}).get("tag", "NEUTRAL"),
             "graded": False, "result": None,
-        })
-        seen.add(k)
+        }
+        if k in by_key:
+            idx = by_key[k]
+            if card["plays"][idx].get("graded"):
+                continue  # settled -- never overwrite
+            card["plays"][idx] = play
+        else:
+            card["plays"].append(play)
+            by_key[k] = len(card["plays"]) - 1
     save_json(path, card)
 
 

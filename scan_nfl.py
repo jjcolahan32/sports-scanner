@@ -335,18 +335,23 @@ def main():
 
 
 def log_card(all_results):
-    """Append every graded row (including NOTE/PASS) to card_nfl_<date>.json so
-    grade_football.py can settle CONFIRMED/LEAN plays and the full read stays auditable."""
+    """Log every graded row, refreshing any not-yet-graded entry with the latest read
+    each run -- a game can go NOTE early (no price posted, weak signal) and CONFIRMED
+    later (price posted, RLM promotes it), and the LATER read is what actually gets
+    notified/staked. Only ever writing the first-seen snapshot left the card
+    permanently out of sync with what was actually sent -- confirmed from a real CFB
+    case (scan_cfb.py has the identical fix) where the notified pick and the logged
+    card row disagreed. Once graded, an entry is frozen (never touched again)."""
     date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     path = f"card_nfl_{date}.json"
     card = load_json(path, {"date": date, "plays": []})
-    seen = {(p["game_id"], p["market"]) for p in card["plays"]}
+    by_key = {(p["game_id"], p["market"]): i for i, p in enumerate(card["plays"])}
     for r in all_results:
         game = r["game"]
-        k = (game["game_id"], r["market"])
-        if k in seen or r["side"] is None:
+        if r["side"] is None:
             continue
-        card["plays"].append({
+        k = (game["game_id"], r["market"])
+        play = {
             "game_id": game["game_id"], "start_utc": game["start_utc"],
             "home": game["home"], "away": game["away"], "market": r["market"],
             "side": r["side"], "selection": _selection_label(r["market"], r),
@@ -354,8 +359,15 @@ def log_card(all_results):
             "risk": r.get("risk"), "to_win": r.get("to_win"), "cap": r.get("cap"),
             "verdict": r["verdict"], "rlm_tag": (r.get("rlm") or {}).get("tag", "NEUTRAL"),
             "graded": False, "result": None,
-        })
-        seen.add(k)
+        }
+        if k in by_key:
+            idx = by_key[k]
+            if card["plays"][idx].get("graded"):
+                continue  # settled -- never overwrite
+            card["plays"][idx] = play
+        else:
+            card["plays"].append(play)
+            by_key[k] = len(card["plays"]) - 1
     save_json(path, card)
 
 
