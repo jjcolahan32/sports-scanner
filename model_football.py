@@ -217,7 +217,12 @@ def grade_spread(p):
 
 
 def grade_ml(p):
-    return _grade_side(p, "moneyline")
+    # "ml" (not "moneyline") -- must match GRADERS' own key below, grade_football.py's
+    # SETTLERS dict, and scan_nfl.py/scan_cfb.py's market-loop tuples. A mismatch here
+    # doesn't crash the scanner (nothing reads it there), but grade_football.py's
+    # SETTLERS[play["market"]] lookup would KeyError the first time a moneyline pick
+    # ever went CONFIRMED/LEAN.
+    return _grade_side(p, "ml")
 
 
 def _grade_side(p, market_label):

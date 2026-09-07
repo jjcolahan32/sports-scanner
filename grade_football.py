@@ -137,6 +137,12 @@ def _results_for(sport, season, results_cache):
         except Exception as e:
             print(f"{sport} {season} results fetch failed (will retry next grading run): {e}")
             games = []
+        # DIAGNOSTIC (temporary -- remove once we've confirmed real CFBD/nflverse data
+        # flows through correctly): visibility into what the season-results fetch
+        # actually returned, since a silently-empty or silently-scoreless result here
+        # is indistinguishable from "game not final yet" without this.
+        print(f"_results_for({sport!r}, {season!r}): {len(games)} games fetched, "
+              f"{sum(1 for g in games if g.get('home_score') is not None)} with a home_score")
         results_cache[key] = {g["game_id"]: g for g in games}
     return results_cache[key]
 
@@ -153,9 +159,14 @@ def grade_sport(sport, ledger, results_cache, day):
             games = _results_for(sport, play["start_utc"][:4], results_cache)
             res = games.get(play["game_id"])
             if not res:
+                print(f"  ungraded {sport} game_id={play['game_id']} ({play['selection']}): "
+                      f"not found in season-results fetch")
                 continue
             hs, aws = res.get("home_score"), res.get("away_score")
             if hs is None or aws is None:
+                print(f"  ungraded {sport} game_id={play['game_id']} ({play['selection']}): "
+                      f"found but no score yet (home_score={hs}, away_score={aws}, "
+                      f"completed={res.get('completed')})")
                 continue
 
             outcome, delta = SETTLERS[play["market"]](play, hs, aws)
