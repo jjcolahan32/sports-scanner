@@ -1,1 +1,27 @@
-{"date": "2026-09-06", "plays": [{"game_pk": 824065, "start_utc": "2026-09-06T18:10:00Z", "home": "Kansas City Royals", "away": "Toronto Blue Jays", "side": "Over", "home_prob": "Randy Dobnak", "away_prob": "Spencer Arrighetti", "selection": "Toronto Blue Jays @ Kansas City Royals Over 9.5", "total": 9.5, "odds": -105, "risk": 1.05, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 4, "graded": false, "result": null}]}
+{
+  "date": "2026-09-06",
+  "plays": [
+    {
+      "game_pk": 824065,
+      "start_utc": "2026-09-06T18:10:00Z",
+      "home": "Kansas City Royals",
+      "away": "Toronto Blue Jays",
+      "side": "Over",
+      "home_prob": "Randy Dobnak",
+      "away_prob": "Spencer Arrighetti",
+      "selection": "Toronto Blue Jays @ Kansas City Royals Over 9.5",
+      "total": 9.5,
+      "odds": -105,
+      "risk": 1.05,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Toronto Blue Jays 1\u20136 Kansas City Royals"
+      }
+    }
+  ]
+}
