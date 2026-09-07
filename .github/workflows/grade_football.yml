@@ -20,7 +20,8 @@ jobs:
           python-version: "3.12"
       - name: Grade the day
         env:
-          NTFY_TOPIC_FOOTBALL: ${{ secrets.NTFY_TOPIC_FOOTBALL }}
+          CFBD_API_KEY:         ${{ secrets.CFBD_API_KEY }}
+          NTFY_TOPIC_FOOTBALL:  ${{ secrets.NTFY_TOPIC_FOOTBALL }}
         run: python grade_football.py
       - name: Persist card + ledger state
         run: |
