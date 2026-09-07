@@ -124,8 +124,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Coastal Carolina 24\u201331 West Virginia"
+      }
     },
     {
       "game_id": 401856780,
