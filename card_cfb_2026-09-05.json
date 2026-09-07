@@ -253,11 +253,8 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": true,
-      "result": {
-        "outcome": "win",
-        "score": "Liberty 13\u201320 James Madison"
-      }
+      "graded": false,
+      "result": null
     },
     {
       "game_id": 401858207,
@@ -958,11 +955,8 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": true,
-      "result": {
-        "outcome": "win",
-        "score": "Sam Houston 21\u201324 Troy"
-      }
+      "graded": false,
+      "result": null
     },
     {
       "game_id": 401870763,
@@ -1339,11 +1333,8 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": true,
-      "result": {
-        "outcome": "win",
-        "score": "UNLV 21\u20136 Hawai'i"
-      }
+      "graded": false,
+      "result": null
     },
     {
       "game_id": 401864497,
@@ -1414,11 +1405,8 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": true,
-      "result": {
-        "outcome": "loss",
-        "score": "Western Kentucky 14\u201349 Nevada"
-      }
+      "graded": false,
+      "result": null
     },
     {
       "game_id": 401858210,
