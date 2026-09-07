@@ -1331,16 +1331,19 @@
       "away": "UNLV",
       "market": "total",
       "side": "under",
-      "selection": "Under",
-      "price": null,
-      "point": null,
-      "risk": null,
-      "to_win": null,
-      "cap": null,
-      "verdict": "NOTE",
+      "selection": "Under 55.5",
+      "price": -112,
+      "point": 55.5,
+      "risk": 1.12,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "UNLV 21\u20136 Hawai'i"
+      }
     },
     {
       "game_id": 401864497,
@@ -1404,15 +1407,18 @@
       "market": "total",
       "side": "under",
       "selection": "Under 51.5",
-      "price": -102,
+      "price": -108,
       "point": 51.5,
-      "risk": null,
-      "to_win": null,
-      "cap": null,
-      "verdict": "NOTE",
+      "risk": 1.08,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Western Kentucky 14\u201349 Nevada"
+      }
     },
     {
       "game_id": 401858210,

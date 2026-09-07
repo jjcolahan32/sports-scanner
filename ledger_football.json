@@ -1,40 +1,40 @@
 {
-  "units": 0.95,
+  "units": 0.87,
   "record": {
-    "w": 2,
-    "l": 1,
+    "w": 3,
+    "l": 2,
     "push": 0
   },
   "by_sport": {
     "cfb": {
-      "w": 2,
-      "l": 1,
+      "w": 3,
+      "l": 2,
       "push": 0,
-      "units": 0.95
+      "units": 0.87
     }
   },
   "by_market": {
     "total": {
-      "w": 2,
-      "l": 1,
+      "w": 3,
+      "l": 2,
       "push": 0,
-      "units": 0.95
+      "units": 0.87
     }
   },
   "by_verdict": {
     "CONFIRMED": {
-      "w": 2,
-      "l": 1,
+      "w": 3,
+      "l": 2,
       "push": 0,
-      "units": 0.95
+      "units": 0.87
     }
   },
   "by_tag": {
     "NEUTRAL": {
-      "w": 2,
-      "l": 1,
+      "w": 3,
+      "l": 2,
       "push": 0,
-      "units": 0.95
+      "units": 0.87
     }
   },
   "history": [
@@ -51,6 +51,13 @@
       "l": 1,
       "push": 0,
       "units": -1.05
+    },
+    {
+      "graded_at": "2026-09-07T19:03:10.391291+00:00",
+      "w": 1,
+      "l": 1,
+      "push": 0,
+      "units": -0.08
     }
   ]
 }
