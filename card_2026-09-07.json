@@ -1,1 +1,100 @@
-{"date": "2026-09-07", "plays": [{"game_pk": 823415, "start_utc": "2026-09-07T17:05:00Z", "bet_team": "Philadelphia Phillies", "bet_side": "home", "selection": "Philadelphia Phillies ML (fade G. Holmes, live gap)", "odds": -184, "risk": 1.84, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823742, "start_utc": "2026-09-07T18:10:00Z", "bet_team": "Milwaukee Brewers", "bet_side": "home", "selection": "Milwaukee Brewers ML (fade M. Boyd, live gap)", "odds": -124, "risk": 1.24, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824229, "start_utc": "2026-09-07T19:10:00Z", "bet_team": "Minnesota Twins", "bet_side": "away", "selection": "Minnesota Twins ML (fade T. Melton, listed mirage)", "odds": 102, "risk": 1.0, "to_win": 1.02, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 823254, "start_utc": "2026-09-07T21:10:00Z", "bet_team": "San Diego Padres", "bet_side": "home", "selection": "San Diego Padres ML (back N. Pivetta, live gap)", "odds": -198, "risk": 1.98, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823175, "start_utc": "2026-09-08T00:10:00Z", "bet_team": "San Francisco Giants", "bet_side": "home", "selection": "San Francisco Giants ML (fade M. McGreevy, live gap)", "odds": -134, "risk": 1.34, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-09-07",
+  "plays": [
+    {
+      "game_pk": 823415,
+      "start_utc": "2026-09-07T17:05:00Z",
+      "bet_team": "Philadelphia Phillies",
+      "bet_side": "home",
+      "selection": "Philadelphia Phillies ML (fade G. Holmes, live gap)",
+      "odds": -184,
+      "risk": 1.84,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Atlanta Braves 0\u20131 Philadelphia Phillies"
+      }
+    },
+    {
+      "game_pk": 823742,
+      "start_utc": "2026-09-07T18:10:00Z",
+      "bet_team": "Milwaukee Brewers",
+      "bet_side": "home",
+      "selection": "Milwaukee Brewers ML (fade M. Boyd, live gap)",
+      "odds": -124,
+      "risk": 1.24,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Chicago Cubs 3\u20134 Milwaukee Brewers"
+      }
+    },
+    {
+      "game_pk": 824229,
+      "start_utc": "2026-09-07T19:10:00Z",
+      "bet_team": "Minnesota Twins",
+      "bet_side": "away",
+      "selection": "Minnesota Twins ML (fade T. Melton, listed mirage)",
+      "odds": 102,
+      "risk": 1.0,
+      "to_win": 1.02,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Minnesota Twins 4\u20135 Detroit Tigers"
+      }
+    },
+    {
+      "game_pk": 823254,
+      "start_utc": "2026-09-07T21:10:00Z",
+      "bet_team": "San Diego Padres",
+      "bet_side": "home",
+      "selection": "San Diego Padres ML (back N. Pivetta, live gap)",
+      "odds": -198,
+      "risk": 1.98,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Washington Nationals 2\u20133 San Diego Padres"
+      }
+    },
+    {
+      "game_pk": 823175,
+      "start_utc": "2026-09-08T00:10:00Z",
+      "bet_team": "San Francisco Giants",
+      "bet_side": "home",
+      "selection": "San Francisco Giants ML (fade M. McGreevy, live gap)",
+      "odds": -134,
+      "risk": 1.34,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "St. Louis Cardinals 4\u20135 San Francisco Giants"
+      }
+    }
+  ]
+}

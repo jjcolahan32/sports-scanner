@@ -1,1 +1,49 @@
-{"date": "2026-09-07", "plays": [{"game_pk": 824715, "start_utc": "2026-09-07T17:35:00Z", "home": "Boston Red Sox", "away": "Los Angeles Angels", "side": "Over", "home_prob": null, "away_prob": "Grayson Rodriguez", "selection": "Los Angeles Angels @ Boston Red Sox Over 8.5", "total": 8.5, "odds": -108, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 823902, "start_utc": "2026-09-08T01:10:00Z", "home": "Los Angeles Dodgers", "away": "Cincinnati Reds", "side": "Under", "home_prob": "Emmet Sheehan", "away_prob": "Chase Burns", "selection": "Cincinnati Reds @ Los Angeles Dodgers Under 8.5", "total": 8.5, "odds": -115, "risk": 1.15, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-09-07",
+  "plays": [
+    {
+      "game_pk": 824715,
+      "start_utc": "2026-09-07T17:35:00Z",
+      "home": "Boston Red Sox",
+      "away": "Los Angeles Angels",
+      "side": "Over",
+      "home_prob": null,
+      "away_prob": "Grayson Rodriguez",
+      "selection": "Los Angeles Angels @ Boston Red Sox Over 8.5",
+      "total": 8.5,
+      "odds": -108,
+      "risk": 1.08,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Angels 2\u20135 Boston Red Sox"
+      }
+    },
+    {
+      "game_pk": 823902,
+      "start_utc": "2026-09-08T01:10:00Z",
+      "home": "Los Angeles Dodgers",
+      "away": "Cincinnati Reds",
+      "side": "Under",
+      "home_prob": "Emmet Sheehan",
+      "away_prob": "Chase Burns",
+      "selection": "Cincinnati Reds @ Los Angeles Dodgers Under 8.5",
+      "total": 8.5,
+      "odds": -115,
+      "risk": 1.15,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cincinnati Reds 3\u20136 Los Angeles Dodgers"
+      }
+    }
+  ]
+}
