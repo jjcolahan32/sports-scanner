@@ -109,8 +109,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Washington Nationals 4\u20135 San Diego Padres"
+      }
     },
     {
       "game_pk": 823092,
@@ -125,8 +128,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Texas Rangers 10\u20135 Seattle Mariners"
+      }
     },
     {
       "game_pk": 824957,
@@ -141,8 +147,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Toronto Blue Jays 4\u20132 Athletics"
+      }
     },
     {
       "game_pk": 823174,
@@ -157,8 +166,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "St. Louis Cardinals 1\u20132 San Francisco Giants"
+      }
     },
     {
       "game_pk": 823901,
@@ -173,8 +185,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Cincinnati Reds 2\u20133 Los Angeles Dodgers"
+      }
     }
   ]
 }
