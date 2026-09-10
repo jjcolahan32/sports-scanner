@@ -1,1 +1,100 @@
-{"date": "2026-09-09", "plays": [{"game_pk": 823090, "start_utc": "2026-09-09T20:10:00Z", "bet_team": "Seattle Mariners", "bet_side": "home", "selection": "Seattle Mariners ML (fade C. Bradford, live gap; back K. Anderson, live gap)", "odds": -156, "risk": 2.34, "to_win": 1.5, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824791, "start_utc": "2026-09-09T22:35:00Z", "bet_team": "Baltimore Orioles", "bet_side": "home", "selection": "Baltimore Orioles ML (fade F. Griffin, live gap)", "odds": -104, "risk": 1.04, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823818, "start_utc": "2026-09-09T22:40:00Z", "bet_team": "New York Mets", "bet_side": "away", "selection": "New York Mets ML (back R. Stock, live gap)", "odds": 106, "risk": 1.0, "to_win": 1.06, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823497, "start_utc": "2026-09-09T23:05:00Z", "bet_team": "New York Yankees", "bet_side": "home", "selection": "New York Yankees ML (fade T. Sugano, listed mirage)", "odds": -245, "risk": 2.45, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824871, "start_utc": "2026-09-09T23:15:00Z", "bet_team": "Tampa Bay Rays", "bet_side": "away", "selection": "Tampa Bay Rays ML (fade R. L\u00f3pez, live gap)", "odds": 106, "risk": 1.0, "to_win": 1.06, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-09-09",
+  "plays": [
+    {
+      "game_pk": 823090,
+      "start_utc": "2026-09-09T20:10:00Z",
+      "bet_team": "Seattle Mariners",
+      "bet_side": "home",
+      "selection": "Seattle Mariners ML (fade C. Bradford, live gap; back K. Anderson, live gap)",
+      "odds": -156,
+      "risk": 2.34,
+      "to_win": 1.5,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Texas Rangers 2\u20133 Seattle Mariners"
+      }
+    },
+    {
+      "game_pk": 824791,
+      "start_utc": "2026-09-09T22:35:00Z",
+      "bet_team": "Baltimore Orioles",
+      "bet_side": "home",
+      "selection": "Baltimore Orioles ML (fade F. Griffin, live gap)",
+      "odds": -104,
+      "risk": 1.04,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Cleveland Guardians 5\u20139 Baltimore Orioles"
+      }
+    },
+    {
+      "game_pk": 823818,
+      "start_utc": "2026-09-09T22:40:00Z",
+      "bet_team": "New York Mets",
+      "bet_side": "away",
+      "selection": "New York Mets ML (back R. Stock, live gap)",
+      "odds": 106,
+      "risk": 1.0,
+      "to_win": 1.06,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "New York Mets 15\u201314 Miami Marlins"
+      }
+    },
+    {
+      "game_pk": 823497,
+      "start_utc": "2026-09-09T23:05:00Z",
+      "bet_team": "New York Yankees",
+      "bet_side": "home",
+      "selection": "New York Yankees ML (fade T. Sugano, listed mirage)",
+      "odds": -245,
+      "risk": 2.45,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Colorado Rockies 1\u20136 New York Yankees"
+      }
+    },
+    {
+      "game_pk": 824871,
+      "start_utc": "2026-09-09T23:15:00Z",
+      "bet_team": "Tampa Bay Rays",
+      "bet_side": "away",
+      "selection": "Tampa Bay Rays ML (fade R. L\u00f3pez, live gap)",
+      "odds": 106,
+      "risk": 1.0,
+      "to_win": 1.06,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Tampa Bay Rays 7\u20132 Atlanta Braves"
+      }
+    }
+  ]
+}
