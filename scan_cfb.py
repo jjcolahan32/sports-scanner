@@ -359,15 +359,28 @@ def log_card(all_results, today_key):
     gets notified/staked. Only ever overwriting the first-seen snapshot left the card
     permanently out of sync with what was actually sent -- confirmed from a real case
     (Hawaii/Nevada, 9/5) where the notified pick and the logged card row disagreed.
-    Once graded, an entry is frozen (never touched again, even if somehow re-evaluated)."""
+    Once graded, an entry is frozen (never touched again, even if somehow re-evaluated).
+
+    A result with side=None this run (no categories fired anymore, or -- new -- an ML
+    now excluded outright by model_football.ML_MAX_FAVORITE) drops any prior not-yet-
+    graded row for that key rather than leaving a stale one behind: confirmed from a
+    real case where tightening ML_MAX_FAVORITE mid-day left already-logged heavy-ML NOTE
+    rows sitting in the card forever, since the old code only ever added/overwrote a row
+    here, never removed one."""
     path = f"card_cfb_{today_key}.json"
     card = load_json(path, {"date": today_key, "plays": []})
     by_key = {(p["game_id"], p["market"]): i for i, p in enumerate(card["plays"])}
     for r in all_results:
         game = r["game"]
-        if r["side"] is None:
-            continue
         k = (game["game_id"], r["market"])
+        idx = by_key.get(k)
+        already_graded = idx is not None and card["plays"][idx].get("graded")
+        if r["side"] is None:
+            if idx is not None and not already_graded:
+                card["plays"][idx] = None  # dropped below -- no longer qualifies
+            continue
+        if already_graded:
+            continue  # settled -- never overwrite
         play = {
             "game_id": game["game_id"], "start_utc": game["start_utc"],
             "home": game["home"], "away": game["away"], "market": r["market"],
@@ -377,14 +390,12 @@ def log_card(all_results, today_key):
             "verdict": r["verdict"], "rlm_tag": (r.get("rlm") or {}).get("tag", "NEUTRAL"),
             "graded": False, "result": None,
         }
-        if k in by_key:
-            idx = by_key[k]
-            if card["plays"][idx].get("graded"):
-                continue  # settled -- never overwrite
+        if idx is not None:
             card["plays"][idx] = play
         else:
             card["plays"].append(play)
             by_key[k] = len(card["plays"]) - 1
+    card["plays"] = [p for p in card["plays"] if p is not None]
     save_json(path, card)
 
 
