@@ -215,10 +215,16 @@ def cat_market_value(p):
     above) against the market's own de-vigged implied probability from the live
     moneyline -- the only category that reads the price itself rather than just the
     rating gap, so it's the only one that can genuinely favor a mispriced underdog.
-    Runs alongside cat_mismatch (not instead of it) -- both can agree (a 2nd vote for a
-    correctly-priced favorite) or disagree (a real mispricing, which stacking already
-    treats as conflicting/PASS same as any two disagreeing categories -- no special
-    override needed for that case)."""
+    Runs alongside cat_mismatch (not instead of it), but can only ever ADD a vote, never
+    cancel one -- see _grade_side()'s majority guard: on a real blowout the market
+    routinely prices a favorite harder than this module's crude rating-gap model ever
+    will (it doesn't see injuries/roster depth/matchup specifics the way a real book
+    does), so a disagreement here is usually the market knowing more, not the favorite
+    being wrong -- and letting that disagreement stack as a conflict was killing most of
+    a slate's already-good favorite picks (confirmed live: 12 of 15). So a disagreement
+    with an established majority is simply dropped rather than treated as a conflict;
+    it only counts when it agrees with the majority, breaks a genuine tie between the
+    other categories, or fires on its own when nothing else has."""
     hr, ar = p.get("home_rating"), p.get("away_rating")
     home_ml, away_ml = p.get("home_ml"), p.get("away_ml")
     if hr is None or ar is None:
@@ -379,9 +385,23 @@ def _cfb_lone_mismatch_override(p, verdict, side, fired):
 
 
 def _grade_side(p, market_label):
-    raw = [("injury", cat_injury(p)), ("mismatch", cat_mismatch(p)), ("situational", cat_situational(p)),
-           ("market_value", cat_market_value(p))]
-    cats = [(d, name, note) for name, (d, note) in raw if d != 0]
+    core_raw = [("injury", cat_injury(p)), ("mismatch", cat_mismatch(p)), ("situational", cat_situational(p))]
+    cats = [(d, name, note) for name, (d, note) in core_raw if d != 0]
+
+    mv_dir, mv_note = cat_market_value(p)
+    if mv_dir != 0:
+        core_pos = sum(1 for d, _, _ in cats if d > 0)
+        core_neg = sum(1 for d, _, _ in cats if d < 0)
+        majority = 1 if core_pos > core_neg else (-1 if core_neg > core_pos else 0)
+        # market_value can add a vote (agree with the core categories' existing
+        # majority, break a tie between them, or stand alone when core is silent) but
+        # never CANCEL an existing majority pick by conflicting with it -- it's meant to
+        # give real dog/close-game value a path to fire, not suppress favorites the
+        # market simply prices harder than a crude rating gap ever will (see the CFB
+        # test that showed 12 of 15 live favorite spreads vanishing before this guard).
+        if majority == 0 or mv_dir == majority:
+            cats.append((mv_dir, "market_value", mv_note))
+
     verdict, side, fired = _stack(cats)
     if side != 0:
         verdict, fired = _cfb_lone_mismatch_override(p, verdict, side, fired)
