@@ -109,8 +109,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Seattle Mariners 5\u20136 Athletics"
+      }
     },
     {
       "game_pk": 825036,
@@ -125,8 +128,11 @@
       "verdict": "PLAY",
       "rlm_tag": "STEAM-FOR",
       "stars": 4,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Texas Rangers 1\u20139 Arizona Diamondbacks"
+      }
     }
   ]
 }
