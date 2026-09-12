@@ -147,7 +147,9 @@ def team_ratings(year=None):
 
 def public_cfb_injuries(path=None):
     """Optional hand-maintained confirmed-absence file -- see module docstring. Missing
-    file just means no manual signal this run, not an error."""
+    file just means no manual signal this run, not an error. See
+    public_cfb_injuries.example.json for the expected shape and how to fill it in; an
+    empty public_cfb_injuries.json ships by default (present, valid, no signal yet)."""
     path = path or os.environ.get("PUBLIC_CFB_INJURIES_FILE", "public_cfb_injuries.json")
     try:
         with open(path) as f:

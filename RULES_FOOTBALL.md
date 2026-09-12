@@ -32,7 +32,12 @@ live from that week's actual data).
 - **CFB**: no official injury report exists. Only a *confirmed* absence (announced, or
   actually seen missing from the two-deep) counts as a signal; beat-reporter rumor is
   note-only and never stacks. No automated feed for this — see `public_cfb_injuries.json`
-  (optional, hand-maintained, same pattern as the MLB model's `public.json`).
+  (optional, hand-maintained, same pattern as the MLB model's `public.json`; ships empty
+  by default, template/schema at `public_cfb_injuries.example.json`).
+- **Totals framing**: an offense's own injuries suppress its OWN output (unders); an
+  opponent's degraded defense doesn't suppress output, it inflates what's scored against
+  it (overs). Modeled as two separate categories (`cat_injury_total` / `cat_def_injury_total`
+  in `model_football.py`), not one signal read both ways.
 
 ### B. Weather at the Stadium
 - **Wind >15mph**: favors unders, fades pass-heavy/deep-ball offenses and FG range.
@@ -83,7 +88,7 @@ live from that week's actual data).
 | Market | Primary drivers | Secondary drivers |
 |---|---|---|
 | **Spread** | Mismatches (D), injuries (A), SOS/situational (E) | Weather (B), market (F) |
-| **Total (O/U)** | Weather (B), run/pass environment fit (C) | Matchup pace/efficiency (D), skill-position injuries (A) |
+| **Total (O/U)** | Weather (B), run/pass environment fit (C), injuries (A) — offense→under, defense→over | Matchup pace/efficiency (D) |
 | **Moneyline** | Same as spread, injuries (A) and situational (E) weighted higher | Market (F), especially RLM on dog MLs |
 
 `model_football.py` scores each market independently per candidate game — a spread edge does
@@ -153,6 +158,14 @@ weekly:
   distortion is a bigger factor than in NFL.
 - Crowd/road-environment effects are larger than the equivalent NFL road game.
 - Weather physics are identical — Section 2B applies unmodified to both sports.
+- Spread/ML realistically has only 2 live category slots against NFL's 3: situational
+  (rest) never fires at all — CFBD has no rest-days field — and injury depends on the
+  optional, rarely-populated `public_cfb_injuries.json`. Requiring 2+ of a max pool of 2
+  is a structurally higher bar than NFL's 2-of-3, so a single SP+ mismatch (category D)
+  at 2x the normal edge (`RATING_EDGE_CFB_STRONG` in `model_football.py`) is allowed to
+  stand alone and reach CONFIRMED, rather than being permanently capped at NOTE for a
+  reason that has nothing to do with how strong the signal actually is. CFB-only; NFL's
+  three slots are all realistically live, so no equivalent override applies there.
 
 ## 8. Notification Format
 

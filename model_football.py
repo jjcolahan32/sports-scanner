@@ -26,7 +26,15 @@ run", never a hard requirement):
                                   proxy from fetch_nfl.team_power_ratings; CFB: SP+
                                   overall rating from fetch_cfb.team_ratings -- already
                                   conference-adjusted, see RULES_FOOTBALL.md 2E)
-  home_injury_burden, away_injury_burden   float, see injury_burden() below
+  home_injury_burden, away_injury_burden   float, see injury_burden() below -- ALL
+                                  positions combined, used by cat_injury's "who wins" read
+  home_off_injury_burden, away_off_injury_burden,
+  home_def_injury_burden, away_def_injury_burden   float, see injury_burden() below --
+                                  offense-only / defense-only splits (same weights, filtered
+                                  by OFFENSE_POSITIONS/DEFENSE_POSITIONS), used by the totals
+                                  categories: a hurt offense suppresses its own output
+                                  (under), a hurt defense inflates the opponent's (over) --
+                                  two different things, not one signal read twice
   home_rest, away_rest           days of rest (int), from games.csv/CFBD
   div_game                       bool -- divisional/conference-familiar matchup
   roof                           "outdoor" | "dome" | "retractable" (this game's stadium)
@@ -46,6 +54,13 @@ REST_EDGE_DAYS = 3          # rest-day gap that counts as a situational edge
 INJURY_BURDEN_EDGE = 1.5    # burden-differential (see injury_burden()) that counts as a signal
 RATING_EDGE_NFL = 3.0       # point-differential-proxy gap that counts as a mismatch (NFL)
 RATING_EDGE_CFB = 6.0       # SP+ rating-point gap that counts as a mismatch (CFB, wider scale)
+# CFB spread/ML realistically has only 2 live categories against NFL's 3: cat_situational
+# never fires (CFBD has no rest-days field, see scan_cfb.py's build_candidate) and
+# cat_injury depends on the optional/rarely-populated public_cfb_injuries.json -- so
+# requiring 2+ of a max pool of 2 is a much higher structural bar than NFL's 2-of-3. A
+# mismatch this lopsided (2x the normal CFB edge) is treated as strong enough evidence to
+# stand alone -- see the CFB-only override in _grade_side().
+RATING_EDGE_CFB_STRONG = 12.0
 
 # Injury burden weights by position group -- QB dominates (RULES_FOOTBALL.md 2A: "single
 # biggest line-mover"); no snap-count-confirmed "starter" flag in phase 1, so every other
@@ -61,14 +76,28 @@ POSITION_WEIGHT = {
 }
 STATUS_WEIGHT = {"Out": 1.0, "Doubtful": 0.75, "Questionable": 0.35}
 
+# Splits POSITION_WEIGHT's keys into the two totals-side categories below -- an offense
+# degraded by injury suppresses its OWN output (unders), a defense degraded by injury
+# doesn't suppress anything, it inflates what the OPPONENT scores (overs). Positions not
+# in either set (P, K, LS, ...) are special teams -- excluded from both splits, same as
+# they'd get the generic 0.4 fallback weight in the combined (cat_injury) read.
+OFFENSE_POSITIONS = {"QB", "OL", "T", "G", "C", "WR", "RB", "TE"}
+DEFENSE_POSITIONS = {"DE", "DT", "EDGE", "LB", "CB", "S"}
 
-def injury_burden(team_injuries):
+
+def injury_burden(team_injuries, positions=None):
     """Sum of position-weight x status-weight across a team's injury report -- the
     RULES_FOOTBALL.md 2A composite (QB status heaviest, OL/skill next, trend-aware via
     the practice_trend downgrade below). team_injuries: {player_name: {status,
-    practice_trend, position}} from fetch_nfl.injuries() (or {} for CFB/no data)."""
+    practice_trend, position}} from fetch_nfl.injuries() (or {} for CFB/no data).
+    positions: optional set restricting the sum to those position codes (pass
+    OFFENSE_POSITIONS/DEFENSE_POSITIONS for the totals-side split; None sums everyone,
+    the combined "who wins" read cat_injury uses)."""
     burden = 0.0
     for info in (team_injuries or {}).values():
+        pos = (info.get("position") or "").upper()
+        if positions is not None and pos not in positions:
+            continue
         status_w = STATUS_WEIGHT.get(info.get("status"), 0.0)
         if status_w == 0.0:
             continue
@@ -77,7 +106,7 @@ def injury_burden(team_injuries):
         trend = info.get("practice_trend") or ""
         if info.get("status") == "Questionable" and trend.endswith("Full Participation in Practice"):
             continue
-        pos_w = POSITION_WEIGHT.get((info.get("position") or "").upper(), 0.4)
+        pos_w = POSITION_WEIGHT.get(pos, 0.4)
         burden += status_w * pos_w
     return round(burden, 2)
 
@@ -159,14 +188,31 @@ def cat_dome_travel_total(p):
 
 
 def cat_injury_total(p):
-    """Category A, totals framing -- either team's offense being degraded leans UNDER
-    (cumulative, not offsetting: two hurt offenses is a stronger under lean than one)."""
-    hb, ab = p.get("home_injury_burden") or 0.0, p.get("away_injury_burden") or 0.0
-    if p.get("home_injury_burden") is None and p.get("away_injury_burden") is None:
+    """Category A, totals framing, UNDER side -- either team's OFFENSE being degraded
+    suppresses its own output (cumulative, not offsetting: two hurt offenses is a
+    stronger under lean than one). Offense-only split of injury_burden() -- see
+    cat_def_injury_total for the mirrored OVER side."""
+    hb, ab = p.get("home_off_injury_burden"), p.get("away_off_injury_burden")
+    if hb is None and ab is None:
         return 0, None
-    total = hb + ab
+    total = (hb or 0.0) + (ab or 0.0)
     if total >= INJURY_BURDEN_EDGE:
         return -1, f"combined offensive injury burden {total:.1f}"
+    return 0, None
+
+
+def cat_def_injury_total(p):
+    """Category A, totals framing, OVER side -- a degraded DEFENSE (front-seven pass
+    rushers, CB1/top safety -- RULES_FOOTBALL.md 2A) doesn't suppress output, it inflates
+    what the opponent scores. This is the module's other real path to an Over signal
+    alongside cat_pace_total -- every other total category here only ever points Under
+    (see grade_total's docstring), so without this one Over could never stack to 2+."""
+    hb, ab = p.get("home_def_injury_burden"), p.get("away_def_injury_burden")
+    if hb is None and ab is None:
+        return 0, None
+    total = (hb or 0.0) + (ab or 0.0)
+    if total >= INJURY_BURDEN_EDGE:
+        return 1, f"combined defensive injury burden {total:.1f}"
     return 0, None
 
 
@@ -225,10 +271,31 @@ def grade_ml(p):
     return _grade_side(p, "ml")
 
 
+def _cfb_lone_mismatch_override(p, verdict, side, fired):
+    """CFB-only (see RATING_EDGE_CFB_STRONG above): promotes a lone-category mismatch NOTE
+    to CONFIRMED when the SP+ gap is 2x the normal edge -- a mismatch that lopsided is
+    strong enough evidence to stand alone, rather than being permanently capped at NOTE
+    for the structural reason that CFB's other two spread/ML category slots are rarely or
+    never live. No-op for NFL (3 real category slots there) and for anything but a lone
+    "mismatch" NOTE."""
+    if p.get("sport") != "cfb" or verdict != "NOTE" or [n for n, _ in fired] != ["mismatch"]:
+        return verdict, fired
+    hr, ar = p.get("home_rating"), p.get("away_rating")
+    if hr is None or ar is None:
+        return verdict, fired
+    diff = hr - ar
+    if (side > 0 and diff >= RATING_EDGE_CFB_STRONG) or (side < 0 and diff <= -RATING_EDGE_CFB_STRONG):
+        note = f"SP+ gap {abs(diff):.1f} ≥ {RATING_EDGE_CFB_STRONG:.0f} -- lopsided enough to stand alone (CFB-only override)"
+        return "CONFIRMED", fired + [("mismatch-strong", note)]
+    return verdict, fired
+
+
 def _grade_side(p, market_label):
     raw = [("injury", cat_injury(p)), ("mismatch", cat_mismatch(p)), ("situational", cat_situational(p))]
     cats = [(d, name, note) for name, (d, note) in raw if d != 0]
     verdict, side, fired = _stack(cats)
+    if side != 0:
+        verdict, fired = _cfb_lone_mismatch_override(p, verdict, side, fired)
     home, away = p.get("home"), p.get("away")
     if side == 0:
         reason = "Conflicting categories, no clean edge" if cats else "No categories fired"
@@ -241,8 +308,9 @@ def _grade_side(p, market_label):
 
 
 def grade_total(p):
-    cats_raw = [cat_weather_total(p), cat_dome_travel_total(p), cat_injury_total(p), cat_pace_total(p)]
-    names = ["weather", "dome-travel", "injury", "pace"]
+    cats_raw = [cat_weather_total(p), cat_dome_travel_total(p), cat_injury_total(p),
+                cat_def_injury_total(p), cat_pace_total(p)]
+    names = ["weather", "dome-travel", "injury", "def-injury", "pace"]
     cats = [(d, n, note) for (d, note), n in zip(cats_raw, names) if d != 0]
     verdict, side, fired = _stack(cats)
     if side == 0:

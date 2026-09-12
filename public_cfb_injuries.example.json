@@ -1,0 +1,12 @@
+{
+  "_comment": "OPTIONAL, hand-maintained (same pattern as the MLB model's public.json). No official CFB injury report exists, so this is the only injury signal CFB spread/ML/totals grading ever sees -- see fetch_cfb.public_cfb_injuries() and RULES_FOOTBALL.md Section 2A/7.",
+  "_where": "Only a CONFIRMED absence counts -- announced by the team, or actually missing from the two-deep. Never guess at an unconfirmed one; beat-reporter rumor is note-only and shouldn't go in this file.",
+  "_how": "Copy this file to public_cfb_injuries.json (gitignored is fine, or commit it -- either works) and key it by CFBD school name exactly as fetch_cfb.season_games() reports it (e.g. 'Georgia', not 'Georgia Bulldogs'). Delete a player's entry once they're confirmed back.",
+  "_shape": "{team: {player_name: {status, position}}} -- status is one of Out/Doubtful/Questionable (anything else scores 0 burden, see model_football.STATUS_WEIGHT); position is the two-to-four letter code from model_football.POSITION_WEIGHT (QB/OL/T/G/C/WR/RB/TE/DE/DT/EDGE/LB/CB/S) -- unlisted positions still count at a flat fallback weight.",
+  "Georgia": {
+    "Example Starting QB": {"status": "Out", "position": "QB"}
+  },
+  "Alabama": {
+    "Example Starting CB": {"status": "Questionable", "position": "CB"}
+  }
+}

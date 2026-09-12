@@ -143,6 +143,10 @@ def build_candidate(game, injuries_by_team, ratings, league_avg, venue_cache, al
         "league_avg_rating": league_avg,
         "home_injury_burden": model_football.injury_burden(injuries_by_team.get(home)) if injuries_by_team else None,
         "away_injury_burden": model_football.injury_burden(injuries_by_team.get(away)) if injuries_by_team else None,
+        "home_off_injury_burden": model_football.injury_burden(injuries_by_team.get(home), model_football.OFFENSE_POSITIONS) if injuries_by_team else None,
+        "away_off_injury_burden": model_football.injury_burden(injuries_by_team.get(away), model_football.OFFENSE_POSITIONS) if injuries_by_team else None,
+        "home_def_injury_burden": model_football.injury_burden(injuries_by_team.get(home), model_football.DEFENSE_POSITIONS) if injuries_by_team else None,
+        "away_def_injury_burden": model_football.injury_burden(injuries_by_team.get(away), model_football.DEFENSE_POSITIONS) if injuries_by_team else None,
         "home_rest": None, "away_rest": None,  # CFBD doesn't publish a rest-days field like nflverse's games.csv
         "div_game": (home_r.get("conference") and home_r.get("conference") == away_r.get("conference")),
         "roof": roof,
