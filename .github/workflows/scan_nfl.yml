@@ -28,6 +28,11 @@ jobs:
           NTFY_TOPIC_FOOTBALL:  ${{ secrets.NTFY_TOPIC_FOOTBALL }}
         run: python scan_nfl.py
       - name: Persist dedupe + opening-line state
+        # Runs even if the scan step above failed -- see scan_cfb.yml's persist step for
+        # why (a crash after grading but before persisting shouldn't throw away the
+        # whole day's graded card, confirmed live on the CFB side from an oversized ntfy
+        # push).
+        if: always()
         run: |
           git config user.name  "nfl-scanner"
           git config user.email "bot@users.noreply.github.com"

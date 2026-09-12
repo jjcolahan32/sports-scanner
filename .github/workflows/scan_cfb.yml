@@ -26,6 +26,12 @@ jobs:
           NTFY_TOPIC_FOOTBALL:  ${{ secrets.NTFY_TOPIC_FOOTBALL }}
         run: python scan_cfb.py
       - name: Persist dedupe + opening-line + venue-cache state
+        # Runs even if the scan step above failed (e.g. a notify.push() crash after
+        # grading is already done and log_card() already wrote today's card file) --
+        # otherwise a failure anywhere past grading silently throws away the whole day's
+        # graded card instead of just the notification. Confirmed live: a 413 from ntfy
+        # on an oversized notification body ate an entire Saturday CFB card this way.
+        if: always()
         run: |
           git config user.name  "cfb-scanner"
           git config user.email "bot@users.noreply.github.com"
