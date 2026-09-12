@@ -109,6 +109,10 @@ unmodified — pure odds math):
 - **Favorite −150 or shorter:** risk to win 1u. May stand alone.
 - **Favorite harder than −150:** never straight — must pair with another −150+ favorite in a
   parlay.
+- **Favorite harder than −250: never played, full stop** (`model_football.ML_MAX_FAVORITE`).
+  A CONFIRMED/LEAN moneyline past this line downgrades straight to NOTE — logged for
+  visibility, never staked or notified as playable — regardless of which categories
+  stacked to get it there.
 - **CONFIRMED** (2+ stacked categories) gets standard sizing.
 - **LEAN** (CONFIRMED but RLM conflicts) and **NOTE** (exactly 1 category fired) are
   informational only — never staked.
@@ -162,10 +166,13 @@ weekly:
   (rest) never fires at all — CFBD has no rest-days field — and injury depends on the
   optional, rarely-populated `public_cfb_injuries.json`. Requiring 2+ of a max pool of 2
   is a structurally higher bar than NFL's 2-of-3, so a single SP+ mismatch (category D)
-  at 2x the normal edge (`RATING_EDGE_CFB_STRONG` in `model_football.py`) is allowed to
+  at 3x the normal edge (`RATING_EDGE_CFB_STRONG` in `model_football.py`) is allowed to
   stand alone and reach CONFIRMED, rather than being permanently capped at NOTE for a
   reason that has nothing to do with how strong the signal actually is. CFB-only; NFL's
   three slots are all realistically live, so no equivalent override applies there.
+  Tightened from 2x after a live fire on an early-season slate showed 2x catching nearly
+  every Power-4-vs-cupcake buy game — a much bigger volume of CONFIRMED picks than
+  "strong enough to stand alone" should mean.
 
 ## 8. Notification Format
 

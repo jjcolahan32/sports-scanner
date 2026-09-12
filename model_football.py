@@ -58,9 +58,25 @@ RATING_EDGE_CFB = 6.0       # SP+ rating-point gap that counts as a mismatch (CF
 # never fires (CFBD has no rest-days field, see scan_cfb.py's build_candidate) and
 # cat_injury depends on the optional/rarely-populated public_cfb_injuries.json -- so
 # requiring 2+ of a max pool of 2 is a much higher structural bar than NFL's 2-of-3. A
-# mismatch this lopsided (2x the normal CFB edge) is treated as strong enough evidence to
-# stand alone -- see the CFB-only override in _grade_side().
-RATING_EDGE_CFB_STRONG = 12.0
+# mismatch this lopsided is treated as strong enough evidence to stand alone -- see the
+# CFB-only override in _grade_side(). Tightened from 2x (12.0) to 3x the normal CFB edge
+# after a live fire on an early-season slate: 2x fired on nearly every Power-4-vs-cupcake
+# buy game (SP+ gaps of 12-20+ are routine in September), which is a much bigger volume
+# of CONFIRMED picks than "strong enough to stand alone" should mean.
+RATING_EDGE_CFB_STRONG = 18.0
+
+# RULES_FOOTBALL.md Section 4: never played this heavy, regardless of what stacked to get
+# there. A CONFIRMED/LEAN ML this far into favorite territory downgrades to NOTE -- same
+# treatment grade_game() already gives a CONFIRMED with no live price posted -- rather
+# than ever being surfaced as something to actually stake.
+ML_MAX_FAVORITE = -250
+
+
+def ml_price_too_heavy(market, price):
+    """True when a market's price is an ML favorite heavier than ML_MAX_FAVORITE. Used by
+    scan_cfb.py/scan_nfl.py's grade_game() right after a price is attached, so it applies
+    uniformly regardless of which category combination got a pick to CONFIRMED/LEAN."""
+    return market == "ml" and price is not None and price <= ML_MAX_FAVORITE
 
 # Injury burden weights by position group -- QB dominates (RULES_FOOTBALL.md 2A: "single
 # biggest line-mover"); no snap-count-confirmed "starter" flag in phase 1, so every other

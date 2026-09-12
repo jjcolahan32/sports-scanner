@@ -228,6 +228,11 @@ def grade_game(game, candidate, odds, opens):
         open_price = _open_price(opens, game["game_id"], market, g["side"])
         sig = rlm.evaluate(open_price, price) if open_price is not None else {"tag": "NEUTRAL", "detail": ""}
         new_verdict, note = model_football.verdict_adjust_football(g["verdict"], sig["tag"])
+        if model_football.ml_price_too_heavy(market, price) and new_verdict in ("CONFIRMED", "LEAN"):
+            # Never played this heavy regardless of what stacked to get here -- same
+            # treatment as a missing price, see the no-live-price branch above.
+            new_verdict = "NOTE"
+            g["reason"] += f" (ML {price:+d} heavier than {model_football.ML_MAX_FAVORITE} — never played)"
         g["verdict"], g["rlm"], g["rlm_note"] = new_verdict, sig, note
         g["price"], g["point"] = price, point
         if new_verdict == "CONFIRMED":
