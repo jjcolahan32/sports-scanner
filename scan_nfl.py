@@ -215,6 +215,15 @@ def grade_game(game, candidate, odds, opens):
             results.append({**g, "game": game})
             continue
         price, point = _price_for(market, g["side"], entry)
+        if model_football.ml_price_too_heavy(market, price):
+            # Never played this heavy -- not worth watching at all, not just not staking.
+            # Excluded outright (side=None) so it never reaches the card, the ledger, or
+            # a notification -- same treatment log_card()/main() already give any market
+            # with no side, rather than a NOTE row that just clutters the channel.
+            results.append({"verdict": "PASS", "side": None, "market": market,
+                             "reason": f"ML {price:+d} heavier than {model_football.ML_MAX_FAVORITE} — excluded, never watched",
+                             "game": game})
+            continue
         if price is None:
             # A real 2+-category CONFIRMED edge with no live price yet still can't be
             # staked or notified -- downgrade to NOTE so main()'s notify/stake code
@@ -228,11 +237,6 @@ def grade_game(game, candidate, odds, opens):
         open_price = _open_price(opens, game["game_id"], market, g["side"])
         sig = rlm.evaluate(open_price, price) if open_price is not None else {"tag": "NEUTRAL", "detail": ""}
         new_verdict, note = model_football.verdict_adjust_football(g["verdict"], sig["tag"])
-        if model_football.ml_price_too_heavy(market, price) and new_verdict in ("CONFIRMED", "LEAN"):
-            # Never played this heavy regardless of what stacked to get here -- same
-            # treatment as a missing price, see the no-live-price branch above.
-            new_verdict = "NOTE"
-            g["reason"] += f" (ML {price:+d} heavier than {model_football.ML_MAX_FAVORITE} — never played)"
         g["verdict"], g["rlm"], g["rlm_note"] = new_verdict, sig, note
         g["price"], g["point"] = price, point
         if new_verdict == "CONFIRMED":

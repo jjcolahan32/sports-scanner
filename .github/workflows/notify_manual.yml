@@ -1,0 +1,32 @@
+name: manual-notify
+# Ad-hoc ntfy push outside the normal per-sport scan cadence -- recalls, consolidated
+# status ledgers, anything that isn't a scheduled scan checkpoint. Dispatch with title
+# and body inputs; send_notify.py does the actual push (notify.push() already chunks an
+# oversized body on its own).
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "Notification title"
+        required: true
+      body:
+        description: "Notification body"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Send ntfy push
+        env:
+          NOTIFY_TITLE:         ${{ inputs.title }}
+          NOTIFY_BODY:          ${{ inputs.body }}
+          NTFY_TOPIC_FOOTBALL:  ${{ secrets.NTFY_TOPIC_FOOTBALL }}
+        run: python send_notify.py

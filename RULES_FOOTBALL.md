@@ -109,10 +109,10 @@ unmodified — pure odds math):
 - **Favorite −150 or shorter:** risk to win 1u. May stand alone.
 - **Favorite harder than −150:** never straight — must pair with another −150+ favorite in a
   parlay.
-- **Favorite harder than −250: never played, full stop** (`model_football.ML_MAX_FAVORITE`).
-  A CONFIRMED/LEAN moneyline past this line downgrades straight to NOTE — logged for
-  visibility, never staked or notified as playable — regardless of which categories
-  stacked to get it there.
+- **Favorite harder than −250: never played, never watched** (`model_football.ML_MAX_FAVORITE`).
+  Excluded outright at grading time (`scan_cfb.py`/`scan_nfl.py`'s `grade_game()`) —
+  no card row, no ledger entry, no notification, regardless of which categories stacked
+  to get it there. Not just "never staked": pure noise past this line, not worth logging.
 - **CONFIRMED** (2+ stacked categories) gets standard sizing.
 - **LEAN** (CONFIRMED but RLM conflicts) and **NOTE** (exactly 1 category fired) are
   informational only — never staked.
