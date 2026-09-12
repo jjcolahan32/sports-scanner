@@ -448,6 +448,44 @@ def verdict_adjust_football(verdict, rlm_tag):
     return verdict, ""
 
 
+def dedupe_side_bets(all_results):
+    """When a game's spread and ML both come back CONFIRMED/LEAN on the SAME side, that's
+    the identical read expressed twice, not two independent edges -- confirmed live (CFB
+    9/12): the same 4 games doubled up, all 8 rows getting notified/staked as if they
+    were 8 separate plays. Since spread/ML share the exact same category inputs
+    (cat_injury/cat_mismatch/cat_situational/cat_market_value all read the shared
+    candidate dict, not market-specific data), they almost always agree when they both
+    fire at all -- so keeping both isn't diversification, it's the same bet twice.
+
+    Keeps whichever side has the better-demonstrated edge: the ML if cat_market_value
+    actually contributed to it (a real, calibrated moneyline mispricing -- see
+    cat_market_value's docstring), since that's evidence on the specific price being
+    laid; otherwise keeps the spread (the standard way to express a team-quality edge
+    without needing a demonstrated price mispricing). The other one downgrades to NOTE
+    in place (still logged for visibility, never staked/notified) -- mutates
+    all_results' dicts directly, same pattern scan_cfb.py/scan_nfl.py's grade_game()
+    already uses for its own downgrades."""
+    by_game = {}
+    for r in all_results:
+        if r.get("side") is None or r["market"] not in ("spread", "ml"):
+            continue
+        by_game.setdefault(r["game"]["game_id"], {})[r["market"]] = r
+
+    for markets in by_game.values():
+        spread_r, ml_r = markets.get("spread"), markets.get("ml")
+        if not spread_r or not ml_r:
+            continue
+        if spread_r["verdict"] not in ("CONFIRMED", "LEAN") or ml_r["verdict"] not in ("CONFIRMED", "LEAN"):
+            continue
+        if spread_r["side"] != ml_r["side"]:
+            continue  # different sides -- genuinely independent reads, leave both
+        ml_has_value = "market_value" in (ml_r.get("categories") or [])
+        loser, kept = (spread_r, "ML") if ml_has_value else (ml_r, "spread")
+        loser["verdict"] = "NOTE"
+        loser["reason"] += f" (redundant with the {kept} pick on this side -- deduped)"
+        loser["risk"] = loser["to_win"] = loser["cap"] = None  # NOTE is never staked
+
+
 GRADERS = {"spread": grade_spread, "total": grade_total, "ml": grade_ml}
 
 

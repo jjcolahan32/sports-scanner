@@ -317,6 +317,7 @@ def main():
     for game in games:
         candidate = build_candidate(game, injuries_by_team, ratings, league_avg, venue_cache, all_season_games, odds)
         all_results.extend(grade_game(game, candidate, odds, opens))
+    model_football.dedupe_side_bets(all_results)
 
     fresh, ntfy_lines = [], []
     for market_result in all_results:

@@ -108,6 +108,14 @@ not automatically imply a total edge; they can point opposite directions.
 categories; RLM moving *against* the pick doesn't kill it outright, but downgrades
 CONFIRMED → **LEAN** until the conflict resolves.
 
+**Spread and ML never both fire on the same side of the same game** (`model_football.
+dedupe_side_bets()`). They share the exact same category inputs, so when both confirm at
+all they almost always agree — keeping both isn't two independent edges, it's the same
+read staked and notified twice (confirmed live, CFB 9/12: 4 games doubled up into 8
+notified rows). Keeps the ML if `cat_market_value` (2D) actually contributed to it — real
+evidence on that specific price — otherwise keeps the spread. The other downgrades to
+NOTE in place (still logged, never staked/notified).
+
 ---
 
 ## 4. Staking
