@@ -1,0 +1,22 @@
+name: backtest-cfb-probe
+# Temporary: runs backtest_market_prob_cfb.py with real CFBD_API_KEY + internet access
+# (this sandbox has neither) so its output can be read from the job log. Delete once the
+# calibration is captured -- same pattern as the earlier probe.yml.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run CFB calibration backtest
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+        run: python backtest_market_prob_cfb.py
