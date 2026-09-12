@@ -42,7 +42,12 @@ run", never a hard requirement):
                                   (RULES_FOOTBALL.md 2B: hurts more on the road outdoors)
   wind_mph, temp_f, precip       weather at kickoff (precip: bool); None if dome/retractable
                                   or forecast unavailable (NWS only covers ~7 days out)
+  home_ml, away_ml               live American-odds moneyline for each side (same odds
+                                  fetch scan_cfb.py/scan_nfl.py already do for staking --
+                                  see build_candidate()), used only by cat_market_value
+                                  below to de-vig the market's own implied win probability
 """
+import math
 import json
 # Staking (model.american_to_stake/cap_rule -- pure odds math, reused unmodified) is
 # applied by the scan layer once it knows the real price for the side/total this module
@@ -161,6 +166,73 @@ def cat_mismatch(p):
     return _side(diff, edge,
                  f"rating edge home {hr:.1f} vs away {ar:.1f}",
                  f"rating edge away {ar:.1f} vs home {hr:.1f}")
+
+
+# Rating-diff -> P(home_win), fit as sigmoid(k*diff + b) by logistic regression against
+# real historical results -- NOT hand-picked, see backtest_market_prob.py (NFL: 2015-2025
+# in-season rolling ratings, 2711 games, log-loss 0.658 vs 0.693 coin-flip baseline) and
+# backtest_market_prob_cfb.py (CFB: each season's final SP+ predicting the next season's
+# games, 7045 games, log-loss 0.594) for the methodology and full calibration tables.
+WIN_PROB_NFL = (0.0496, 0.2193)   # (k, b)
+WIN_PROB_CFB = (0.0614, 0.3024)
+MARKET_VALUE_EDGE = 0.05          # min model-vs-market win-prob gap to count as real value,
+                                   # not noise (the backtests' own bucket-level calibration
+                                   # error runs ~0.01-0.04, so 0.05 stays clear of that)
+
+
+def _win_prob(rating_diff, sport):
+    k, b = WIN_PROB_CFB if sport == "cfb" else WIN_PROB_NFL
+    z = k * rating_diff + b
+    if z > 700:
+        return 1.0
+    if z < -700:
+        return 0.0
+    return 1.0 / (1.0 + math.exp(-z))
+
+
+def _devig(home_ml, away_ml):
+    """American odds for both sides of a moneyline -> (home_win_prob, away_win_prob) that
+    sum to 1 -- removes the book's vig by normalizing each side's raw implied probability
+    against their sum, standard no-vig two-way method."""
+    def implied(price):
+        if price is None:
+            return None
+        return -price / (-price + 100) if price < 0 else 100 / (price + 100)
+    hp, ap = implied(home_ml), implied(away_ml)
+    if hp is None or ap is None or hp + ap <= 0:
+        return None, None
+    total = hp + ap
+    return hp / total, ap / total
+
+
+def cat_market_value(p):
+    """Category D (market-aware variant), spread/ML. cat_mismatch only asks "who's the
+    better team" -- and since a better-rated team is almost always also the team the
+    market favors, mismatch structurally can never favor an underdog (RULES_FOOTBALL.md
+    Section 1 amendment: confirmed live, CFB/NFL CONFIRMED picks were 100% favorites).
+    This asks a different question: does the ACTUAL PRICE already account for that gap?
+    Compares the model's calibrated win probability (see _win_prob/WIN_PROB_NFL/CFB
+    above) against the market's own de-vigged implied probability from the live
+    moneyline -- the only category that reads the price itself rather than just the
+    rating gap, so it's the only one that can genuinely favor a mispriced underdog.
+    Runs alongside cat_mismatch (not instead of it) -- both can agree (a 2nd vote for a
+    correctly-priced favorite) or disagree (a real mispricing, which stacking already
+    treats as conflicting/PASS same as any two disagreeing categories -- no special
+    override needed for that case)."""
+    hr, ar = p.get("home_rating"), p.get("away_rating")
+    home_ml, away_ml = p.get("home_ml"), p.get("away_ml")
+    if hr is None or ar is None:
+        return 0, None
+    model_home_p = _win_prob(hr - ar, p.get("sport"))
+    market_home_p, market_away_p = _devig(home_ml, away_ml)
+    if market_home_p is None:
+        return 0, None
+    edge_home = model_home_p - market_home_p
+    if edge_home >= MARKET_VALUE_EDGE:
+        return 1, f"model {model_home_p:.0%} win prob vs market {market_home_p:.0%} (home)"
+    if -edge_home >= MARKET_VALUE_EDGE:
+        return -1, f"model {1 - model_home_p:.0%} win prob vs market {market_away_p:.0%} (away)"
+    return 0, None
 
 
 def cat_situational(p):
@@ -307,7 +379,8 @@ def _cfb_lone_mismatch_override(p, verdict, side, fired):
 
 
 def _grade_side(p, market_label):
-    raw = [("injury", cat_injury(p)), ("mismatch", cat_mismatch(p)), ("situational", cat_situational(p))]
+    raw = [("injury", cat_injury(p)), ("mismatch", cat_mismatch(p)), ("situational", cat_situational(p)),
+           ("market_value", cat_market_value(p))]
     cats = [(d, name, note) for name, (d, note) in raw if d != 0]
     verdict, side, fired = _stack(cats)
     if side != 0:

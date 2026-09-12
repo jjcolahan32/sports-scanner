@@ -109,11 +109,12 @@ def in_window(game, now=None):
     return start > now
 
 
-def build_candidate(game, injuries_by_team, ratings, league_avg, weather_cache):
+def build_candidate(game, injuries_by_team, ratings, league_avg, weather_cache, odds):
     """One shared signal dict per game, fed to all three graders -- each reads only the
     fields relevant to it (model_football.py's cat_* functions), same pattern as the MLB
     model's totals_lean() reading a subset of a shared row."""
     home, away = game["home"], game["away"]
+    entry = _entry_for(game, odds)
     home_stad = stadiums_football.for_team(home) or {}
     away_stad = stadiums_football.for_team(away) or {}
     roof = home_stad.get("roof", game.get("roof")) or "outdoor"
@@ -148,6 +149,7 @@ def build_candidate(game, injuries_by_team, ratings, league_avg, weather_cache):
         "roof": roof,
         "away_team_is_dome_team": away_stad.get("roof") != "outdoor" if away_stad else False,
         "wind_mph": wind_mph, "temp_f": temp_f, "precip": precip,
+        "home_ml": entry.get("home_ml"), "away_ml": entry.get("away_ml"),
     }
 
 
@@ -308,7 +310,7 @@ def main():
 
     all_results = []
     for game in games:
-        candidate = build_candidate(game, injuries_by_team, ratings, league_avg, weather_cache)
+        candidate = build_candidate(game, injuries_by_team, ratings, league_avg, weather_cache, odds)
         all_results.extend(grade_game(game, candidate, odds, opens))
 
     fresh, ntfy_lines = [], []

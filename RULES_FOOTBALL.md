@@ -56,6 +56,15 @@ live from that week's actual data).
 - Man/zone coverage tendency vs. opposing WR route tree.
 - Run-stuff rate vs. run scheme (gap vs. zone).
 - Red-zone efficiency differential (offense TD% vs. defense TD% allowed).
+- **Market value** (`cat_market_value`): the rating-gap read above (mismatch) only asks
+  "who's better," which is almost always the team the market already favors -- it
+  structurally can never favor an underdog. This asks a different question: does the
+  live moneyline itself already account for that gap? Compares the model's calibrated
+  win probability (rating diff -> probability, fit by logistic regression against real
+  historical results -- see `backtest_market_prob.py`/`backtest_market_prob_cfb.py`) to
+  the market's own de-vigged implied probability; a gap of 5+ points either way counts as
+  real value, not noise. Runs alongside mismatch, not instead of it -- the only category
+  that reads the actual price, so the only one that can genuinely back a mispriced dog.
 
 ### E. Strength of Schedule / Situational Context
 - **Opponent-adjusted efficiency**, not raw record. NFL: SOS to date/remaining. CFB: always

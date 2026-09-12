@@ -116,8 +116,9 @@ def _team_home_venue_id(team, all_season_games):
     return None
 
 
-def build_candidate(game, injuries_by_team, ratings, league_avg, venue_cache, all_season_games):
+def build_candidate(game, injuries_by_team, ratings, league_avg, venue_cache, all_season_games, odds):
     home, away = game["home"], game["away"]
+    entry = _entry_for(game, odds)
     venue = venue_cache.get(game.get("venue_id"), {})
     roof = "dome" if venue.get("dome") else "outdoor"
 
@@ -151,6 +152,7 @@ def build_candidate(game, injuries_by_team, ratings, league_avg, venue_cache, al
         "div_game": (home_r.get("conference") and home_r.get("conference") == away_r.get("conference")),
         "roof": roof,
         "away_team_is_dome_team": away_team_is_dome_team,
+        "home_ml": entry.get("home_ml"), "away_ml": entry.get("away_ml"),
         "wind_mph": wind_mph, "temp_f": temp_f, "precip": precip,
     }
 
@@ -313,7 +315,7 @@ def main():
 
     all_results = []
     for game in games:
-        candidate = build_candidate(game, injuries_by_team, ratings, league_avg, venue_cache, all_season_games)
+        candidate = build_candidate(game, injuries_by_team, ratings, league_avg, venue_cache, all_season_games, odds)
         all_results.extend(grade_game(game, candidate, odds, opens))
 
     fresh, ntfy_lines = [], []
