@@ -997,8 +997,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "North Dakota State 38\u201332 Air Force"
+      }
     },
     {
       "game_id": 401864500,
