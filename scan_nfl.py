@@ -333,7 +333,7 @@ def main():
         sent.add(key)
         fresh.append((game, market, market_result))
 
-    log_card(all_results, sent)
+    log_card(all_results, week_key, sent)
 
     if not fresh:
         print("No new qualifying NFL plays this scan.")
@@ -350,7 +350,7 @@ def main():
     print("Notified:\n" + body)
 
 
-def log_card(all_results, sent):
+def log_card(all_results, week_key, sent):
     """Log every graded row, refreshing any not-yet-graded, not-yet-sent entry with the
     latest read each run -- a game can go NOTE early (no price posted, weak signal) and
     CONFIRMED later (price posted, RLM promotes it), and the LATER read is what actually
@@ -359,20 +359,31 @@ def log_card(all_results, sent):
     case (scan_cfb.py has the identical fix) where the notified pick and the logged
     card row disagreed.
 
+    Keyed by WEEK (card_nfl_<season>-wk<week>.json), not by calendar day -- unlike CFB,
+    whose in_window() restricts a game to only its own game-day, NFL's in_window() is
+    just "hasn't kicked off yet", so the same game stays in-window across every scan
+    from Tuesday through kickoff. A per-day file meant the same pick got freshly graded
+    and logged into a NEW file each day it was scanned pre-kickoff -- confirmed live:
+    grade_football.py globs every card_nfl_*.json independently with no cross-file
+    dedupe by game_id, so a pick still showing CONFIRMED in multiple day-files when its
+    game concluded would have been graded and counted into the ledger once per file.
+    One file per week means one row per pick for its entire lifecycle, full stop.
+
     A row is frozen (never touched again) once graded, OR once its key is in `sent`
     (main()'s dedupe-by-game_id+market set) -- a pick already notified may already be
     bet; re-evaluating it with fresher data and finding the signal no longer stacks
     doesn't un-notify it, and must never make it vanish before grade_football.py gets a
     chance to settle it. See scan_cfb.py's identical fix for the real case (8 already-
     sent CFB picks silently erased by the old graded-only freeze check) that surfaced
-    this.
+    this -- the NFL side had the same corruption (ATL@PIT, DAL@NYG total picks silently
+    downgraded/lost across day-file boundaries before this fix and the per-week
+    rekeying above).
 
     A result with side=None this run (no categories fired anymore, or an ML excluded
     outright by model_football.ML_MAX_FAVORITE) drops any prior not-yet-frozen row for
     that key rather than leaving a stale one behind -- but only when it isn't frozen."""
-    date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    path = f"card_nfl_{date}.json"
-    card = load_json(path, {"date": date, "plays": []})
+    path = f"card_nfl_{week_key}.json"
+    card = load_json(path, {"week": week_key, "plays": []})
     by_key = {(p["game_id"], p["market"]): i for i, p in enumerate(card["plays"])}
     for r in all_results:
         game = r["game"]

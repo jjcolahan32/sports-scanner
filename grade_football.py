@@ -1,8 +1,12 @@
 """
-grade_football.py — settlement for both card_nfl_<date>.json and card_cfb_<date>.json.
-Separate ledger from the MLB model (ledger_football.json) -- RULES.md's own "ledgers
-tracked separately per book" precedent applies here too (see grade.py, the MLB
-equivalent this mirrors).
+grade_football.py — settlement for both card_nfl_<season>-wk<week>.json (one file per
+NFL week -- scan_nfl.py's in_window() has no same-day restriction, so a pick stays live
+across many scans before kickoff; a per-day file let the same pick get graded once per
+day-file it still showed CONFIRMED in) and card_cfb_<date>.json (one file per CFB game
+day -- scan_cfb.py's in_window() restricts a game to only its own day, so this one's
+naming was never at risk of the same bug). Separate ledger from the MLB model
+(ledger_football.json) -- RULES.md's own "ledgers tracked separately per book"
+precedent applies here too (see grade.py, the MLB equivalent this mirrors).
 
 Honesty notes (same spirit as grade.py's own):
   - Only CONFIRMED plays are staked and count toward units. LEAN plays (CONFIRMED but
