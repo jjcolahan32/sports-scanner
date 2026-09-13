@@ -338,7 +338,7 @@ def main():
         sent.add(key)
         fresh.append((game, market, market_result))
 
-    log_card(all_results, today_key)
+    log_card(all_results, today_key, sent)
 
     if not fresh:
         print("No new qualifying CFB plays this scan.")
@@ -355,21 +355,28 @@ def main():
     print("Notified:\n" + body)
 
 
-def log_card(all_results, today_key):
-    """Log every graded row, refreshing any not-yet-graded entry with the latest read
-    each run -- a game can go NOTE early in the day (no price posted, weak signal) and
-    CONFIRMED later (price posted, RLM promotes it), and the LATER read is what actually
-    gets notified/staked. Only ever overwriting the first-seen snapshot left the card
-    permanently out of sync with what was actually sent -- confirmed from a real case
-    (Hawaii/Nevada, 9/5) where the notified pick and the logged card row disagreed.
-    Once graded, an entry is frozen (never touched again, even if somehow re-evaluated).
+def log_card(all_results, today_key, sent):
+    """Log every graded row, refreshing any not-yet-graded, not-yet-sent entry with the
+    latest read each run -- a game can go NOTE early in the day (no price posted, weak
+    signal) and CONFIRMED later (price posted, RLM promotes it), and the LATER read is
+    what actually gets notified/staked. Only ever overwriting the first-seen snapshot
+    left the card permanently out of sync with what was actually sent -- confirmed from
+    a real case (Hawaii/Nevada, 9/5) where the notified pick and the logged card row
+    disagreed.
 
-    A result with side=None this run (no categories fired anymore, or -- new -- an ML
-    now excluded outright by model_football.ML_MAX_FAVORITE) drops any prior not-yet-
-    graded row for that key rather than leaving a stale one behind: confirmed from a
-    real case where tightening ML_MAX_FAVORITE mid-day left already-logged heavy-ML NOTE
-    rows sitting in the card forever, since the old code only ever added/overwrote a row
-    here, never removed one."""
+    A row is frozen (never touched again) once graded, OR once its key is in `sent`
+    (main()'s dedupe-by-game_id+market set) -- a pick already notified may already be
+    bet; re-evaluating it with fresher data and finding the signal no longer stacks
+    doesn't un-notify it, and must never make it vanish before grade_football.py gets a
+    chance to settle it. Confirmed live: 8 already-sent CONFIRMED spread picks (Ole Miss,
+    USC, Sam Houston, Georgia Tech, Nebraska, LSU, Oregon State, Auburn -- all already in
+    `sent`) were later re-graded PASS as the day's data moved, and the old graded-only
+    freeze check deleted every one of them before they were ever settled -- silently
+    erasing already-sent picks from both the card and the ledger.
+
+    A result with side=None this run (no categories fired anymore, or an ML excluded
+    outright by model_football.ML_MAX_FAVORITE) drops any prior not-yet-frozen row for
+    that key rather than leaving a stale one behind -- but only when it isn't frozen."""
     path = f"card_cfb_{today_key}.json"
     card = load_json(path, {"date": today_key, "plays": []})
     by_key = {(p["game_id"], p["market"]): i for i, p in enumerate(card["plays"])}
@@ -377,13 +384,13 @@ def log_card(all_results, today_key):
         game = r["game"]
         k = (game["game_id"], r["market"])
         idx = by_key.get(k)
-        already_graded = idx is not None and card["plays"][idx].get("graded")
+        frozen = idx is not None and (card["plays"][idx].get("graded") or f"{k[0]}:{k[1]}" in sent)
         if r["side"] is None:
-            if idx is not None and not already_graded:
+            if idx is not None and not frozen:
                 card["plays"][idx] = None  # dropped below -- no longer qualifies
             continue
-        if already_graded:
-            continue  # settled -- never overwrite
+        if frozen:
+            continue  # settled, or already sent/staked -- never overwrite
         play = {
             "game_id": game["game_id"], "start_utc": game["start_utc"],
             "home": game["home"], "away": game["away"], "market": r["market"],
