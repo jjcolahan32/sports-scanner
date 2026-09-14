@@ -319,6 +319,12 @@ def main():
         all_results.extend(grade_game(game, candidate, odds, opens))
     model_football.dedupe_side_bets(all_results)
 
+    already_sent = set(sent)  # snapshot BEFORE this run's fresh loop mutates `sent` --
+    # log_card()'s freeze must only protect keys sent in a PRIOR run, never a key
+    # confirming for the first time in THIS run -- see log_card's docstring, and
+    # scan_nfl.py's identical fix for the real case (GB@MIN spread, 9/13) that
+    # surfaced this.
+
     fresh, ntfy_lines = [], []
     for market_result in all_results:
         game, market = market_result["game"], market_result["market"]
@@ -338,7 +344,7 @@ def main():
         sent.add(key)
         fresh.append((game, market, market_result))
 
-    log_card(all_results, today_key, sent)
+    log_card(all_results, today_key, already_sent)
 
     if not fresh:
         print("No new qualifying CFB plays this scan.")
@@ -364,15 +370,25 @@ def log_card(all_results, today_key, sent):
     a real case (Hawaii/Nevada, 9/5) where the notified pick and the logged card row
     disagreed.
 
-    A row is frozen (never touched again) once graded, OR once its key is in `sent`
-    (main()'s dedupe-by-game_id+market set) -- a pick already notified may already be
-    bet; re-evaluating it with fresher data and finding the signal no longer stacks
-    doesn't un-notify it, and must never make it vanish before grade_football.py gets a
-    chance to settle it. Confirmed live: 8 already-sent CONFIRMED spread picks (Ole Miss,
-    USC, Sam Houston, Georgia Tech, Nebraska, LSU, Oregon State, Auburn -- all already in
-    `sent`) were later re-graded PASS as the day's data moved, and the old graded-only
-    freeze check deleted every one of them before they were ever settled -- silently
-    erasing already-sent picks from both the card and the ledger.
+    A row is frozen (never touched again) once graded, OR once its key is in `sent` --
+    a pick already notified may already be bet; re-evaluating it with fresher data and
+    finding the signal no longer stacks doesn't un-notify it, and must never make it
+    vanish before grade_football.py gets a chance to settle it. Confirmed live: 8
+    already-sent CONFIRMED spread picks (Ole Miss, USC, Sam Houston, Georgia Tech,
+    Nebraska, LSU, Oregon State, Auburn -- all already in `sent`) were later re-graded
+    PASS as the day's data moved, and the old graded-only freeze check deleted every one
+    of them before they were ever settled -- silently erasing already-sent picks from
+    both the card and the ledger.
+
+    IMPORTANT: `sent` here must be the PRE-this-run snapshot (main() passes
+    `already_sent`, captured before its own fresh-notify loop mutates the live `sent`
+    set), never the live set. A key gets added to `sent` in that same loop the moment it
+    first confirms -- if log_card() froze against the post-mutation set, a pick's very
+    first CONFIRMED write would see its own just-added key already in `sent` and get
+    silently rejected whenever a stale older row already existed for that key.
+    Confirmed live: scan_nfl.py's identical case, GB@MIN spread, 9/13 -- notified as
+    CONFIRMED, but the freeze check (before this fix) kept the persisted row at its
+    prior stale NOTE forever.
 
     A result with side=None this run (no categories fired anymore, or an ML excluded
     outright by model_football.ML_MAX_FAVORITE) drops any prior not-yet-frozen row for

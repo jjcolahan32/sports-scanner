@@ -314,6 +314,13 @@ def main():
         all_results.extend(grade_game(game, candidate, odds, opens))
     model_football.dedupe_side_bets(all_results)
 
+    already_sent = set(sent)  # snapshot BEFORE this run's fresh loop mutates `sent` --
+    # log_card()'s freeze must only protect keys sent in a PRIOR run, never a key
+    # confirming for the first time in THIS run (see log_card's docstring: freezing on
+    # the live, already-mutated `sent` made a pick's first-ever CONFIRMED write look
+    # "already sent" and get silently rejected whenever a stale older NOTE row already
+    # existed for that key -- confirmed live, GB@MIN spread, 9/13).
+
     fresh, ntfy_lines = [], []
     for market_result in all_results:
         game, market = market_result["game"], market_result["market"]
@@ -333,7 +340,7 @@ def main():
         sent.add(key)
         fresh.append((game, market, market_result))
 
-    log_card(all_results, week_key, sent)
+    log_card(all_results, week_key, already_sent)
 
     if not fresh:
         print("No new qualifying NFL plays this scan.")
@@ -369,15 +376,23 @@ def log_card(all_results, week_key, sent):
     game concluded would have been graded and counted into the ledger once per file.
     One file per week means one row per pick for its entire lifecycle, full stop.
 
-    A row is frozen (never touched again) once graded, OR once its key is in `sent`
-    (main()'s dedupe-by-game_id+market set) -- a pick already notified may already be
-    bet; re-evaluating it with fresher data and finding the signal no longer stacks
-    doesn't un-notify it, and must never make it vanish before grade_football.py gets a
-    chance to settle it. See scan_cfb.py's identical fix for the real case (8 already-
-    sent CFB picks silently erased by the old graded-only freeze check) that surfaced
-    this -- the NFL side had the same corruption (ATL@PIT, DAL@NYG total picks silently
-    downgraded/lost across day-file boundaries before this fix and the per-week
-    rekeying above).
+    A row is frozen (never touched again) once graded, OR once its key is in `sent` --
+    a pick already notified may already be bet; re-evaluating it with fresher data and
+    finding the signal no longer stacks doesn't un-notify it, and must never make it
+    vanish before grade_football.py gets a chance to settle it. See scan_cfb.py's
+    identical fix for the real case (8 already-sent CFB picks silently erased by the
+    old graded-only freeze check) that surfaced this -- the NFL side had the same
+    corruption (ATL@PIT, DAL@NYG total picks silently downgraded/lost across day-file
+    boundaries before this fix and the per-week rekeying above).
+
+    IMPORTANT: `sent` here must be the PRE-this-run snapshot (main() passes
+    `already_sent`, captured before its own fresh-notify loop mutates the live `sent`
+    set), never the live set. A key gets added to `sent` in that same loop the moment
+    it first confirms -- if log_card() froze against the post-mutation set, a pick's
+    very first CONFIRMED write would see its own just-added key already in `sent` and
+    get silently rejected whenever a stale older row already existed for that key.
+    Confirmed live: GB@MIN spread, 9/13 -- notified as CONFIRMED, but the freeze check
+    (before this fix) kept the persisted row at its prior stale NOTE forever.
 
     A result with side=None this run (no categories fired anymore, or an ML excluded
     outright by model_football.ML_MAX_FAVORITE) drops any prior not-yet-frozen row for
