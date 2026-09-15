@@ -1,1 +1,100 @@
-{"date": "2026-09-14", "plays": [{"game_pk": 824465, "start_utc": "2026-09-14T22:40:00Z", "bet_team": "Los Angeles Dodgers", "bet_side": "away", "selection": "Los Angeles Dodgers ML (fade N. Lodolo, live gap)", "odds": -215, "risk": 2.15, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824386, "start_utc": "2026-09-14T22:40:00Z", "bet_team": "Cleveland Guardians", "bet_side": "home", "selection": "Cleveland Guardians ML (fade S. Newcomb, live gap)", "odds": -154, "risk": 1.54, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823575, "start_utc": "2026-09-14T23:10:00Z", "bet_team": "New York Mets", "bet_side": "home", "selection": "New York Mets ML (back J. Tong, live gap)", "odds": -144, "risk": 1.44, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "STEAM-FOR", "stars": 3, "graded": false, "result": null}, {"game_pk": 823656, "start_utc": "2026-09-14T23:40:00Z", "bet_team": "Minnesota Twins", "bet_side": "home", "selection": "Minnesota Twins ML (back D. Kremer, live gap)", "odds": 112, "risk": 1.0, "to_win": 1.12, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824308, "start_utc": "2026-09-15T00:40:00Z", "bet_team": "San Diego Padres", "bet_side": "away", "selection": "San Diego Padres ML (fade T. Sugano, listed mirage)", "odds": -200, "risk": 2.0, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "STEAM-FOR", "stars": 5, "graded": false, "result": null}]}
+{
+  "date": "2026-09-14",
+  "plays": [
+    {
+      "game_pk": 824465,
+      "start_utc": "2026-09-14T22:40:00Z",
+      "bet_team": "Los Angeles Dodgers",
+      "bet_side": "away",
+      "selection": "Los Angeles Dodgers ML (fade N. Lodolo, live gap)",
+      "odds": -215,
+      "risk": 2.15,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Los Angeles Dodgers 4\u20131 Cincinnati Reds"
+      }
+    },
+    {
+      "game_pk": 824386,
+      "start_utc": "2026-09-14T22:40:00Z",
+      "bet_team": "Cleveland Guardians",
+      "bet_side": "home",
+      "selection": "Cleveland Guardians ML (fade S. Newcomb, live gap)",
+      "odds": -154,
+      "risk": 1.54,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Chicago White Sox 7\u20133 Cleveland Guardians"
+      }
+    },
+    {
+      "game_pk": 823575,
+      "start_utc": "2026-09-14T23:10:00Z",
+      "bet_team": "New York Mets",
+      "bet_side": "home",
+      "selection": "New York Mets ML (back J. Tong, live gap)",
+      "odds": -144,
+      "risk": 1.44,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "STEAM-FOR",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Baltimore Orioles 2\u20131 New York Mets"
+      }
+    },
+    {
+      "game_pk": 823656,
+      "start_utc": "2026-09-14T23:40:00Z",
+      "bet_team": "Minnesota Twins",
+      "bet_side": "home",
+      "selection": "Minnesota Twins ML (back D. Kremer, live gap)",
+      "odds": 112,
+      "risk": 1.0,
+      "to_win": 1.12,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "New York Yankees 8\u20133 Minnesota Twins"
+      }
+    },
+    {
+      "game_pk": 824308,
+      "start_utc": "2026-09-15T00:40:00Z",
+      "bet_team": "San Diego Padres",
+      "bet_side": "away",
+      "selection": "San Diego Padres ML (fade T. Sugano, listed mirage)",
+      "odds": -200,
+      "risk": 2.0,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "STEAM-FOR",
+      "stars": 5,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "San Diego Padres 8\u20137 Colorado Rockies"
+      }
+    }
+  ]
+}
