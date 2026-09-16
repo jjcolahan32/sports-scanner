@@ -1,1 +1,71 @@
-{"date": "2026-09-15", "plays": [{"game_pk": 824466, "start_utc": "2026-09-15T22:40:00Z", "home": "Cincinnati Reds", "away": "Los Angeles Dodgers", "side": "Over", "home_prob": "Rhett Lowder", "away_prob": "Yoshinobu Yamamoto", "selection": "Los Angeles Dodgers @ Cincinnati Reds Over 8.5", "total": 8.5, "odds": -117, "risk": 1.17, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 822925, "start_utc": "2026-09-15T22:40:00Z", "home": "Tampa Bay Rays", "away": "Athletics", "side": "Under", "home_prob": "Griffin Jax", "away_prob": "Jack Perkins", "selection": "Athletics @ Tampa Bay Rays Under 8.0", "total": 8.0, "odds": -111, "risk": 1.11, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 4, "graded": false, "result": null}, {"game_pk": 822683, "start_utc": "2026-09-15T22:45:00Z", "home": "Washington Nationals", "away": "Philadelphia Phillies", "side": "Under", "home_prob": "Jackson Kent", "away_prob": "Cristopher S\u00e1nchez", "selection": "Philadelphia Phillies @ Washington Nationals Under 8.0", "total": 8.0, "odds": -105, "risk": 1.05, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-09-15",
+  "plays": [
+    {
+      "game_pk": 824466,
+      "start_utc": "2026-09-15T22:40:00Z",
+      "home": "Cincinnati Reds",
+      "away": "Los Angeles Dodgers",
+      "side": "Over",
+      "home_prob": "Rhett Lowder",
+      "away_prob": "Yoshinobu Yamamoto",
+      "selection": "Los Angeles Dodgers @ Cincinnati Reds Over 8.5",
+      "total": 8.5,
+      "odds": -117,
+      "risk": 1.17,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Dodgers 4\u20130 Cincinnati Reds"
+      }
+    },
+    {
+      "game_pk": 822925,
+      "start_utc": "2026-09-15T22:40:00Z",
+      "home": "Tampa Bay Rays",
+      "away": "Athletics",
+      "side": "Under",
+      "home_prob": "Griffin Jax",
+      "away_prob": "Jack Perkins",
+      "selection": "Athletics @ Tampa Bay Rays Under 8.0",
+      "total": 8.0,
+      "odds": -111,
+      "risk": 1.11,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Athletics 1\u20132 Tampa Bay Rays"
+      }
+    },
+    {
+      "game_pk": 822683,
+      "start_utc": "2026-09-15T22:45:00Z",
+      "home": "Washington Nationals",
+      "away": "Philadelphia Phillies",
+      "side": "Under",
+      "home_prob": "Jackson Kent",
+      "away_prob": "Cristopher S\u00e1nchez",
+      "selection": "Philadelphia Phillies @ Washington Nationals Under 8.0",
+      "total": 8.0,
+      "odds": -105,
+      "risk": 1.05,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Philadelphia Phillies 3\u20136 Washington Nationals"
+      }
+    }
+  ]
+}
