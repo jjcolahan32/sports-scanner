@@ -1,1 +1,27 @@
-{"date": "2026-09-16", "plays": [{"game_pk": 824467, "start_utc": "2026-09-16T22:40:00Z", "home": "Cincinnati Reds", "away": "Los Angeles Dodgers", "side": "Over", "home_prob": "Andrew Abbott", "away_prob": "Blake Snell", "selection": "Los Angeles Dodgers @ Cincinnati Reds Over 8.5", "total": 8.5, "odds": -106, "risk": 1.06, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-09-16",
+  "plays": [
+    {
+      "game_pk": 824467,
+      "start_utc": "2026-09-16T22:40:00Z",
+      "home": "Cincinnati Reds",
+      "away": "Los Angeles Dodgers",
+      "side": "Over",
+      "home_prob": "Andrew Abbott",
+      "away_prob": "Blake Snell",
+      "selection": "Los Angeles Dodgers @ Cincinnati Reds Over 8.5",
+      "total": 8.5,
+      "odds": -106,
+      "risk": 1.06,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Dodgers 2\u20136 Cincinnati Reds"
+      }
+    }
+  ]
+}
