@@ -1,1 +1,62 @@
-{"date": "2026-09-17", "plays": [{"game_pk": 824464, "start_utc": "2026-09-17T16:40:00Z", "bet_team": "Cincinnati Reds", "bet_side": "home", "selection": "Cincinnati Reds ML (fade J. Wrobleski, listed mirage)", "odds": 140, "risk": 1.0, "to_win": 1.4, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824305, "start_utc": "2026-09-17T19:10:00Z", "bet_team": "Colorado Rockies", "bet_side": "home", "selection": "Colorado Rockies ML (fade M. King, live gap; back T. Gordon, live gap)", "odds": 166, "risk": 1.5, "to_win": 2.49, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 822845, "start_utc": "2026-09-18T00:05:00Z", "bet_team": "Texas Rangers", "bet_side": "home", "selection": "Texas Rangers ML (fade S. Gray, listed mirage)", "odds": 108, "risk": 1.0, "to_win": 1.08, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}]}
+{
+  "date": "2026-09-17",
+  "plays": [
+    {
+      "game_pk": 824464,
+      "start_utc": "2026-09-17T16:40:00Z",
+      "bet_team": "Cincinnati Reds",
+      "bet_side": "home",
+      "selection": "Cincinnati Reds ML (fade J. Wrobleski, listed mirage)",
+      "odds": 140,
+      "risk": 1.0,
+      "to_win": 1.4,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Los Angeles Dodgers 8\u20132 Cincinnati Reds"
+      }
+    },
+    {
+      "game_pk": 824305,
+      "start_utc": "2026-09-17T19:10:00Z",
+      "bet_team": "Colorado Rockies",
+      "bet_side": "home",
+      "selection": "Colorado Rockies ML (fade M. King, live gap; back T. Gordon, live gap)",
+      "odds": 166,
+      "risk": 1.5,
+      "to_win": 2.49,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "San Diego Padres 9\u20132 Colorado Rockies"
+      }
+    },
+    {
+      "game_pk": 822845,
+      "start_utc": "2026-09-18T00:05:00Z",
+      "bet_team": "Texas Rangers",
+      "bet_side": "home",
+      "selection": "Texas Rangers ML (fade S. Gray, listed mirage)",
+      "odds": 108,
+      "risk": 1.0,
+      "to_win": 1.08,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Boston Red Sox 4\u20133 Texas Rangers"
+      }
+    }
+  ]
+}
