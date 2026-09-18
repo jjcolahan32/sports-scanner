@@ -83,7 +83,7 @@ def save_json(path, obj):
 def blank_ledger():
     return {
         "units": 0.0, "record": {"w": 0, "l": 0, "push": 0},
-        "by_sport": {}, "by_market": {}, "by_verdict": {}, "by_tag": {},
+        "by_sport": {}, "by_market": {}, "by_sport_market": {}, "by_verdict": {}, "by_tag": {},
         "history": [],
     }
 
@@ -196,6 +196,14 @@ def grade_sport(sport, ledger, results_cache, day):
                 if outcome != "push":
                     b["units"] = round(b["units"] + delta, 2)
 
+            # by_sport_market: same market breakdown as by_market, but split per sport
+            # (by_market alone mixes NFL and CFB spread/ml/total together) -- nested
+            # sport -> market -> {w,l,push,units}, same bucket shape as everywhere else.
+            sm = _bucket(ledger["by_sport_market"].setdefault(sport, {}), play["market"])
+            sm[outcome_key] += 1
+            if outcome != "push":
+                sm["units"] = round(sm["units"] + delta, 2)
+
             mark = f"{delta:+.2f}u" if outcome != "push" else "push"
             icon = {"win": "✅", "loss": "❌", "push": "➖"}[outcome]
             tag = "" if play["verdict"] == "CONFIRMED" else f" [{play['verdict']}]"
@@ -232,6 +240,15 @@ def main():
                    for s, b in sorted(ledger["by_sport"].items())]
     market_lines = [f"{m}: {b['w']}-{b['l']}-{b['push']} ({b['units']:+.2f}u)"
                      for m, b in sorted(ledger["by_market"].items())]
+    # Same spread/ML/total breakdown as market_lines, but split per sport -- market_lines
+    # alone mixes NFL and CFB together, which hides e.g. a sport-specific ML slump.
+    market_order = {"spread": 0, "ml": 1, "total": 2}
+    sport_market_lines = []
+    for sport in sorted(ledger["by_sport_market"]):
+        markets = ledger["by_sport_market"][sport]
+        parts = [f"{m} {b['w']}-{b['l']}-{b['push']} ({b['units']:+.2f}u)"
+                 for m, b in sorted(markets.items(), key=lambda kv: market_order.get(kv[0], 99))]
+        sport_market_lines.append(f"{sport}: " + ", ".join(parts))
 
     body = (f"{day['w']}-{day['l']}-{day['push']}  day P&L {day['units']:+.2f}u\n"
             + "\n".join(day["lines"])
@@ -241,6 +258,8 @@ def main():
         body += "\n— by sport —\n" + "\n".join(sport_lines)
     if market_lines:
         body += "\n— by market —\n" + "\n".join(market_lines)
+    if sport_market_lines:
+        body += "\n— by sport/market —\n" + "\n".join(sport_market_lines)
 
     ledger["history"].append({"graded_at": datetime.now(timezone.utc).isoformat(),
                               "w": day["w"], "l": day["l"], "push": day["push"], "units": day["units"]})
