@@ -232,6 +232,12 @@ def main():
 
     ledger, day = grade_all()
     if not day["lines"]:
+        # Still save -- _migrate() may have just added a new ledger key in-memory (e.g.
+        # by_sport_market didn't exist in the file until this fix), and a run with
+        # nothing new to grade shouldn't leave that migration stuck in memory forever.
+        # Confirmed live: by_sport_market stayed entirely absent from the file for days
+        # after being added, because every run since then had nothing new to grade.
+        save_json(LEDGER_FILE, ledger)
         print("Nothing new to grade.")
         return
     save_json(LEDGER_FILE, ledger)
