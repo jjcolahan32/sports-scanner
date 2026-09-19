@@ -1,1 +1,62 @@
-{"date": "2026-09-18", "plays": [{"game_id": 401858226, "start_utc": "2026-09-18T23:30:00Z", "home": "Wake Forest", "away": "Miami", "market": "spread", "side": "away", "selection": "Miami -20.5", "price": -108, "point": -20.5, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "CONFIRMED", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401856811, "start_utc": "2026-09-19T00:00:00Z", "home": "Texas Tech", "away": "Houston", "market": "spread", "side": "home", "selection": "Texas Tech -7.5", "price": -115, "point": -7.5, "risk": null, "to_win": null, "cap": null, "verdict": "NOTE", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401856811, "start_utc": "2026-09-19T00:00:00Z", "home": "Texas Tech", "away": "Houston", "market": "total", "side": "over", "selection": "Over 52.5", "price": -110, "point": 52.5, "risk": null, "to_win": null, "cap": null, "verdict": "NOTE", "rlm_tag": "NEUTRAL", "graded": false, "result": null}]}
+{
+  "date": "2026-09-18",
+  "plays": [
+    {
+      "game_id": 401858226,
+      "start_utc": "2026-09-18T23:30:00Z",
+      "home": "Wake Forest",
+      "away": "Miami",
+      "market": "spread",
+      "side": "away",
+      "selection": "Miami -20.5",
+      "price": -108,
+      "point": -20.5,
+      "risk": 1.08,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "CONFIRMED",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Miami 33\u201320 Wake Forest"
+      }
+    },
+    {
+      "game_id": 401856811,
+      "start_utc": "2026-09-19T00:00:00Z",
+      "home": "Texas Tech",
+      "away": "Houston",
+      "market": "spread",
+      "side": "home",
+      "selection": "Texas Tech -7.5",
+      "price": -115,
+      "point": -7.5,
+      "risk": null,
+      "to_win": null,
+      "cap": null,
+      "verdict": "NOTE",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_id": 401856811,
+      "start_utc": "2026-09-19T00:00:00Z",
+      "home": "Texas Tech",
+      "away": "Houston",
+      "market": "total",
+      "side": "over",
+      "selection": "Over 52.5",
+      "price": -110,
+      "point": 52.5,
+      "risk": null,
+      "to_win": null,
+      "cap": null,
+      "verdict": "NOTE",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    }
+  ]
+}
