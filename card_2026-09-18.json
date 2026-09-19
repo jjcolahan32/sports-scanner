@@ -128,8 +128,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Miami Marlins 2\u20138 San Diego Padres"
+      }
     }
   ]
 }
