@@ -1,1 +1,135 @@
-{"date": "2026-09-18", "plays": [{"game_pk": 824463, "start_utc": "2026-09-18T22:40:00Z", "bet_team": "Cincinnati Reds", "bet_side": "home", "selection": "Cincinnati Reds ML (fade C. Holmes, live gap)", "odds": 114, "risk": 1.0, "to_win": 1.14, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823331, "start_utc": "2026-09-18T22:40:00Z", "bet_team": "Pittsburgh Pirates", "bet_side": "home", "selection": "Pittsburgh Pirates ML (fade R. Dobnak, live gap)", "odds": -190, "risk": 1.9, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 822923, "start_utc": "2026-09-18T23:10:00Z", "bet_team": "Tampa Bay Rays", "bet_side": "home", "selection": "Tampa Bay Rays ML (back I. Seymour, live gap)", "odds": -138, "risk": 1.38, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824303, "start_utc": "2026-09-19T00:10:00Z", "bet_team": "Colorado Rockies", "bet_side": "home", "selection": "Colorado Rockies ML (back G. Hughes, live gap)", "odds": 156, "risk": 1.0, "to_win": 1.56, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823005, "start_utc": "2026-09-19T00:15:00Z", "bet_team": "Washington Nationals", "bet_side": "away", "selection": "Washington Nationals ML (fade K. Leahy, live gap)", "odds": -110, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823977, "start_utc": "2026-09-19T01:38:00Z", "bet_team": "Minnesota Twins", "bet_side": "away", "selection": "Minnesota Twins ML (back C. Prielipp, live gap)", "odds": -118, "risk": 1.18, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823252, "start_utc": "2026-09-19T01:40:00Z", "bet_team": "San Diego Padres", "bet_side": "home", "selection": "San Diego Padres ML (fade T. Phillips, live gap)", "odds": -205, "risk": 2.05, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-09-18",
+  "plays": [
+    {
+      "game_pk": 824463,
+      "start_utc": "2026-09-18T22:40:00Z",
+      "bet_team": "Cincinnati Reds",
+      "bet_side": "home",
+      "selection": "Cincinnati Reds ML (fade C. Holmes, live gap)",
+      "odds": 114,
+      "risk": 1.0,
+      "to_win": 1.14,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Chicago Cubs 4\u20136 Cincinnati Reds"
+      }
+    },
+    {
+      "game_pk": 823331,
+      "start_utc": "2026-09-18T22:40:00Z",
+      "bet_team": "Pittsburgh Pirates",
+      "bet_side": "home",
+      "selection": "Pittsburgh Pirates ML (fade R. Dobnak, live gap)",
+      "odds": -190,
+      "risk": 1.9,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Kansas City Royals 5\u20138 Pittsburgh Pirates"
+      }
+    },
+    {
+      "game_pk": 822923,
+      "start_utc": "2026-09-18T23:10:00Z",
+      "bet_team": "Tampa Bay Rays",
+      "bet_side": "home",
+      "selection": "Tampa Bay Rays ML (back I. Seymour, live gap)",
+      "odds": -138,
+      "risk": 1.38,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Boston Red Sox 4\u20132 Tampa Bay Rays"
+      }
+    },
+    {
+      "game_pk": 824303,
+      "start_utc": "2026-09-19T00:10:00Z",
+      "bet_team": "Colorado Rockies",
+      "bet_side": "home",
+      "selection": "Colorado Rockies ML (back G. Hughes, live gap)",
+      "odds": 156,
+      "risk": 1.0,
+      "to_win": 1.56,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Seattle Mariners 5\u20134 Colorado Rockies"
+      }
+    },
+    {
+      "game_pk": 823005,
+      "start_utc": "2026-09-19T00:15:00Z",
+      "bet_team": "Washington Nationals",
+      "bet_side": "away",
+      "selection": "Washington Nationals ML (fade K. Leahy, live gap)",
+      "odds": -110,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Washington Nationals 9\u20131 St. Louis Cardinals"
+      }
+    },
+    {
+      "game_pk": 823977,
+      "start_utc": "2026-09-19T01:38:00Z",
+      "bet_team": "Minnesota Twins",
+      "bet_side": "away",
+      "selection": "Minnesota Twins ML (back C. Prielipp, live gap)",
+      "odds": -118,
+      "risk": 1.18,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Minnesota Twins 3\u20130 Los Angeles Angels"
+      }
+    },
+    {
+      "game_pk": 823252,
+      "start_utc": "2026-09-19T01:40:00Z",
+      "bet_team": "San Diego Padres",
+      "bet_side": "home",
+      "selection": "San Diego Padres ML (fade T. Phillips, live gap)",
+      "odds": -205,
+      "risk": 2.05,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": false,
+      "result": null
+    }
+  ]
+}
