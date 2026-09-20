@@ -1,8 +1,8 @@
 {
-  "units": -8.07,
+  "units": -7.73,
   "record": {
-    "w": 36,
-    "l": 39,
+    "w": 44,
+    "l": 48,
     "push": 0
   },
   "by_sport": {
@@ -13,46 +13,46 @@
       "units": -10.0
     },
     "nfl": {
-      "w": 4,
-      "l": 2,
+      "w": 12,
+      "l": 11,
       "push": 0,
-      "units": 1.93
+      "units": 2.27
     }
   },
   "by_market": {
     "total": {
-      "w": 14,
-      "l": 10,
+      "w": 19,
+      "l": 12,
       "push": 0,
-      "units": 3.27
+      "units": 6.07
     },
     "spread": {
-      "w": 21,
-      "l": 24,
+      "w": 22,
+      "l": 26,
       "push": 0,
-      "units": -5.64
+      "units": -6.84
     },
     "ml": {
-      "w": 1,
-      "l": 5,
+      "w": 3,
+      "l": 10,
       "push": 0,
-      "units": -5.7
+      "units": -6.96
     }
   },
   "by_verdict": {
     "CONFIRMED": {
-      "w": 36,
-      "l": 39,
+      "w": 44,
+      "l": 48,
       "push": 0,
-      "units": -8.07
+      "units": -7.73
     }
   },
   "by_tag": {
     "NEUTRAL": {
-      "w": 34,
-      "l": 39,
+      "w": 42,
+      "l": 48,
       "push": 0,
-      "units": -10.07
+      "units": -9.73
     },
     "STEAM-FOR": {
       "w": 2,
@@ -138,21 +138,34 @@
       "l": 2,
       "push": 0,
       "units": -0.29
+    },
+    {
+      "graded_at": "2026-09-20T23:36:46.805262+00:00",
+      "w": 8,
+      "l": 9,
+      "push": 0,
+      "units": 0.34
     }
   ],
   "by_sport_market": {
     "nfl": {
       "total": {
-        "w": 2,
-        "l": 2,
+        "w": 7,
+        "l": 4,
         "push": 0,
-        "units": -0.07
+        "units": 2.73
       },
       "spread": {
-        "w": 2,
-        "l": 0,
+        "w": 3,
+        "l": 2,
         "push": 0,
-        "units": 2.0
+        "units": 0.8
+      },
+      "ml": {
+        "w": 2,
+        "l": 5,
+        "push": 0,
+        "units": -1.26
       }
     },
     "cfb": {
