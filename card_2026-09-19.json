@@ -128,8 +128,11 @@
       "verdict": "PLAY",
       "rlm_tag": "STEAM-FOR",
       "stars": 3,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "San Francisco Giants 4\u201310 Los Angeles Dodgers"
+      }
     }
   ]
 }
