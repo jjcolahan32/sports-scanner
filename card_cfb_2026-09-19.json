@@ -955,8 +955,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Charlotte 21\u201326 App State"
+      }
     },
     {
       "game_id": 401871047,
@@ -1741,8 +1744,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "North Dakota State 31\u201310 Sacramento State"
+      }
     },
     {
       "game_id": 401856793,
@@ -1759,8 +1765,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Northern Illinois 17\u201342 Arizona"
+      }
     },
     {
       "game_id": 401858458,
@@ -1777,8 +1786,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "STEAM-FOR",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Purdue 38\u201352 UCLA"
+      }
     },
     {
       "game_id": 401858452,
