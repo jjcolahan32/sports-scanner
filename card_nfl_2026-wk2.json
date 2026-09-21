@@ -571,8 +571,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "WAS 20\u201337 DAL"
+      }
     },
     {
       "game_id": "2026_02_MIA_SF",
@@ -610,8 +613,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "IND 30\u201333 KC"
+      }
     },
     {
       "game_id": "2026_02_IND_KC",
@@ -628,8 +634,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "IND 30\u201333 KC"
+      }
     },
     {
       "game_id": "2026_02_NYG_LA",
