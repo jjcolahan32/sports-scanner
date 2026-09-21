@@ -1,1 +1,49 @@
-{"date": "2026-09-20", "plays": [{"game_pk": 824546, "start_utc": "2026-09-20T18:10:00Z", "home": "Chicago White Sox", "away": "Detroit Tigers", "side": "Over", "home_prob": "Davis Martin", "away_prob": "Troy Melton", "selection": "Detroit Tigers @ Chicago White Sox Over 8.5", "total": 8.5, "odds": 112, "risk": 1.0, "to_win": 1.12, "cap": "dog", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}, {"game_pk": 824462, "start_utc": "2026-09-20T17:40:00Z", "home": "Cincinnati Reds", "away": "Chicago Cubs", "side": "Over", "home_prob": "Rhett Lowder", "away_prob": "David Peterson", "selection": "Chicago Cubs @ Cincinnati Reds Over 9.5", "total": 9.5, "odds": -115, "risk": 1.15, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-09-20",
+  "plays": [
+    {
+      "game_pk": 824546,
+      "start_utc": "2026-09-20T18:10:00Z",
+      "home": "Chicago White Sox",
+      "away": "Detroit Tigers",
+      "side": "Over",
+      "home_prob": "Davis Martin",
+      "away_prob": "Troy Melton",
+      "selection": "Detroit Tigers @ Chicago White Sox Over 8.5",
+      "total": 8.5,
+      "odds": 112,
+      "risk": 1.0,
+      "to_win": 1.12,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Detroit Tigers 1\u20138 Chicago White Sox"
+      }
+    },
+    {
+      "game_pk": 824462,
+      "start_utc": "2026-09-20T17:40:00Z",
+      "home": "Cincinnati Reds",
+      "away": "Chicago Cubs",
+      "side": "Over",
+      "home_prob": "Rhett Lowder",
+      "away_prob": "David Peterson",
+      "selection": "Chicago Cubs @ Cincinnati Reds Over 9.5",
+      "total": 9.5,
+      "odds": -115,
+      "risk": 1.15,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Chicago Cubs 9\u20131 Cincinnati Reds"
+      }
+    }
+  ]
+}
