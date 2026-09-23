@@ -52,8 +52,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "San Diego Padres 0\u20137 Los Angeles Dodgers"
+      }
     }
   ]
 }
