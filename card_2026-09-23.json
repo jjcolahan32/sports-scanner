@@ -166,8 +166,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Los Angeles Angels 3\u20137 Athletics"
+      }
     },
     {
       "game_pk": 823894,
@@ -182,8 +185,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "San Diego Padres 5\u20131 Los Angeles Dodgers"
+      }
     },
     {
       "game_pk": 823086,
@@ -198,8 +204,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Houston Astros 5\u20136 Seattle Mariners"
+      }
     }
   ]
 }
