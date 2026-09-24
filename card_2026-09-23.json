@@ -1,1 +1,205 @@
-{"date": "2026-09-23", "plays": [{"game_pk": 824223, "start_utc": "2026-09-23T17:10:00Z", "bet_team": "Detroit Tigers", "bet_side": "home", "selection": "Detroit Tigers ML (fade R. Lovelady, live gap)", "odds": -164, "risk": 1.64, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 824785, "start_utc": "2026-09-23T17:35:00Z", "bet_team": "Toronto Blue Jays", "bet_side": "away", "selection": "Toronto Blue Jays ML (back M. Scherzer, live gap)", "odds": 108, "risk": 1.0, "to_win": 1.08, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}, {"game_pk": 823168, "start_utc": "2026-09-23T19:45:00Z", "bet_team": "Minnesota Twins", "bet_side": "away", "selection": "Minnesota Twins ML (back C. Prielipp, live gap; fade C. Perdomo, live gap)", "odds": -154, "risk": 2.31, "to_win": 1.5, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823492, "start_utc": "2026-09-23T23:05:00Z", "bet_team": "New York Yankees", "bet_side": "home", "selection": "New York Yankees ML (fade M. Englert, live gap)", "odds": -144, "risk": 1.44, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824710, "start_utc": "2026-09-23T23:10:00Z", "bet_team": "Cleveland Guardians", "bet_side": "away", "selection": "Cleveland Guardians ML (fade S. Gray, listed mirage)", "odds": 114, "risk": 1.0, "to_win": 1.14, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824868, "start_utc": "2026-09-23T23:15:00Z", "bet_team": "Cincinnati Reds", "bet_side": "away", "selection": "Cincinnati Reds ML (fade C. Sale, live gap)", "odds": 210, "risk": 1.0, "to_win": 2.1, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}, {"game_pk": 824625, "start_utc": "2026-09-23T23:40:00Z", "bet_team": "Chicago Cubs", "bet_side": "home", "selection": "Chicago Cubs ML (fade R. Gusto, live gap)", "odds": -172, "risk": 1.72, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 822841, "start_utc": "2026-09-24T00:05:00Z", "bet_team": "New York Mets", "bet_side": "away", "selection": "New York Mets ML (fade C. Bradford, live gap)", "odds": -108, "risk": 1.08, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 824951, "start_utc": "2026-09-24T01:40:00Z", "bet_team": "Athletics", "bet_side": "home", "selection": "Athletics ML (back J. Springs, live gap)", "odds": 114, "risk": 1.0, "to_win": 1.14, "cap": "dog", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823894, "start_utc": "2026-09-24T02:10:00Z", "bet_team": "Los Angeles Dodgers", "bet_side": "home", "selection": "Los Angeles Dodgers ML (fade R. Ray, live gap)", "odds": -225, "risk": 2.25, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}, {"game_pk": 823086, "start_utc": "2026-09-24T02:10:00Z", "bet_team": "Seattle Mariners", "bet_side": "home", "selection": "Seattle Mariners ML (fade E. Pecko, live gap)", "odds": -126, "risk": 1.26, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-09-23",
+  "plays": [
+    {
+      "game_pk": 824223,
+      "start_utc": "2026-09-23T17:10:00Z",
+      "bet_team": "Detroit Tigers",
+      "bet_side": "home",
+      "selection": "Detroit Tigers ML (fade R. Lovelady, live gap)",
+      "odds": -164,
+      "risk": 1.64,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Washington Nationals 4\u20132 Detroit Tigers"
+      }
+    },
+    {
+      "game_pk": 824785,
+      "start_utc": "2026-09-23T17:35:00Z",
+      "bet_team": "Toronto Blue Jays",
+      "bet_side": "away",
+      "selection": "Toronto Blue Jays ML (back M. Scherzer, live gap)",
+      "odds": 108,
+      "risk": 1.0,
+      "to_win": 1.08,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Toronto Blue Jays 2\u20134 Baltimore Orioles"
+      }
+    },
+    {
+      "game_pk": 823168,
+      "start_utc": "2026-09-23T19:45:00Z",
+      "bet_team": "Minnesota Twins",
+      "bet_side": "away",
+      "selection": "Minnesota Twins ML (back C. Prielipp, live gap; fade C. Perdomo, live gap)",
+      "odds": -154,
+      "risk": 2.31,
+      "to_win": 1.5,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Minnesota Twins 4\u20132 San Francisco Giants"
+      }
+    },
+    {
+      "game_pk": 823492,
+      "start_utc": "2026-09-23T23:05:00Z",
+      "bet_team": "New York Yankees",
+      "bet_side": "home",
+      "selection": "New York Yankees ML (fade M. Englert, live gap)",
+      "odds": -144,
+      "risk": 1.44,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Tampa Bay Rays 2\u20139 New York Yankees"
+      }
+    },
+    {
+      "game_pk": 824710,
+      "start_utc": "2026-09-23T23:10:00Z",
+      "bet_team": "Cleveland Guardians",
+      "bet_side": "away",
+      "selection": "Cleveland Guardians ML (fade S. Gray, listed mirage)",
+      "odds": 114,
+      "risk": 1.0,
+      "to_win": 1.14,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cleveland Guardians 0\u20131 Boston Red Sox"
+      }
+    },
+    {
+      "game_pk": 824868,
+      "start_utc": "2026-09-23T23:15:00Z",
+      "bet_team": "Cincinnati Reds",
+      "bet_side": "away",
+      "selection": "Cincinnati Reds ML (fade C. Sale, live gap)",
+      "odds": 210,
+      "risk": 1.0,
+      "to_win": 2.1,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cincinnati Reds 2\u20133 Atlanta Braves"
+      }
+    },
+    {
+      "game_pk": 824625,
+      "start_utc": "2026-09-23T23:40:00Z",
+      "bet_team": "Chicago Cubs",
+      "bet_side": "home",
+      "selection": "Chicago Cubs ML (fade R. Gusto, live gap)",
+      "odds": -172,
+      "risk": 1.72,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Miami Marlins 3\u20132 Chicago Cubs"
+      }
+    },
+    {
+      "game_pk": 822841,
+      "start_utc": "2026-09-24T00:05:00Z",
+      "bet_team": "New York Mets",
+      "bet_side": "away",
+      "selection": "New York Mets ML (fade C. Bradford, live gap)",
+      "odds": -108,
+      "risk": 1.08,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "New York Mets 7\u20132 Texas Rangers"
+      }
+    },
+    {
+      "game_pk": 824951,
+      "start_utc": "2026-09-24T01:40:00Z",
+      "bet_team": "Athletics",
+      "bet_side": "home",
+      "selection": "Athletics ML (back J. Springs, live gap)",
+      "odds": 114,
+      "risk": 1.0,
+      "to_win": 1.14,
+      "cap": "dog",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 823894,
+      "start_utc": "2026-09-24T02:10:00Z",
+      "bet_team": "Los Angeles Dodgers",
+      "bet_side": "home",
+      "selection": "Los Angeles Dodgers ML (fade R. Ray, live gap)",
+      "odds": -225,
+      "risk": 2.25,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_pk": 823086,
+      "start_utc": "2026-09-24T02:10:00Z",
+      "bet_team": "Seattle Mariners",
+      "bet_side": "home",
+      "selection": "Seattle Mariners ML (fade E. Pecko, live gap)",
+      "odds": -126,
+      "risk": 1.26,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": false,
+      "result": null
+    }
+  ]
+}

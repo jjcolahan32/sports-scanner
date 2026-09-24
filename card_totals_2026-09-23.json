@@ -1,1 +1,27 @@
-{"date": "2026-09-23", "plays": [{"game_pk": 824223, "start_utc": "2026-09-23T17:10:00Z", "home": "Detroit Tigers", "away": "Washington Nationals", "side": "Under", "home_prob": "Framber Valdez", "away_prob": null, "selection": "Washington Nationals @ Detroit Tigers Under 8.5", "total": 8.5, "odds": -142, "risk": 1.42, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-09-23",
+  "plays": [
+    {
+      "game_pk": 824223,
+      "start_utc": "2026-09-23T17:10:00Z",
+      "home": "Detroit Tigers",
+      "away": "Washington Nationals",
+      "side": "Under",
+      "home_prob": "Framber Valdez",
+      "away_prob": null,
+      "selection": "Washington Nationals @ Detroit Tigers Under 8.5",
+      "total": 8.5,
+      "odds": -142,
+      "risk": 1.42,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Washington Nationals 4\u20132 Detroit Tigers"
+      }
+    }
+  ]
+}
