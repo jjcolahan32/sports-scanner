@@ -67,7 +67,14 @@ def _due_checkpoints(et, fired):
 
 
 def market_hours_open(now_utc=None):
-    if os.environ.get("GITHUB_EVENT_NAME") != "schedule":
+    # Used to skip the gate entirely for any run not tagged "schedule" -- but
+    # cron-job.org triggers via workflow_dispatch, never GitHub's native
+    # schedule, so that bypass was live on every production run: any
+    # external ping ran a full odds fetch regardless of whether it landed on
+    # a real checkpoint. Confirmed live: this (and the same bug in scan.py/
+    # scan_cfb.py) is what burned through the monthly Odds API quota. Set
+    # FORCE_SCAN=1 to bypass for a manual test/debug dispatch.
+    if os.environ.get("FORCE_SCAN"):
         return True
     now_utc = now_utc or datetime.now(timezone.utc)
     et = _et_now(now_utc)

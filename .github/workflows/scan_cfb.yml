@@ -5,7 +5,12 @@ name: cfb-scanner
 # Saturday-morning lock for the big slate. No `schedule:` trigger -- see scan_nfl.yml /
 # the MLB scanner's scan.yml for why.
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Bypass the checkpoint gate (manual test/debug only)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -24,6 +29,7 @@ jobs:
           ODDS_API_KEY:         ${{ secrets.ODDS_API_KEY }}
           CFBD_API_KEY:         ${{ secrets.CFBD_API_KEY }}
           NTFY_TOPIC_FOOTBALL:  ${{ secrets.NTFY_TOPIC_FOOTBALL }}
+          FORCE_SCAN:           ${{ inputs.force }}
         run: python scan_cfb.py
       - name: Persist dedupe + opening-line + venue-cache state
         # Runs even if the scan step above failed (e.g. a notify.push() crash after

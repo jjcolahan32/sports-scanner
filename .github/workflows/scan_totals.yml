@@ -10,7 +10,12 @@ name: totals-scanner
 # alongside the external trigger caused two sources to collide (cancelled
 # and failed runs).
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Bypass the checkpoint gate (manual test/debug only)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -29,6 +34,7 @@ jobs:
           ODDS_API_KEY:       ${{ secrets.ODDS_API_KEY }}
           NTFY_TOPIC:         ${{ secrets.NTFY_TOPIC }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          FORCE_SCAN:         ${{ inputs.force }}
         run: python scan_totals.py
       - name: Render dashboard
         run: python render_dashboard.py

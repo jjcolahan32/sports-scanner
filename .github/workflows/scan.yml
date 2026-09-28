@@ -10,7 +10,12 @@ name: card-scanner
 # is immediate and on-demand, not best-effort, so the external trigger
 # alone is both simpler and more reliable.
 on:
-  workflow_dispatch: {}          # called by the external cron service, or manually from the Actions tab
+  workflow_dispatch:             # called by the external cron service, or manually from the Actions tab
+    inputs:
+      force:
+        description: "Bypass the checkpoint gate (manual test/debug only)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write                # allow committing state.json back for dedupe
@@ -30,6 +35,7 @@ jobs:
           NTFY_TOPIC:         ${{ secrets.NTFY_TOPIC }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           LEAD_HOURS:   "4"
+          FORCE_SCAN:   ${{ inputs.force }}
         run: python scan.py
       - name: Render dashboard
         run: python render_dashboard.py

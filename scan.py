@@ -23,8 +23,7 @@ OPENS_FILE = os.environ.get("OPENS_FILE", "opens.json")   # opening-line snapsho
 PUBLIC_FILE = os.environ.get("PUBLIC_FILE", "public.json")  # OPTIONAL bet% you supply
 
 # Exact scan checkpoints in US Eastern time (DST-aware), every 2h from
-# 11am-9pm ET. Only enforced on scheduled (cron) runs; manual dispatch and
-# local runs always proceed.
+# 11am-9pm ET.
 #
 # GitHub's own `schedule:` trigger is unreliable (documented best-effort,
 # confirmed dropping a real fraction of ticks here) AND, when left active
@@ -32,10 +31,15 @@ PUBLIC_FILE = os.environ.get("PUBLIC_FILE", "public.json")  # OPTIONAL bet% you 
 # close together -- some runs got cancelled by the concurrency lock, others
 # hit git-push contention and exhausted their retry budget. Triggering is
 # now handled entirely by an external cron service calling GitHub's
-# workflow_dispatch API on this exact schedule (see scan.yml) -- reliable
-# and on-demand, not best-effort. This gate is a safety-net dedup layer:
-# a checkpoint fires at most once per day even if triggered twice, tracked
-# in last_run_file (resets at midnight ET).
+# workflow_dispatch API on this exact schedule (see scan.yml).
+#
+# market_hours_open() below used to skip this gate entirely for any run
+# whose GITHUB_EVENT_NAME wasn't "schedule" -- meaning every single external
+# cron-job.org ping (which is a workflow_dispatch, never a schedule event)
+# ran a full odds fetch regardless of whether it landed on a real
+# checkpoint. Confirmed live: this is what silently burned through the
+# monthly Odds API quota. The gate is enforced on every run now; set
+# FORCE_SCAN=1 to bypass it for a manual test/debug dispatch.
 SCAN_CHECKPOINTS_ET = [
     (11, 0), (13, 0), (15, 0), (17, 0), (19, 0), (21, 0),
 ]
@@ -64,7 +68,7 @@ def _due_checkpoints(et, fired):
 
 
 def market_hours_open(now_utc=None, last_run_file=None):
-    if os.environ.get("GITHUB_EVENT_NAME") != "schedule":
+    if os.environ.get("FORCE_SCAN"):
         return True
     now_utc = now_utc or datetime.now(timezone.utc)
     et, today = _et_now_and_today(now_utc)

@@ -8,7 +8,12 @@ name: nfl-scanner
 # checkpoint (scan_nfl.py's market_hours_open() only enforces the checkpoint gate when
 # GITHUB_EVENT_NAME is "schedule", which workflow_dispatch never is).
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Bypass the checkpoint gate (manual test/debug only)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -26,6 +31,7 @@ jobs:
         env:
           ODDS_API_KEY:         ${{ secrets.ODDS_API_KEY }}
           NTFY_TOPIC_FOOTBALL:  ${{ secrets.NTFY_TOPIC_FOOTBALL }}
+          FORCE_SCAN:           ${{ inputs.force }}
         run: python scan_nfl.py
       - name: Persist dedupe + opening-line state
         # Runs even if the scan step above failed -- see scan_cfb.yml's persist step for
