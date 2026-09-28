@@ -37,8 +37,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "LAC 16\u201324 BUF"
+      }
     },
     {
       "game_id": "2026_03_CAR_CLE",
@@ -73,8 +76,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "CAR 18\u201321 CLE"
+      }
     },
     {
       "game_id": "2026_03_NYJ_DET",
@@ -109,8 +115,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "NYJ 24\u201331 DET"
+      }
     },
     {
       "game_id": "2026_03_HOU_IND",
@@ -163,8 +172,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "STEAM-FOR",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "HOU 17\u201319 IND"
+      }
     },
     {
       "game_id": "2026_03_NE_JAX",
@@ -217,8 +229,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "TEN 7\u201312 NYG"
+      }
     },
     {
       "game_id": "2026_03_CIN_PIT",
@@ -325,8 +340,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "MIN 23\u201316 TB"
+      }
     },
     {
       "game_id": "2026_03_BAL_DAL",
@@ -433,8 +451,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "LV 35\u201327 NO"
+      }
     },
     {
       "game_id": "2026_03_LA_DEN",
