@@ -73,8 +73,14 @@ def market_hours_open(now_utc=None):
     # external ping ran a full odds fetch regardless of whether it landed on
     # a real checkpoint. Confirmed live: this (and the same bug in scan.py/
     # scan_cfb.py) is what burned through the monthly Odds API quota. Set
-    # FORCE_SCAN=1 to bypass for a manual test/debug dispatch.
-    if os.environ.get("FORCE_SCAN"):
+    # FORCE_SCAN=true to bypass for a manual test/debug dispatch. GitHub
+    # Actions stringifies a boolean workflow_dispatch input into the env var
+    # either way ("true" or "false") -- a bare truthy check on the env var
+    # would make FORCE_SCAN=false (the default on every ordinary dispatch)
+    # bypass the gate too, since "false" is a non-empty, truthy Python string.
+    # Confirmed live: this exact mistake silently defeated the gate again the
+    # first time it was tested. Must compare against the literal string.
+    if os.environ.get("FORCE_SCAN", "").lower() == "true":
         return True
     now_utc = now_utc or datetime.now(timezone.utc)
     et = _et_now(now_utc)

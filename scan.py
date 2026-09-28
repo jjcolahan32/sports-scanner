@@ -68,7 +68,13 @@ def _due_checkpoints(et, fired):
 
 
 def market_hours_open(now_utc=None, last_run_file=None):
-    if os.environ.get("FORCE_SCAN"):
+    # GitHub Actions stringifies a boolean workflow_dispatch input into the env
+    # var either way ("true" or "false") -- a bare truthy check on the env var
+    # would make FORCE_SCAN=false (the default on every ordinary dispatch)
+    # bypass the gate too, since "false" is a non-empty, truthy Python string.
+    # Confirmed live: this exact mistake silently defeated the gate again the
+    # first time it was tested. Must compare against the literal string.
+    if os.environ.get("FORCE_SCAN", "").lower() == "true":
         return True
     now_utc = now_utc or datetime.now(timezone.utc)
     et, today = _et_now_and_today(now_utc)
