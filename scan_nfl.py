@@ -29,6 +29,7 @@ from model import american_to_stake, cap_rule  # pure odds math, reused unmodifi
 STATE_FILE = os.environ.get("STATE_NFL_FILE", "state_nfl.json")
 OPENS_FILE = os.environ.get("OPENS_NFL_FILE", "opens_nfl.json")
 LAST_RUN_FILE = os.environ.get("LAST_SCAN_NFL_FILE", "last_scan_nfl.json")
+FETCH_ALERT_FILE = os.environ.get("FETCH_ALERT_NFL_FILE", "fetch_alert_nfl.json")
 NTFY_TOPIC_FOOTBALL = os.environ.get("NTFY_TOPIC_FOOTBALL", "")
 
 # Weekday numbers use datetime.weekday(): Mon=0 ... Sun=6. See RULES_FOOTBALL.md Section 6.
@@ -97,6 +98,26 @@ def load_json(path, default):
 def save_json(path, obj):
     with open(path, "w") as f:
         json.dump(obj, f)
+
+
+def _alert_fetch_failure(reason):
+    """A fetch failure here (bad/expired API key, provider outage) makes main() return
+    early -- the GitHub Actions job still reports 'success' since nothing raised, so this
+    is the only signal the run produced nothing. Confirmed live: ODDS_API_KEY started
+    returning 401 Unauthorized and every scan silently no-opped for a full weekend with
+    zero visible failure anywhere in GH Actions. Throttled to once per ET calendar day
+    (fetch_alert_nfl.json) so a stuck key doesn't page every checkpoint."""
+    if not NTFY_TOPIC_FOOTBALL:
+        return
+    today = _et_now(datetime.now(timezone.utc)).strftime("%Y-%m-%d")
+    state = load_json(FETCH_ALERT_FILE, {})
+    if state.get("date") == today:
+        return
+    try:
+        notify.push("🏈 NFL scan broken", reason, topic=NTFY_TOPIC_FOOTBALL, tag="warning")
+        save_json(FETCH_ALERT_FILE, {"date": today})
+    except Exception as e:
+        print(f"Fetch-failure alert itself failed to send: {e}")
 
 
 def in_window(game, now=None):
@@ -286,6 +307,7 @@ def main():
         odds = fetch_odds_football.football_odds("nfl")
     except Exception as e:
         print(f"Odds fetch failed, skipping this run: {e}")
+        _alert_fetch_failure(f"Odds fetch failed: {e}")
         return
 
     opens = record_opens(games, odds, load_json(OPENS_FILE, {}), week_key)

@@ -43,6 +43,7 @@ jobs:
           git add opens_nfl.json || true
           git add card_nfl_*.json || true
           git add last_scan_nfl.json || true
+          git add fetch_alert_nfl.json || true
           git commit -m "nfl state: $(date -u +%F_%H:%M)" || echo "no change"
           for i in 1 2 3 4 5; do
             git push && exit 0

@@ -24,6 +24,7 @@ from model import american_to_stake, cap_rule  # pure odds math, reused unmodifi
 STATE_FILE = os.environ.get("STATE_CFB_FILE", "state_cfb.json")
 OPENS_FILE = os.environ.get("OPENS_CFB_FILE", "opens_cfb.json")
 LAST_RUN_FILE = os.environ.get("LAST_SCAN_CFB_FILE", "last_scan_cfb.json")
+FETCH_ALERT_FILE = os.environ.get("FETCH_ALERT_CFB_FILE", "fetch_alert_cfb.json")
 NTFY_TOPIC_FOOTBALL = os.environ.get("NTFY_TOPIC_FOOTBALL", "")
 
 # Weekday numbers use datetime.weekday(): Mon=0 ... Sun=6. See RULES_FOOTBALL.md Section 6.
@@ -91,6 +92,26 @@ def load_json(path, default):
 def save_json(path, obj):
     with open(path, "w") as f:
         json.dump(obj, f)
+
+
+def _alert_fetch_failure(reason):
+    """A fetch failure here (bad/expired API key, provider outage) makes main() return
+    early -- the GitHub Actions job still reports 'success' since nothing raised, so this
+    is the only signal the run produced nothing. Confirmed live: ODDS_API_KEY started
+    returning 401 Unauthorized and every scan silently no-opped for a full weekend with
+    zero visible failure anywhere in GH Actions. Throttled to once per ET calendar day
+    (fetch_alert_cfb.json) so a stuck key doesn't page every checkpoint."""
+    if not NTFY_TOPIC_FOOTBALL:
+        return
+    today = _et_now(datetime.now(timezone.utc)).strftime("%Y-%m-%d")
+    state = load_json(FETCH_ALERT_FILE, {})
+    if state.get("date") == today:
+        return
+    try:
+        notify.push("🏈 CFB scan broken", reason, topic=NTFY_TOPIC_FOOTBALL, tag="warning")
+        save_json(FETCH_ALERT_FILE, {"date": today})
+    except Exception as e:
+        print(f"Fetch-failure alert itself failed to send: {e}")
 
 
 def in_window(game, now=None):
@@ -279,6 +300,7 @@ def main():
         all_season_games = fetch_cfb.season_games()
     except Exception as e:
         print(f"CFBD schedule fetch failed, skipping this run: {e}")
+        _alert_fetch_failure(f"CFBD schedule fetch failed: {e}")
         return
     games = [g for g in all_season_games if in_window(g, now)]
     if not games:
@@ -289,6 +311,7 @@ def main():
         odds = fetch_odds_football.football_odds("cfb")
     except Exception as e:
         print(f"Odds fetch failed, skipping this run: {e}")
+        _alert_fetch_failure(f"Odds fetch failed: {e}")
         return
 
     opens = record_opens(games, odds, load_json(OPENS_FILE, {}), today_key)

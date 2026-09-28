@@ -45,6 +45,7 @@ jobs:
           git add card_cfb_*.json || true
           git add last_scan_cfb.json || true
           git add venues_cfb_cache.json || true
+          git add fetch_alert_cfb.json || true
           git commit -m "cfb state: $(date -u +%F_%H:%M)" || echo "no change"
           for i in 1 2 3 4 5; do
             git push && exit 0
