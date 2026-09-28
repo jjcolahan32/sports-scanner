@@ -477,6 +477,9 @@ def main():
     record_run()
 
     games = fetch_mlb.todays_games()
+    if not games:
+        print("No MLB games today — skipping the odds fetch entirely.")
+        return
     odds = fetch_odds.mlb_moneylines()
 
     opens = record_opens(games, odds, load_json(OPENS_FILE, {}))   # snapshot opening lines

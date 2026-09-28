@@ -127,6 +127,9 @@ def main():
     record_run(last_run_file=LAST_RUN_FILE)
 
     games = fetch_mlb.todays_games()
+    if not games:
+        print("No MLB games today — skipping the odds fetch entirely.")
+        return
     totals_odds = fetch_odds.mlb_totals()
     try:
         savant_stats = fetch_savant.season_pitcher_stats()
