@@ -1,1 +1,24 @@
-{"date": "2026-10-01", "plays": [{"game_pk": 849844, "start_utc": "2026-10-02T00:00:00Z", "bet_team": "Philadelphia Phillies", "bet_side": "away", "selection": "Philadelphia Phillies ML (fade R. Kerr, live gap)", "odds": -110, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 3, "graded": false, "result": null}]}
+{
+  "date": "2026-10-01",
+  "plays": [
+    {
+      "game_pk": 849844,
+      "start_utc": "2026-10-02T00:00:00Z",
+      "bet_team": "Philadelphia Phillies",
+      "bet_side": "away",
+      "selection": "Philadelphia Phillies ML (fade R. Kerr, live gap)",
+      "odds": -110,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 3,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Philadelphia Phillies 2\u20136 Atlanta Braves"
+      }
+    }
+  ]
+}
