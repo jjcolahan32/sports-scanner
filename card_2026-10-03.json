@@ -33,8 +33,11 @@
       "verdict": "PLAY",
       "rlm_tag": "NEUTRAL",
       "stars": 2,
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "San Diego Padres 2\u20133 Milwaukee Brewers"
+      }
     }
   ]
 }
