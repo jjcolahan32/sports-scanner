@@ -43,7 +43,7 @@ fast-follow (RULES_FOOTBALL.md Section 2G), not built yet.
 5. **External cron:** using the same cron-job.org account as MLB, add workflow_dispatch
    triggers hitting these three workflows at (all US Eastern, DST-aware):
    - `scan_nfl.yml` — Tue 10:00, Wed 10:00, Thu 14:00, Fri 16:00, Sat 18:00, Mon 14:00
-   - `scan_cfb.yml` — Tue 10:00, Wed 10:00, Thu 14:00, Fri 16:00, Sat 09:00
+   - `scan_cfb.yml` — Tue–Fri 16:00, Sat 10:00, 14:00, 18:00, 20:00
    - `grade_football.yml` — 06:00 and 12:00, every day
    (These times live in `SCAN_CHECKPOINTS_ET`/`GRADE_CHECKPOINTS_ET` at the top of each
    script — tune there if you want to change the cadence, same as the MLB build.)

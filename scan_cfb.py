@@ -28,12 +28,23 @@ FETCH_ALERT_FILE = os.environ.get("FETCH_ALERT_CFB_FILE", "fetch_alert_cfb.json"
 NTFY_TOPIC_FOOTBALL = os.environ.get("NTFY_TOPIC_FOOTBALL", "")
 
 # Weekday numbers use datetime.weekday(): Mon=0 ... Sun=6. See RULES_FOOTBALL.md Section 6.
+# MUST be a subset of the times cron-job.org actually fires this workflow (the gate in
+# market_hours_open() now genuinely blocks any dispatch that doesn't land within
+# CHECKPOINT_GRACE_MINUTES after one of these). Observed cron fires: 16:00 ET Tue-Fri, and
+# every 2h 10:00-20:00 ET on Saturday. The old list (Tue/Wed 10:00, Thu 14:00, Sat 09:00)
+# never lined up with any of those, so every Saturday run was skipped as "not a
+# checkpoint" -- confirmed live 2026-10-10. Saturday uses 4 of the 6 fires, one scan
+# ~1.5-2h ahead of each kickoff window (noon / 3:30 / 7:30 / late West Coast); the 12:00
+# and 16:00 fires are deliberately left to skip -- a zero-quota no-op -- to save Odds API calls.
 SCAN_CHECKPOINTS_ET = [
-    (1, 10, 0),   # Tue 10:00 -- standalone Tue games, own same-day scan
-    (2, 10, 0),   # Wed 10:00 -- standalone Wed games
-    (3, 14, 0),   # Thu 14:00 -- Thu games mini-scan
-    (4, 16, 0),   # Fri 16:00 -- Fri games mini-scan
-    (5, 9, 0),    # Sat 09:00 -- lock the main Saturday slate
+    (1, 16, 0),   # Tue 16:00 -- Tue-night games
+    (2, 16, 0),   # Wed 16:00 -- Wed-night games
+    (3, 16, 0),   # Thu 16:00 -- Thu-night games
+    (4, 16, 0),   # Fri 16:00 -- Fri-night games
+    (5, 10, 0),   # Sat 10:00 -- noon kickoffs + full-day read
+    (5, 14, 0),   # Sat 14:00 -- 3:30 kickoffs
+    (5, 18, 0),   # Sat 18:00 -- 7:30 kickoffs
+    (5, 20, 0),   # Sat 20:00 -- late/West Coast kickoffs, last look of the day
 ]
 CHECKPOINT_GRACE_MINUTES = 30
 
