@@ -22,8 +22,15 @@ STATE_FILE = os.environ.get("STATE_FILE", "state.json")
 OPENS_FILE = os.environ.get("OPENS_FILE", "opens.json")   # opening-line snapshots (for RLM)
 PUBLIC_FILE = os.environ.get("PUBLIC_FILE", "public.json")  # OPTIONAL bet% you supply
 
-# Exact scan checkpoints in US Eastern time (DST-aware), every 2h from
-# 11am-9pm ET.
+# Exact scan checkpoints in US Eastern time (DST-aware): noon, 4pm, 8pm.
+#
+# Cut from 6/day to 3/day starting October 2026: MLB moves into the playoffs
+# Oct 1 (1-4 games/day instead of a full ~15-game slate), so 6x/day was
+# oversized for what's left to cover, and the Odds API's combined quota
+# (this + the separate NFL/CFB scanners sharing the same ODDS_API_KEY) was
+# running over the free 500/month cap. These 3 checkpoints tile cleanly with
+# LEAD_HOURS=4 -- noon->4pm, 4pm->8pm, 8pm->midnight -- so no coverage gap;
+# postseason games essentially never start before noon ET.
 #
 # GitHub's own `schedule:` trigger is unreliable (documented best-effort,
 # confirmed dropping a real fraction of ticks here) AND, when left active
@@ -41,9 +48,9 @@ PUBLIC_FILE = os.environ.get("PUBLIC_FILE", "public.json")  # OPTIONAL bet% you 
 # monthly Odds API quota. The gate is enforced on every run now; set
 # FORCE_SCAN=1 to bypass it for a manual test/debug dispatch.
 SCAN_CHECKPOINTS_ET = [
-    (11, 0), (13, 0), (15, 0), (17, 0), (19, 0), (21, 0),
+    (12, 0), (16, 0), (20, 0),
 ]
-CHECKPOINT_GRACE_MINUTES = 20   # tightest gap between checkpoints here is 90 min, plenty of margin
+CHECKPOINT_GRACE_MINUTES = 20   # tightest gap between checkpoints here is 240 min, plenty of margin
 LAST_RUN_FILE = os.environ.get("LAST_RUN_FILE", "last_scan.json")
 
 
