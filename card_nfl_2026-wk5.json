@@ -127,8 +127,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "LV 17\u201345 NE"
+      }
     },
     {
       "game_id": "2026_05_MIN_NO",
@@ -163,8 +166,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "MIN 23\u201313 NO"
+      }
     },
     {
       "game_id": "2026_05_CLE_NYJ",
@@ -253,8 +259,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "IND 22\u201334 PIT"
+      }
     },
     {
       "game_id": "2026_05_IND_PIT",
@@ -307,8 +316,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "HOU 26\u20133 TEN"
+      }
     },
     {
       "game_id": "2026_05_HOU_TEN",
@@ -505,8 +517,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "CHI 7\u201331 GB"
+      }
     },
     {
       "game_id": "2026_05_SF_SEA",
@@ -559,8 +574,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "SF 32\u201329 SEA"
+      }
     },
     {
       "game_id": "2026_05_BAL_ATL",
@@ -613,8 +631,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "BAL 30\u201323 ATL"
+      }
     },
     {
       "game_id": "2026_05_BUF_LA",
