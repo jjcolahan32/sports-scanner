@@ -1,1 +1,24 @@
-{"date": "2026-10-12", "plays": [{"game_pk": 849820, "start_utc": "2026-10-13T00:00:00Z", "bet_team": "Tampa Bay Rays", "bet_side": "home", "selection": "Tampa Bay Rays ML (fade F. Griffin, live gap)", "odds": -172, "risk": 1.72, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 2, "graded": false, "result": null}]}
+{
+  "date": "2026-10-12",
+  "plays": [
+    {
+      "game_pk": 849820,
+      "start_utc": "2026-10-13T00:00:00Z",
+      "bet_team": "Tampa Bay Rays",
+      "bet_side": "home",
+      "selection": "Tampa Bay Rays ML (fade F. Griffin, live gap)",
+      "odds": -172,
+      "risk": 1.72,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 2,
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Cleveland Guardians 7\u20133 Tampa Bay Rays"
+      }
+    }
+  ]
+}
