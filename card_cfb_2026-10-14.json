@@ -1,1 +1,80 @@
-{"date": "2026-10-14", "plays": [{"game_id": 401871054, "start_utc": "2026-10-14T23:30:00Z", "home": "Missouri State", "away": "Kennesaw State", "market": "spread", "side": "away", "selection": "Kennesaw State -2.5", "price": -110, "point": -2.5, "risk": null, "to_win": null, "cap": null, "verdict": "NOTE", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401871054, "start_utc": "2026-10-14T23:30:00Z", "home": "Missouri State", "away": "Kennesaw State", "market": "total", "side": "under", "selection": "Under 52.5", "price": -110, "point": 52.5, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "CONFIRMED", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401871054, "start_utc": "2026-10-14T23:30:00Z", "home": "Missouri State", "away": "Kennesaw State", "market": "ml", "side": "away", "selection": "Kennesaw State ML", "price": -134, "point": null, "risk": null, "to_win": null, "cap": null, "verdict": "NOTE", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401871068, "start_utc": "2026-10-15T00:00:00Z", "home": "Sam Houston", "away": "Western Kentucky", "market": "total", "side": "under", "selection": "Under 53.5", "price": -112, "point": 53.5, "risk": null, "to_win": null, "cap": null, "verdict": "NOTE", "rlm_tag": "NEUTRAL", "graded": false, "result": null}]}
+{
+  "date": "2026-10-14",
+  "plays": [
+    {
+      "game_id": 401871054,
+      "start_utc": "2026-10-14T23:30:00Z",
+      "home": "Missouri State",
+      "away": "Kennesaw State",
+      "market": "spread",
+      "side": "away",
+      "selection": "Kennesaw State -2.5",
+      "price": -110,
+      "point": -2.5,
+      "risk": null,
+      "to_win": null,
+      "cap": null,
+      "verdict": "NOTE",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_id": 401871054,
+      "start_utc": "2026-10-14T23:30:00Z",
+      "home": "Missouri State",
+      "away": "Kennesaw State",
+      "market": "total",
+      "side": "under",
+      "selection": "Under 52.5",
+      "price": -110,
+      "point": 52.5,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "CONFIRMED",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Kennesaw State 21\u201324 Missouri State"
+      }
+    },
+    {
+      "game_id": 401871054,
+      "start_utc": "2026-10-14T23:30:00Z",
+      "home": "Missouri State",
+      "away": "Kennesaw State",
+      "market": "ml",
+      "side": "away",
+      "selection": "Kennesaw State ML",
+      "price": -134,
+      "point": null,
+      "risk": null,
+      "to_win": null,
+      "cap": null,
+      "verdict": "NOTE",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_id": 401871068,
+      "start_utc": "2026-10-15T00:00:00Z",
+      "home": "Sam Houston",
+      "away": "Western Kentucky",
+      "market": "total",
+      "side": "under",
+      "selection": "Under 53.5",
+      "price": -112,
+      "point": 53.5,
+      "risk": null,
+      "to_win": null,
+      "cap": null,
+      "verdict": "NOTE",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    }
+  ]
+}
