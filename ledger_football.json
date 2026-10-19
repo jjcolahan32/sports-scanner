@@ -1,58 +1,58 @@
 {
-  "units": -1.97,
+  "units": -6.25,
   "record": {
-    "w": 71,
-    "l": 69,
+    "w": 79,
+    "l": 80,
     "push": 0
   },
   "by_sport": {
     "cfb": {
-      "w": 42,
-      "l": 44,
+      "w": 48,
+      "l": 51,
       "push": 0,
-      "units": -7.92
+      "units": -9.6
     },
     "nfl": {
-      "w": 29,
-      "l": 25,
+      "w": 31,
+      "l": 29,
       "push": 0,
-      "units": 5.95
+      "units": 3.35
     }
   },
   "by_market": {
     "total": {
-      "w": 26,
-      "l": 18,
+      "w": 28,
+      "l": 22,
       "push": 0,
-      "units": 6.47
+      "units": 4.18
     },
     "spread": {
-      "w": 27,
-      "l": 32,
+      "w": 33,
+      "l": 36,
       "push": 0,
-      "units": -8.62
+      "units": -7.03
     },
     "ml": {
       "w": 18,
-      "l": 19,
+      "l": 22,
       "push": 0,
-      "units": 0.18
+      "units": -3.4
     }
   },
   "by_verdict": {
     "CONFIRMED": {
-      "w": 71,
-      "l": 69,
+      "w": 79,
+      "l": 80,
       "push": 0,
-      "units": -1.97
+      "units": -6.25
     }
   },
   "by_tag": {
     "NEUTRAL": {
-      "w": 68,
-      "l": 68,
+      "w": 76,
+      "l": 79,
       "push": 0,
-      "units": -3.8
+      "units": -8.08
     },
     "STEAM-FOR": {
       "w": 3,
@@ -222,41 +222,48 @@
       "l": 0,
       "push": 0,
       "units": 1.0
+    },
+    {
+      "graded_at": "2026-10-19T04:00:22.685494+00:00",
+      "w": 8,
+      "l": 11,
+      "push": 0,
+      "units": -4.28
     }
   ],
   "by_sport_market": {
     "nfl": {
       "total": {
         "w": 10,
-        "l": 9,
+        "l": 10,
         "push": 0,
-        "units": 0.23
+        "units": -0.79
       },
       "spread": {
-        "w": 4,
+        "w": 6,
         "l": 4,
         "push": 0,
-        "units": -0.48
+        "units": 1.52
       },
       "ml": {
         "w": 15,
-        "l": 12,
+        "l": 15,
         "push": 0,
-        "units": 6.2
+        "units": 2.62
       }
     },
     "cfb": {
       "total": {
-        "w": 16,
-        "l": 9,
+        "w": 18,
+        "l": 12,
         "push": 0,
-        "units": 6.24
+        "units": 4.97
       },
       "spread": {
-        "w": 23,
-        "l": 28,
+        "w": 27,
+        "l": 32,
         "push": 0,
-        "units": -8.14
+        "units": -8.55
       },
       "ml": {
         "w": 3,
