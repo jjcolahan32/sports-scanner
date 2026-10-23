@@ -1,7 +1,7 @@
 {
-  "units": -6.25,
+  "units": -5.25,
   "record": {
-    "w": 79,
+    "w": 80,
     "l": 80,
     "push": 0
   },
@@ -13,18 +13,18 @@
       "units": -9.6
     },
     "nfl": {
-      "w": 31,
+      "w": 32,
       "l": 29,
       "push": 0,
-      "units": 3.35
+      "units": 4.35
     }
   },
   "by_market": {
     "total": {
-      "w": 28,
+      "w": 29,
       "l": 22,
       "push": 0,
-      "units": 4.18
+      "units": 5.18
     },
     "spread": {
       "w": 33,
@@ -41,18 +41,18 @@
   },
   "by_verdict": {
     "CONFIRMED": {
-      "w": 79,
+      "w": 80,
       "l": 80,
       "push": 0,
-      "units": -6.25
+      "units": -5.25
     }
   },
   "by_tag": {
     "NEUTRAL": {
-      "w": 76,
+      "w": 77,
       "l": 79,
       "push": 0,
-      "units": -8.08
+      "units": -7.08
     },
     "STEAM-FOR": {
       "w": 3,
@@ -229,15 +229,22 @@
       "l": 11,
       "push": 0,
       "units": -4.28
+    },
+    {
+      "graded_at": "2026-10-23T04:00:18.237674+00:00",
+      "w": 1,
+      "l": 0,
+      "push": 0,
+      "units": 1.0
     }
   ],
   "by_sport_market": {
     "nfl": {
       "total": {
-        "w": 10,
+        "w": 11,
         "l": 10,
         "push": 0,
-        "units": -0.79
+        "units": 0.21
       },
       "spread": {
         "w": 6,
