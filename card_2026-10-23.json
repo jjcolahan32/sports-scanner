@@ -1,1 +1,24 @@
-{"date": "2026-10-23", "plays": [{"game_pk": 849805, "start_utc": "2026-10-24T00:00:00Z", "bet_team": "Milwaukee Brewers", "bet_side": "home", "selection": "Milwaukee Brewers ML (fade N. Martinez, live gap)", "odds": -190, "risk": 1.9, "to_win": 1.0, "cap": "must_parlay", "verdict": "PLAY", "rlm_tag": "NEUTRAL", "stars": 4, "graded": false, "result": null}]}
+{
+  "date": "2026-10-23",
+  "plays": [
+    {
+      "game_pk": 849805,
+      "start_utc": "2026-10-24T00:00:00Z",
+      "bet_team": "Milwaukee Brewers",
+      "bet_side": "home",
+      "selection": "Milwaukee Brewers ML (fade N. Martinez, live gap)",
+      "odds": -190,
+      "risk": 1.9,
+      "to_win": 1.0,
+      "cap": "must_parlay",
+      "verdict": "PLAY",
+      "rlm_tag": "NEUTRAL",
+      "stars": 4,
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Tampa Bay Rays 2\u20133 Milwaukee Brewers"
+      }
+    }
+  ]
+}
