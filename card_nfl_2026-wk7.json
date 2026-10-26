@@ -145,8 +145,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "STEAM-FOR",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "CIN 35\u201313 BAL"
+      }
     },
     {
       "game_id": "2026_07_TB_CAR",
@@ -235,8 +238,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "IND 10\u201316 MIN"
+      }
     },
     {
       "game_id": "2026_07_MIA_NYJ",
@@ -325,8 +331,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "DEN 30\u201316 ARI"
+      }
     },
     {
       "game_id": "2026_07_DEN_ARI",
@@ -505,8 +514,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "KC 3\u201320 SEA"
+      }
     },
     {
       "game_id": "2026_07_DAL_PHI",
