@@ -73,8 +73,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "BAL 10\u201336 BUF"
+      }
     },
     {
       "game_id": "2026_08_BAL_BUF",
@@ -199,8 +202,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "MIN 15\u201319 DET"
+      }
     },
     {
       "game_id": "2026_08_IND_JAX",
@@ -217,8 +223,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "IND 7\u201342 JAX"
+      }
     },
     {
       "game_id": "2026_08_IND_JAX",
@@ -235,8 +244,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "IND 7\u201342 JAX"
+      }
     },
     {
       "game_id": "2026_08_LV_NYJ",
@@ -307,8 +319,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "ATL 0\u201316 TB"
+      }
     },
     {
       "game_id": "2026_08_KC_DEN",
@@ -361,8 +376,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "NE 24\u201319 MIA"
+      }
     },
     {
       "game_id": "2026_08_NE_MIA",
@@ -415,8 +433,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "PHI 10\u201327 WAS"
+      }
     },
     {
       "game_id": "2026_08_PHI_WAS",
@@ -433,8 +454,11 @@
       "cap": "must_parlay",
       "verdict": "CONFIRMED",
       "rlm_tag": "STEAM-FOR",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "PHI 10\u201327 WAS"
+      }
     },
     {
       "game_id": "2026_08_CHI_SEA",
