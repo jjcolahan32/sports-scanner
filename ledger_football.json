@@ -1,58 +1,58 @@
 {
-  "units": -9.78,
+  "units": -11.08,
   "record": {
-    "w": 95,
-    "l": 98,
+    "w": 97,
+    "l": 101,
     "push": 0
   },
   "by_sport": {
     "cfb": {
-      "w": 55,
-      "l": 64,
+      "w": 56,
+      "l": 66,
       "push": 0,
-      "units": -16.9
+      "units": -18.1
     },
     "nfl": {
-      "w": 40,
-      "l": 34,
+      "w": 41,
+      "l": 35,
       "push": 0,
-      "units": 7.12
+      "units": 7.02
     }
   },
   "by_market": {
     "total": {
       "w": 36,
-      "l": 26,
+      "l": 27,
       "push": 0,
-      "units": 7.73
+      "units": 6.63
     },
     "spread": {
-      "w": 39,
-      "l": 47,
+      "w": 40,
+      "l": 49,
       "push": 0,
-      "units": -13.11
+      "units": -14.31
     },
     "ml": {
-      "w": 20,
+      "w": 21,
       "l": 25,
       "push": 0,
-      "units": -4.4
+      "units": -3.4
     }
   },
   "by_verdict": {
     "CONFIRMED": {
-      "w": 95,
-      "l": 98,
+      "w": 97,
+      "l": 101,
       "push": 0,
-      "units": -9.78
+      "units": -11.08
     }
   },
   "by_tag": {
     "NEUTRAL": {
-      "w": 90,
-      "l": 97,
+      "w": 92,
+      "l": 100,
       "push": 0,
-      "units": -13.61
+      "units": -14.91
     },
     "STEAM-FOR": {
       "w": 5,
@@ -264,21 +264,28 @@
       "l": 11,
       "push": 0,
       "units": -2.94
+    },
+    {
+      "graded_at": "2026-11-06T05:00:43.281516+00:00",
+      "w": 2,
+      "l": 3,
+      "push": 0,
+      "units": -1.3
     }
   ],
   "by_sport_market": {
     "nfl": {
       "total": {
         "w": 14,
-        "l": 11,
+        "l": 12,
         "push": 0,
-        "units": 2.11
+        "units": 1.01
       },
       "spread": {
-        "w": 9,
+        "w": 10,
         "l": 6,
         "push": 0,
-        "units": 2.39
+        "units": 3.39
       },
       "ml": {
         "w": 17,
@@ -296,15 +303,15 @@
       },
       "spread": {
         "w": 30,
-        "l": 41,
+        "l": 43,
         "push": 0,
-        "units": -15.5
+        "units": -17.7
       },
       "ml": {
-        "w": 3,
+        "w": 4,
         "l": 8,
         "push": 0,
-        "units": -7.02
+        "units": -6.02
       }
     }
   }
