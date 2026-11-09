@@ -112,8 +112,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "DEN 26\u201321 CAR"
+      }
     },
     {
       "game_id": "2026_09_DAL_IND",
@@ -184,8 +187,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "DET 19\u20139 MIA"
+      }
     },
     {
       "game_id": "2026_09_CLE_NO",
@@ -238,8 +244,11 @@
       "cap": "must_parlay",
       "verdict": "CONFIRMED",
       "rlm_tag": "STEAM-FOR",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "CLE 22\u201323 NO"
+      }
     },
     {
       "game_id": "2026_09_NYG_PHI",
@@ -256,8 +265,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "NYG 19\u201311 PHI"
+      }
     },
     {
       "game_id": "2026_09_NYG_PHI",
@@ -328,8 +340,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "HOU 44\u201322 LAC"
+      }
     },
     {
       "game_id": "2026_09_HOU_LAC",
@@ -382,8 +397,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "LV 17\u201338 SF"
+      }
     },
     {
       "game_id": "2026_09_GB_NE",
@@ -472,8 +490,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "ARI 3\u201317 SEA"
+      }
     },
     {
       "game_id": "2026_09_TB_CHI",
