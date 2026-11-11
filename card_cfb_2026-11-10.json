@@ -1,1 +1,80 @@
-{"date": "2026-11-10", "plays": [{"game_id": 401866458, "start_utc": "2026-11-11T00:00:00Z", "home": "Akron", "away": "Western Michigan", "market": "spread", "side": "away", "selection": "Western Michigan -14.5", "price": -115, "point": -14.5, "risk": 1.15, "to_win": 1.0, "cap": "single_ok", "verdict": "CONFIRMED", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401866458, "start_utc": "2026-11-11T00:00:00Z", "home": "Akron", "away": "Western Michigan", "market": "total", "side": "under", "selection": "Under 49.5", "price": -110, "point": 49.5, "risk": null, "to_win": null, "cap": null, "verdict": "NOTE", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401866459, "start_utc": "2026-11-11T00:00:00Z", "home": "Bowling Green", "away": "Kent State", "market": "total", "side": "under", "selection": "Under 43.5", "price": -110, "point": 43.5, "risk": null, "to_win": null, "cap": null, "verdict": "NOTE", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401866460, "start_utc": "2026-11-11T01:00:00Z", "home": "Miami (OH)", "away": "Ohio", "market": "total", "side": "under", "selection": "Under 47.5", "price": -105, "point": 47.5, "risk": null, "to_win": null, "cap": null, "verdict": "NOTE", "rlm_tag": "NEUTRAL", "graded": false, "result": null}]}
+{
+  "date": "2026-11-10",
+  "plays": [
+    {
+      "game_id": 401866458,
+      "start_utc": "2026-11-11T00:00:00Z",
+      "home": "Akron",
+      "away": "Western Michigan",
+      "market": "spread",
+      "side": "away",
+      "selection": "Western Michigan -14.5",
+      "price": -115,
+      "point": -14.5,
+      "risk": 1.15,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "CONFIRMED",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Western Michigan 42\u201314 Akron"
+      }
+    },
+    {
+      "game_id": 401866458,
+      "start_utc": "2026-11-11T00:00:00Z",
+      "home": "Akron",
+      "away": "Western Michigan",
+      "market": "total",
+      "side": "under",
+      "selection": "Under 49.5",
+      "price": -110,
+      "point": 49.5,
+      "risk": null,
+      "to_win": null,
+      "cap": null,
+      "verdict": "NOTE",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_id": 401866459,
+      "start_utc": "2026-11-11T00:00:00Z",
+      "home": "Bowling Green",
+      "away": "Kent State",
+      "market": "total",
+      "side": "under",
+      "selection": "Under 43.5",
+      "price": -110,
+      "point": 43.5,
+      "risk": null,
+      "to_win": null,
+      "cap": null,
+      "verdict": "NOTE",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_id": 401866460,
+      "start_utc": "2026-11-11T01:00:00Z",
+      "home": "Miami (OH)",
+      "away": "Ohio",
+      "market": "total",
+      "side": "under",
+      "selection": "Under 47.5",
+      "price": -105,
+      "point": 47.5,
+      "risk": null,
+      "to_win": null,
+      "cap": null,
+      "verdict": "NOTE",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    }
+  ]
+}
