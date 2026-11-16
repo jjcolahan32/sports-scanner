@@ -76,8 +76,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "NE 10\u201335 DET"
+      }
     },
     {
       "game_id": "2026_10_NE_DET",
@@ -112,8 +115,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "STEAM-FOR",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "KC 35\u201313 ATL"
+      }
     },
     {
       "game_id": "2026_10_KC_ATL",
@@ -202,8 +208,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "STEAM-FOR",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "MIN 30\u201310 GB"
+      }
     },
     {
       "game_id": "2026_10_MIA_IND",
@@ -292,8 +301,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "JAX 40\u201323 TEN"
+      }
     },
     {
       "game_id": "2026_10_LA_ARI",
@@ -472,8 +484,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "HOU 24\u201327 CLE"
+      }
     },
     {
       "game_id": "2026_10_MIA_IND",

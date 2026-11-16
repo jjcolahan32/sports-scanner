@@ -1,8 +1,8 @@
 {
-  "units": -5.43,
+  "units": -4.06,
   "record": {
-    "w": 106,
-    "l": 104,
+    "w": 109,
+    "l": 106,
     "push": 0
   },
   "by_sport": {
@@ -13,52 +13,52 @@
       "units": -15.1
     },
     "nfl": {
-      "w": 47,
-      "l": 38,
+      "w": 50,
+      "l": 40,
       "push": 0,
-      "units": 9.67
+      "units": 11.04
     }
   },
   "by_market": {
     "total": {
       "w": 40,
-      "l": 28,
+      "l": 29,
       "push": 0,
-      "units": 9.58
+      "units": 8.53
     },
     "spread": {
-      "w": 44,
+      "w": 46,
       "l": 49,
       "push": 0,
-      "units": -10.31
+      "units": -8.31
     },
     "ml": {
-      "w": 22,
-      "l": 27,
+      "w": 23,
+      "l": 28,
       "push": 0,
-      "units": -4.7
+      "units": -4.28
     }
   },
   "by_verdict": {
     "CONFIRMED": {
-      "w": 106,
-      "l": 104,
+      "w": 109,
+      "l": 106,
       "push": 0,
-      "units": -5.43
+      "units": -4.06
     }
   },
   "by_tag": {
     "NEUTRAL": {
-      "w": 100,
-      "l": 103,
+      "w": 101,
+      "l": 105,
       "push": 0,
-      "units": -10.26
+      "units": -11.31
     },
     "STEAM-FOR": {
-      "w": 6,
+      "w": 8,
       "l": 1,
       "push": 0,
-      "units": 4.83
+      "units": 7.25
     }
   },
   "history": [
@@ -299,27 +299,34 @@
       "l": 2,
       "push": 0,
       "units": -2.35
+    },
+    {
+      "graded_at": "2026-11-16T05:00:17.909085+00:00",
+      "w": 3,
+      "l": 2,
+      "push": 0,
+      "units": 1.37
     }
   ],
   "by_sport_market": {
     "nfl": {
       "total": {
         "w": 16,
-        "l": 13,
+        "l": 14,
         "push": 0,
-        "units": 1.96
+        "units": 0.91
       },
       "spread": {
-        "w": 13,
+        "w": 15,
         "l": 6,
         "push": 0,
-        "units": 6.39
+        "units": 8.39
       },
       "ml": {
-        "w": 18,
-        "l": 19,
+        "w": 19,
+        "l": 20,
         "push": 0,
-        "units": 1.32
+        "units": 1.74
       }
     },
     "cfb": {
