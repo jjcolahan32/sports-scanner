@@ -430,8 +430,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "LAC 23\u201320 BAL"
+      }
     },
     {
       "game_id": "2026_10_LAC_BAL",
