@@ -1,1 +1,104 @@
-{"date": "2026-11-17", "plays": [{"game_id": 401866465, "start_utc": "2026-11-17T23:00:00Z", "home": "Western Michigan", "away": "Eastern Michigan", "market": "spread", "side": "home", "selection": "Western Michigan -14.5", "price": -110, "point": -14.5, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "CONFIRMED", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401866466, "start_utc": "2026-11-18T00:00:00Z", "home": "Kent State", "away": "Miami (OH)", "market": "spread", "side": "away", "selection": "Miami (OH) -9.5", "price": -110, "point": -9.5, "risk": 1.1, "to_win": 1.0, "cap": "single_ok", "verdict": "CONFIRMED", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401866466, "start_utc": "2026-11-18T00:00:00Z", "home": "Kent State", "away": "Miami (OH)", "market": "total", "side": "under", "selection": "Under 45.5", "price": -115, "point": 45.5, "risk": null, "to_win": null, "cap": null, "verdict": "NOTE", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401866464, "start_utc": "2026-11-18T00:00:00Z", "home": "Ohio", "away": "Ball State", "market": "spread", "side": "home", "selection": "Ohio -9.5", "price": -125, "point": -9.5, "risk": 1.25, "to_win": 1.0, "cap": "single_ok", "verdict": "CONFIRMED", "rlm_tag": "NEUTRAL", "graded": false, "result": null}, {"game_id": 401866464, "start_utc": "2026-11-18T00:00:00Z", "home": "Ohio", "away": "Ball State", "market": "total", "side": "under", "selection": "Under 50.5", "price": -115, "point": 50.5, "risk": null, "to_win": null, "cap": null, "verdict": "NOTE", "rlm_tag": "NEUTRAL", "graded": false, "result": null}]}
+{
+  "date": "2026-11-17",
+  "plays": [
+    {
+      "game_id": 401866465,
+      "start_utc": "2026-11-17T23:00:00Z",
+      "home": "Western Michigan",
+      "away": "Eastern Michigan",
+      "market": "spread",
+      "side": "home",
+      "selection": "Western Michigan -14.5",
+      "price": -110,
+      "point": -14.5,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "CONFIRMED",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Eastern Michigan 27\u201334 Western Michigan"
+      }
+    },
+    {
+      "game_id": 401866466,
+      "start_utc": "2026-11-18T00:00:00Z",
+      "home": "Kent State",
+      "away": "Miami (OH)",
+      "market": "spread",
+      "side": "away",
+      "selection": "Miami (OH) -9.5",
+      "price": -110,
+      "point": -9.5,
+      "risk": 1.1,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "CONFIRMED",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "Miami (OH) 20\u20133 Kent State"
+      }
+    },
+    {
+      "game_id": 401866466,
+      "start_utc": "2026-11-18T00:00:00Z",
+      "home": "Kent State",
+      "away": "Miami (OH)",
+      "market": "total",
+      "side": "under",
+      "selection": "Under 45.5",
+      "price": -115,
+      "point": 45.5,
+      "risk": null,
+      "to_win": null,
+      "cap": null,
+      "verdict": "NOTE",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    },
+    {
+      "game_id": 401866464,
+      "start_utc": "2026-11-18T00:00:00Z",
+      "home": "Ohio",
+      "away": "Ball State",
+      "market": "spread",
+      "side": "home",
+      "selection": "Ohio -9.5",
+      "price": -125,
+      "point": -9.5,
+      "risk": 1.25,
+      "to_win": 1.0,
+      "cap": "single_ok",
+      "verdict": "CONFIRMED",
+      "rlm_tag": "NEUTRAL",
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "Ball State 28\u201335 Ohio"
+      }
+    },
+    {
+      "game_id": 401866464,
+      "start_utc": "2026-11-18T00:00:00Z",
+      "home": "Ohio",
+      "away": "Ball State",
+      "market": "total",
+      "side": "under",
+      "selection": "Under 50.5",
+      "price": -115,
+      "point": 50.5,
+      "risk": null,
+      "to_win": null,
+      "cap": null,
+      "verdict": "NOTE",
+      "rlm_tag": "NEUTRAL",
+      "graded": false,
+      "result": null
+    }
+  ]
+}
