@@ -109,8 +109,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "NO 13\u201321 CHI"
+      }
     },
     {
       "game_id": "2026_11_TEN_DAL",
@@ -181,8 +184,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "loss",
+        "score": "TB 21\u201331 DET"
+      }
     },
     {
       "game_id": "2026_11_ARI_KC",
@@ -235,8 +241,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "JAX 18\u201323 NYG"
+      }
     },
     {
       "game_id": "2026_11_NYJ_LAC",
@@ -289,8 +298,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "NYJ 27\u201324 LAC"
+      }
     },
     {
       "game_id": "2026_11_LV_DEN",
@@ -307,8 +319,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "LV 24\u201338 DEN"
+      }
     },
     {
       "game_id": "2026_11_PIT_PHI",
@@ -361,8 +376,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "PIT 16\u201319 PHI"
+      }
     },
     {
       "game_id": "2026_11_MIN_SF",
@@ -397,8 +415,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "MIN 10\u201335 SF"
+      }
     },
     {
       "game_id": "2026_11_MIN_SF",
@@ -469,8 +490,11 @@
       "cap": "single_ok",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "NO 13\u201321 CHI"
+      }
     }
   ]
 }
