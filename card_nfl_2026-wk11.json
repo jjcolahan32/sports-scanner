@@ -472,8 +472,11 @@
       "cap": "dog",
       "verdict": "CONFIRMED",
       "rlm_tag": "NEUTRAL",
-      "graded": false,
-      "result": null
+      "graded": true,
+      "result": {
+        "outcome": "win",
+        "score": "CIN 20\u201322 WAS"
+      }
     },
     {
       "game_id": "2026_11_NO_CHI",
